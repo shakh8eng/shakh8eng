@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shakh8.eng — Online English &amp; Math Tutoring</title>
+<meta name="description" content="Personalized online English and Math tutoring with Shohrukh — conversation, academic writing, and exam prep for IELTS, TOEFL and SAT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F211D;
+    --bg-soft:#153029;
+    --surface:#1B3B33;
+    --surface-2:#20463D;
+    --line:#2C5148;
+    --text:#F3EFE3;
+    --text-muted:#AFC5BD;
+    --gold:#E7B750;
+    --gold-dim:#9C7C36;
+    --coral:#FF7A59;
+    --blue:#6EC6D9;
+    --radius-s:6px;
+    --radius-m:10px;
+    --radius-l:16px;
+    --maxw:1180px;
+    --serif:'Fraunces', serif;
+    --mono:'Space Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit;}
+  ul{list-style:none; margin:0; padding:0;}
+
+  ::selection{background:var(--gold); color:var(--bg);}
+
+  :focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 0 14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--gold-dim);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:500;
+    line-height:1.12;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+
+  h2{font-size:clamp(1.7rem, 3.2vw, 2.5rem);}
+  h3{font-size:1.25rem; font-weight:600;}
+
+  p{color:var(--text-muted); margin:0 0 16px;}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:0.85rem;
+    letter-spacing:0.02em;
+    padding:13px 22px;
+    border-radius:var(--radius-s);
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform 0.18s ease, background 0.18s ease, border-color .18s ease, color .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:var(--gold);
+    color:#1C1204;
+  }
+  .btn-primary:hover{background:#f0c669;}
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--line);
+    color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(15,33,29,0.86);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+    position:relative;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--coral);
+    display:inline-block;
+  }
+  nav.primary-nav ul{
+    display:flex;
+    gap:30px;
+  }
+  nav.primary-nav a{
+    text-decoration:none;
+    font-size:0.94rem;
+    color:var(--text-muted);
+    transition:color .15s ease;
+  }
+  nav.primary-nav a:hover{color:var(--text);}
+
+  .nav-right{display:flex; align-items:center; gap:18px;}
+
+  .lang-switch{
+    position:relative;
+    display:flex;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px;
+    gap:2px;
+    background:var(--bg-soft);
+  }
+  .lang-switch button{
+    position:relative;
+    z-index:2;
+    border:none;
+    background:transparent;
+    color:var(--text-muted);
+    padding:6px 13px;
+    border-radius:999px;
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    transition:color .2s ease;
+  }
+  .lang-switch button.active{color:#1C1204;}
+  .lang-thumb{
+    position:absolute;
+    top:3px; bottom:3px; left:3px;
+    width:calc(50% - 3px);
+    background:var(--gold);
+    border-radius:999px;
+    transition:transform .25s cubic-bezier(.65,0,.35,1);
+  }
+  .lang-switch[data-lang="ru"] .lang-thumb{transform:translateX(100%);}
+
+  .menu-toggle{
+    display:none;
+    background:none; border:none; cursor:pointer;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:4px; padding:10px;
+    border-radius:8px;
+  }
+  .menu-toggle:hover{ background:rgba(243,239,227,0.06); }
+  .menu-toggle span{width:4px; height:4px; border-radius:50%; background:var(--text); display:block;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:96px 0 100px;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .hero-bg img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 22%;
+    filter:saturate(1.08) contrast(1.03);
+    display:block;
+  }
+  .hero-bg::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(115deg, rgba(9,20,17,0.95) 0%, rgba(9,20,17,0.72) 38%, rgba(9,20,17,0.55) 62%, rgba(9,20,17,0.86) 100%),
+      linear-gradient(180deg, rgba(9,20,17,0.15) 0%, rgba(9,20,17,0.55) 100%);
+  }
+  .hero-bg.img-error{ display:none; }
+  .hero .wrap{ position:relative; z-index:2; }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:start;
+  }
+  .hero .eyebrow{
+    font-size:1.05rem;
+    letter-spacing:0.12em;
+    font-weight:700;
+    margin-bottom:20px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 4.6vw, 3.55rem);
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .hero-sub{
+    max-width:46ch;
+    font-size:1.05rem;
+  }
+  .hero-ctas{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:30px 0 44px;
+  }
+  .hero-stats{
+    display:flex;
+    gap:34px;
+    flex-wrap:wrap;
+    border-top:1px solid rgba(243,239,227,0.18);
+    padding-top:26px;
+  }
+  .stat-value{
+    font-family:var(--mono);
+    font-size:1.5rem;
+    color:var(--gold);
+    display:block;
+  }
+  .stat-label{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    max-width:16ch;
+  }
+
+  /* signature visual — glassy so the photo behind still reads through */
+  .duo{
+    position:relative;
+    display:flex;
+    height:380px;
+    border-radius:var(--radius-l);
+    overflow:hidden;
+    border:1px solid rgba(243,239,227,0.22);
+    box-shadow:0 30px 70px rgba(0,0,0,0.45);
+  }
+  .duo-panel{
+    flex:1;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:30px 26px;
+    backdrop-filter:blur(10px) saturate(1.15);
+    -webkit-backdrop-filter:blur(10px) saturate(1.15);
+  }
+  .panel-en{
+    background:
+      repeating-linear-gradient(to bottom, transparent, transparent 31px, rgba(243,239,227,0.09) 32px),
+      rgba(27,59,51,0.58);
+  }
+  .panel-math{
+    background:
+      repeating-linear-gradient(to right, rgba(110,198,217,0.12) 0, rgba(110,198,217,0.12) 1px, transparent 1px, transparent 26px),
+      repeating-linear-gradient(to bottom, rgba(110,198,217,0.12) 0, rgba(110,198,217,0.12) 1px, transparent 1px, transparent 26px),
+      rgba(32,70,61,0.58);
+  }
+  .duo-label{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    margin-bottom:14px;
+  }
+  .duo-phrase{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.5rem;
+    color:var(--text);
+    position:relative;
+    display:inline-block;
+    width:fit-content;
+  }
+  .duo-phrase svg{
+    position:absolute;
+    left:0; bottom:-9px;
+    width:100%; height:12px;
+    overflow:visible;
+  }
+  .duo-phrase path{
+    fill:none;
+    stroke:var(--coral);
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-dasharray:200;
+    stroke-dashoffset:200;
+    animation:draw 1.4s 0.5s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .duo-eq{
+    font-family:var(--mono);
+    font-size:1.35rem;
+    color:var(--text);
+    min-height:1.6em;
+  }
+  .duo-eq .eq-b{color:var(--blue);}
+
+  .duo-bridge{
+    position:absolute;
+    left:50%; top:50%;
+    transform:translate(-50%,-50%) rotate(-4deg);
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:5.4rem;
+    color:var(--gold);
+    text-shadow:0 6px 30px rgba(15,33,29,0.8);
+    z-index:3;
+    pointer-events:none;
+  }
+
+  /* ---------- SECTIONS GENERIC ---------- */
+  section{padding:88px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:48px;
+  }
+  .alt-bg{background:var(--bg-soft);}
+
+  /* shared framed side-photo (used by About and Meet) */
+  .framed-photo{
+    margin:0;
+    border-radius:var(--radius-l);
+    overflow:hidden;
+    border:1px solid var(--line);
+    aspect-ratio:4/5;
+    max-height:460px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  .framed-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .framed-photo.img-error{ display:none; }
+
+  /* ABOUT — dark card next to a real photo, in keeping with the rest of the site */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:52px;
+    align-items:center;
+  }
+  .about-panel{
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border-radius:22px;
+    padding:48px 44px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+    border:1px solid var(--line);
+  }
+  .about-panel p{ font-size:1.02rem; }
+  .about-list{display:flex; flex-direction:column; gap:15px; margin-top:22px;}
+  .about-list li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:0.96rem; color:var(--text);
+  }
+  .about-list li::before{
+    content:"+";
+    font-family:var(--mono);
+    color:var(--gold);
+    flex-shrink:0;
+    margin-top:1px;
+    font-weight:700;
+  }
+  @media (max-width:980px){
+    .about-grid{grid-template-columns:1fr;}
+    .framed-photo{max-height:340px;}
+  }
+  @media (max-width:720px){
+    .about-panel{ padding:34px 26px; }
+  }
+
+
+  /* APPROACH */
+  .approach-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .approach-item{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    gap:24px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+  }
+  .approach-item:last-child{border-bottom:1px solid var(--line);}
+  .approach-num{
+    font-family:var(--mono);
+    color:var(--gold-dim);
+    font-size:0.95rem;
+    padding-top:4px;
+  }
+  .approach-item h3{margin-bottom:8px;}
+  .approach-item p{margin:0; max-width:60ch;}
+
+  /* CARD GRIDS */
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  .grid-4{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:28px 24px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--gold-dim); transform:translateY(-3px);}
+  .card h3{margin-bottom:10px; font-size:1.08rem;}
+  .card p{font-size:0.94rem; margin-bottom:0;}
+  .card-tag{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--blue);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:12px;
+    display:block;
+  }
+
+  .service-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .service-card .btn{margin-top:20px; align-self:flex-start;}
+
+  /* TESTIMONIALS */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .testi-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:28px 26px;
+    position:relative;
+  }
+  .testi-mark{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:2.6rem;
+    color:var(--coral);
+    line-height:1;
+    display:block;
+    margin-bottom:6px;
+  }
+  .testi-quote{color:var(--text); font-size:0.98rem; margin-bottom:18px;}
+  .testi-name{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--gold);
+  }
+
+  /* MEET */
+  .meet-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:52px;
+    align-items:center;
+  }
+
+  /* CONTACT */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .contact-methods{display:flex; flex-direction:column; gap:14px;}
+  .contact-method{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:18px 22px;
+    text-decoration:none;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .contact-method:hover{border-color:var(--gold-dim); transform:translateX(4px);}
+  .cm-primary{
+    background:linear-gradient(135deg, rgba(231,183,80,0.16), rgba(231,183,80,0.04));
+    border-color:var(--gold-dim);
+  }
+  .cm-primary .cm-value{ color:var(--gold); font-family:var(--mono); }
+  .cm-primary:hover{border-color:var(--gold);}
+  .cm-label{font-family:var(--mono); font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; display:block; margin-bottom:4px;}
+  .cm-value{font-size:1rem; color:var(--text);}
+  .cm-arrow{color:var(--gold); font-family:var(--mono);}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:50px 0 34px;
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:30px;
+    margin-bottom:30px;
+  }
+  .footer-tagline{max-width:36ch; font-size:0.92rem;}
+  .footer-links{display:flex; gap:26px; flex-wrap:wrap;}
+  .footer-links a{text-decoration:none; color:var(--text-muted); font-size:0.9rem;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-bottom{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--text-muted);
+    border-top:1px solid var(--line);
+    padding-top:22px;
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .grid-3, .testi-grid{grid-template-columns:repeat(2,1fr);}
+    .grid-4{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .hero-grid{grid-template-columns:1fr;}
+    .duo-wrap{order:-1;}
+    .meet-grid{grid-template-columns:1fr;}
+    .framed-photo{max-height:340px;}
+  }
+  @media (max-width:720px){
+    nav.primary-nav{
+      position:absolute;
+      top:calc(100% + 10px);
+      right:28px;
+      width:220px;
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px 22px;
+      box-shadow:0 22px 50px rgba(0,0,0,0.5);
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(-8px);
+      transition:opacity .18s ease, transform .18s ease, visibility .18s;
+      z-index:60;
+    }
+    nav.primary-nav.open{opacity:1; visibility:visible; transform:translateY(0);}
+    nav.primary-nav ul{flex-direction:column; gap:16px;}
+    nav.primary-nav a{font-size:1rem;}
+    .menu-toggle{display:flex;}
+    .grid-3, .grid-4, .testi-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:22px;}
+    .duo-bridge{font-size:3.6rem;}
+    .footer-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <a href="#top" class="brand"><span class="brand-dot"></span>shakh8.eng</a>
+
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="#top" data-i18n="nav.home">Home</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-right">
+      <div class="lang-switch" id="langSwitch" data-lang="en">
+        <span class="lang-thumb"></span>
+        <button type="button" data-set-lang="en" class="active" aria-pressed="true">EN</button>
+        <button type="button" data-set-lang="ru" aria-pressed="false">RU</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="https://static.wixstatic.com/media/559142_003db914c0554f7795908be8ccd3e16c~mv2.jpg/v1/fill/w_1800,h_1300,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_003db914c0554f7795908be8ccd3e16c~mv2.jpg" alt="" onerror="this.parentElement.classList.add('img-error')">
+    </div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Online English &amp; Math Tutoring</p>
+        <h1 data-i18n-html="hero.title">Where words and <em>numbers</em> finally get along.</h1>
+        <p class="hero-sub" data-i18n="hero.subtitle">Personalized online lessons in English and Math — built around your goals, from everyday conversation to exam scores that open doors.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary" data-i18n="hero.cta.primary">Book a free trial lesson</a>
+          <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="hero.cta.secondary">Message on Telegram</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-value">6+</span>
+            <span class="stat-label" data-i18n="hero.stat1.label">Years teaching online</span>
+          </div>
+          <div>
+            <span class="stat-value">2</span>
+            <span class="stat-label" data-i18n="hero.stat2.label">Subjects, one tutor — English &amp; Math</span>
+          </div>
+          <div>
+            <span class="stat-value" style="font-size:1.05rem;">IELTS · TOEFL · SAT</span>
+            <span class="stat-label" data-i18n="hero.stat3.label">Exam prep specialities</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="duo-wrap">
+        <div class="duo" role="img" aria-label="Two panels: a lined page representing English, and graph paper representing Math, joined by a large equals sign.">
+          <div class="duo-panel panel-en">
+            <span class="duo-label" data-i18n="hero.panel.en">English</span>
+            <span class="duo-phrase" data-i18n="hero.phrase.en">you speak clearly
+              <svg viewBox="0 0 100 12" preserveAspectRatio="none"><path d="M2,6 Q50,14 98,4"/></svg>
+            </span>
+          </div>
+          <div class="duo-panel panel-math">
+            <span class="duo-label" data-i18n="hero.panel.math">Math</span>
+            <span class="duo-eq" id="duoEquation">2(x + 3) <span class="eq-b">= 14</span></span>
+          </div>
+          <span class="duo-bridge">=</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="alt-bg">
+    <div class="wrap about-grid">
+      <div class="about-panel reveal">
+        <p class="eyebrow" data-i18n="about.eyebrow">About your tutor</p>
+        <h2 data-i18n="about.title">Hi, I'm Shohrukh.</h2>
+        <p data-i18n="about.text">I've spent the last six-plus years teaching English and Math online to students around the world — from curious kids to busy professionals. My degrees are from AUCA/Bard College and Central European University, and I'm TESOL/TEFL-certified to teach English properly, not just fluently.</p>
+        <ul class="about-list" id="aboutList"></ul>
+      </div>
+      <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+      </figure>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="approach.eyebrow">How lessons work</p>
+        <h2 data-i18n="approach.title">An approach built around you, not a syllabus</h2>
+      </div>
+      <div class="approach-list" id="approachList"></div>
+    </div>
+  </section>
+
+  <!-- STUDENTS -->
+  <section class="alt-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="students.eyebrow">Who I teach</p>
+        <h2 data-i18n="students.title">Every learner gets a plan that fits their life</h2>
+      </div>
+      <div class="grid-4" id="studentsGrid"></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="services.eyebrow">Services</p>
+        <h2 data-i18n="services.title">Three ways to work together</h2>
+      </div>
+      <div class="grid-3" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="alt-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="testimonials.eyebrow">What students say</p>
+        <h2 data-i18n="testimonials.title">Real progress, in their words</h2>
+      </div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </div>
+  </section>
+
+  <!-- MEET -->
+  <section id="meet">
+    <div class="wrap meet-grid">
+      <figure class="framed-photo" onerror="this.classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh at graduation" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+      </figure>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="meet.eyebrow">A personal note</p>
+        <h2 data-i18n="meet.title">Every lesson starts with a real conversation.</h2>
+        <p data-i18n="meet.text">Before we get into grammar rules or equations, I like to understand what you're working toward — a job, an exam, or just more confidence. Tell me about it on Telegram, and we'll figure out the right starting point together.</p>
+        <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="meet.cta">Message me on Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="contact.eyebrow">Get in touch</p>
+        <h2 data-i18n="contact.title">Let's start your first lesson</h2>
+        <p data-i18n="contact.text">Message me directly — I usually reply within a day.</p>
+      </div>
+      <div class="contact-methods reveal">
+        <a class="contact-method cm-primary" href="https://t.me/Shakh8_eng" target="_blank" rel="noopener">
+          <span><span class="cm-label" data-i18n="contact.telegram.label">Telegram — book a lesson</span><span class="cm-value">@Shakh8_eng</span></span>
+          <span class="cm-arrow">→</span>
+        </a>
+        <a class="contact-method" href="https://instagram.com/shakh8.eng" target="_blank" rel="noopener">
+          <span><span class="cm-label" data-i18n="contact.social.label">Instagram / Threads</span><span class="cm-value">@shakh8.eng</span></span>
+          <span class="cm-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <a href="#top" class="brand"><span class="brand-dot"></span>shakh8.eng</a>
+        <p class="footer-tagline" data-i18n="footer.tagline">Online English &amp; Math tutoring.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer.copyright">© 2026 shakh8.eng. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* ============ TRANSLATIONS ============ */
+const translations = {
+  en: {
+    "nav.home":"Home","nav.about":"About","nav.approach":"Approach","nav.services":"Services",
+    "nav.testimonials":"Testimonials","nav.contact":"Contact",
+    "hero.eyebrow":"Online English &amp; Math Tutoring",
+    "hero.title":"Where words and <em>numbers</em> finally get along.",
+    "hero.subtitle":"Personalized online lessons in English and Math — built around your goals, from everyday conversation to exam scores that open doors.",
+    "hero.cta.primary":"Book a free trial lesson",
+    "hero.cta.secondary":"Message on Telegram",
+    "hero.stat1.label":"Years teaching online",
+    "hero.stat2.label":"Subjects, one tutor — English & Math",
+    "hero.stat3.label":"Exam prep specialities",
+    "hero.panel.en":"English",
+    "hero.panel.math":"Math",
+    "hero.phrase.en":"you speak clearly",
+    "about.eyebrow":"About your tutor",
+    "about.title":"Hi, I'm Shohrukh.",
+    "about.text":"I've spent the last six-plus years teaching English and Math online to students around the world — from curious kids to busy professionals. My degrees are from AUCA/Bard College and Central European University, and I'm TESOL/TEFL-certified to teach English properly, not just fluently.",
+    "approach.eyebrow":"How lessons work",
+    "approach.title":"An approach built around you, not a syllabus",
+    "students.eyebrow":"Who I teach",
+    "students.title":"Every learner gets a plan that fits their life",
+    "services.eyebrow":"Services",
+    "services.title":"Three ways to work together",
+    "testimonials.eyebrow":"What students say",
+    "testimonials.title":"Real progress, in their words",
+    "contact.eyebrow":"Get in touch",
+    "contact.title":"Let's start your first lesson",
+    "contact.text":"Message me directly — I usually reply within a day.",
+    "contact.telegram.label":"Telegram — book a lesson",
+    "contact.social.label":"Instagram / Threads",
+    "meet.eyebrow":"A personal note",
+    "meet.title":"Every lesson starts with a real conversation.",
+    "meet.text":"Before we get into grammar rules or equations, I like to understand what you're working toward — a job, an exam, or just more confidence. Tell me about it on Telegram, and we'll figure out the right starting point together.",
+    "meet.cta":"Message me on Telegram",
+    "footer.tagline":"Online English & Math tutoring.",
+    "footer.copyright":"© 2026 shakh8.eng. All rights reserved.",
+    aboutList:[
+      "6+ years of online teaching experience with students worldwide",
+      "Bachelor's &amp; Master's degrees — AUCA/Bard College and CEU",
+      "TESOL/TEFL certified",
+      "Expertise in English, Math, Business English and Academic Writing",
+      "Exam prep for IELTS, TOEFL, SAT and more"
+    ],
+    approach:[
+      {t:"Personalized lessons", d:"Every session adapts to your goals — conversational English, academic writing, or exam prep."},
+      {t:"Practical methods", d:"Real-life examples, interactive exercises and proven strategies you can apply right away."},
+      {t:"Exam preparation", d:"Targeted support for TOEFL, IELTS, SAT — the skills and the test-taking strategy."},
+      {t:"Confidence building", d:"Reducing exam stress and building long-term confidence in English and Math."},
+      {t:"Flexible support", d:"From kids learning the basics to professionals sharpening Business English."}
+    ],
+    students:[
+      {t:"Kids &amp; Students", d:"Building English and Math foundations, exam prep for high schoolers, academic writing for university students."},
+      {t:"Adults", d:"Learning for work, travel and personal growth — office workers, doctors, engineers and more."},
+      {t:"Immigrants &amp; Professionals", d:"Business English for career growth, and everyday language skills for adapting to a new country."},
+      {t:"Every Individual", d:"Customized tutoring tailored to your unique goals and pace."}
+    ],
+    services:[
+      {tag:"Tutoring", t:"Tutoring Session", d:"Excel in English &amp; Math with regular, personalized sessions.", cta:"Book now"},
+      {tag:"Career", t:"Professional English", d:"Advance your career with Business English and workplace communication.", cta:"View course"},
+      {tag:"Exams", t:"Exam Prep Course", d:"Prepare for success in IELTS, TOEFL, SAT and other international exams.", cta:"View course"}
+    ],
+    testimonials:[
+      {n:"Alesia", q:"I improved my Math skills rapidly with personalized lessons and support."},
+      {n:"Nurlan", q:"The sessions were engaging and tailored to my needs, which made learning fun!"},
+      {n:"Niyaz", q:"I feel more confident in my English speaking skills thanks to Shohrukh's guidance."}
+    ],
+    equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
+  },
+  ru: {
+    "nav.home":"Главная","nav.about":"Обо мне","nav.approach":"Подход","nav.services":"Услуги",
+    "nav.testimonials":"Отзывы","nav.contact":"Контакты",
+    "hero.eyebrow":"Онлайн-репетитор по английскому и математике",
+    "hero.title":"Там, где слова и <em>числа</em> наконец находят общий язык.",
+    "hero.subtitle":"Индивидуальные онлайн-занятия по английскому языку и математике — под ваши цели: от повседневного общения до результатов экзаменов, которые открывают двери.",
+    "hero.cta.primary":"Записаться на бесплатный пробный урок",
+    "hero.cta.secondary":"Написать в Telegram",
+    "hero.stat1.label":"лет онлайн-преподавания",
+    "hero.stat2.label":"предмета у одного репетитора — английский и математика",
+    "hero.stat3.label":"специализация по экзаменам",
+    "hero.panel.en":"Английский",
+    "hero.panel.math":"Математика",
+    "hero.phrase.en":"вы говорите чётко",
+    "about.eyebrow":"О репетиторе",
+    "about.title":"Привет, я Шохрух.",
+    "about.text":"Больше шести лет я преподаю английский язык и математику онлайн студентам по всему миру — от любознательных детей до занятых профессионалов. Мои дипломы — из AUCA/Bard College и Центрально-Европейского университета (CEU), а сертификаты TESOL/TEFL подтверждают, что я учу английскому по-настоящему, а не просто бегло на нём говорю.",
+    "approach.eyebrow":"Как проходят занятия",
+    "approach.title":"Подход, построенный вокруг вас, а не вокруг программы",
+    "students.eyebrow":"Кого я обучаю",
+    "students.title":"Для каждого ученика — свой план",
+    "services.eyebrow":"Услуги",
+    "services.title":"Три формата совместной работы",
+    "testimonials.eyebrow":"Отзывы учеников",
+    "testimonials.title":"Реальный прогресс их словами",
+    "contact.eyebrow":"Связаться",
+    "contact.title":"Начнём ваш первый урок",
+    "contact.text":"Напишите мне напрямую — обычно отвечаю в течение дня.",
+    "contact.telegram.label":"Telegram — запись на урок",
+    "contact.social.label":"Instagram / Threads",
+    "meet.eyebrow":"Личное слово",
+    "meet.title":"Каждый урок начинается с обычного разговора.",
+    "meet.text":"Прежде чем говорить о грамматике или уравнениях, мне важно понять, к чему вы стремитесь — работа, экзамен или больше уверенности в себе. Напишите мне в Telegram, и вместе мы найдём подходящую точку старта.",
+    "meet.cta":"Написать мне в Telegram",
+    "footer.tagline":"Онлайн-репетитор по английскому языку и математике.",
+    "footer.copyright":"© 2026 shakh8.eng. Все права защищены.",
+    aboutList:[
+      "Более 6 лет онлайн-преподавания студентам по всему миру",
+      "Диплом бакалавра и магистра — AUCA/Bard College и CEU",
+      "Сертификат TESOL/TEFL",
+      "Специализация: английский, математика, деловой английский и академическое письмо",
+      "Подготовка к IELTS, TOEFL, SAT и другим экзаменам"
+    ],
+    approach:[
+      {t:"Индивидуальные уроки", d:"Каждое занятие подстраивается под ваши цели — разговорный английский, академическое письмо или подготовка к экзаменам."},
+      {t:"Практические методы", d:"Реальные примеры, интерактивные упражнения и проверенные стратегии, которые можно применять сразу."},
+      {t:"Подготовка к экзаменам", d:"Целевая подготовка к TOEFL, IELTS, SAT — не только навыки, но и стратегия сдачи теста."},
+      {t:"Уверенность", d:"Помогаю справиться со стрессом перед экзаменами и обрести долгосрочную уверенность."},
+      {t:"Гибкий формат", d:"От детей, изучающих основы, до профессионалов, совершенствующих деловой английский."}
+    ],
+    students:[
+      {t:"Дети и школьники", d:"Развиваю навыки английского и математики у детей, готовлю старшеклассников к экзаменам, помогаю с академическим письмом."},
+      {t:"Взрослые", d:"Помогаю учиться для работы, путешествий и личного роста — офисным сотрудникам, врачам, инженерам и другим."},
+      {t:"Иммигранты и профессионалы", d:"Деловой английский для карьерного роста и языковые навыки для адаптации в новой стране."},
+      {t:"Каждый ученик", d:"Индивидуальная программа, разработанная под ваши цели и темп обучения."}
+    ],
+    services:[
+      {tag:"Занятия", t:"Урок с репетитором", d:"Успехи в английском и математике на регулярных индивидуальных занятиях.", cta:"Записаться"},
+      {tag:"Карьера", t:"Деловой английский", d:"Развитие карьеры через деловой английский и рабочую коммуникацию.", cta:"Подробнее"},
+      {tag:"Экзамены", t:"Курс подготовки к экзаменам", d:"Готовимся к успеху на IELTS, TOEFL, SAT и других международных экзаменах.", cta:"Подробнее"}
+    ],
+    testimonials:[
+      {n:"Алеся", q:"Я быстро подтянула математику благодаря индивидуальным занятиям и поддержке."},
+      {n:"Нурлан", q:"Занятия были увлекательными и подстроенными под мои потребности — учиться было интересно!"},
+      {n:"Нияз", q:"Благодаря Шохруху я стал увереннее говорить по-английски."}
+    ],
+    equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
+  }
+};
+
+let currentLang = localStorage.getItem('shakh8-lang') || (navigator.language && navigator.language.startsWith('ru') ? 'ru' : 'en');
+
+function renderLists(lang){
+  const dict = translations[lang];
+
+  document.getElementById('aboutList').innerHTML = dict.aboutList.map(item => `<li>${item}</li>`).join('');
+
+  document.getElementById('approachList').innerHTML = dict.approach.map((item, i) => `
+    <div class="approach-item reveal in">
+      <span class="approach-num">0${i+1}</span>
+      <div><h3>${item.t}</h3><p>${item.d}</p></div>
+    </div>`).join('');
+
+  document.getElementById('studentsGrid').innerHTML = dict.students.map(item => `
+    <div class="card reveal in"><h3>${item.t}</h3><p>${item.d}</p></div>
+  `).join('');
+
+  document.getElementById('servicesGrid').innerHTML = dict.services.map(item => `
+    <div class="card service-card reveal in">
+      <div>
+        <span class="card-tag">${item.tag}</span>
+        <h3>${item.t}</h3>
+        <p>${item.d}</p>
+      </div>
+      <a href="#contact" class="btn btn-ghost">${item.cta}</a>
+    </div>
+  `).join('');
+
+  document.getElementById('testiGrid').innerHTML = dict.testimonials.map(item => `
+    <div class="testi-card reveal in">
+      <span class="testi-mark">&ldquo;</span>
+      <p class="testi-quote">${item.q}</p>
+      <span class="testi-name">${item.n}</span>
+    </div>
+  `).join('');
+}
+
+function setLanguage(lang){
+  currentLang = lang;
+  localStorage.setItem('shakh8-lang', lang);
+  document.documentElement.lang = lang;
+
+  const dict = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.textContent = dict[key].replace(/&amp;/g,'&');
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if(dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  renderLists(lang);
+
+  const switchEl = document.getElementById('langSwitch');
+  switchEl.setAttribute('data-lang', lang);
+  switchEl.querySelectorAll('button').forEach(b => {
+    const isActive = b.getAttribute('data-set-lang') === lang;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', isActive);
+  });
+
+  document.title = lang === 'ru'
+    ? 'shakh8.eng — Онлайн-репетитор по английскому и математике'
+    : 'shakh8.eng — Online English & Math Tutoring';
+}
+
+document.querySelectorAll('[data-set-lang]').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-set-lang')));
+});
+
+setLanguage(currentLang);
+
+/* equation ambient animation */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!prefersReducedMotion){
+  let step = 0;
+  setInterval(() => {
+    const dict = translations[currentLang];
+    step = (step + 1) % dict.equationSteps.length;
+    const el = document.getElementById('duoEquation');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.innerHTML = dict.equationSteps[step];
+      el.style.opacity = 1;
+    }, 250);
+  }, 3200);
+  document.getElementById('duoEquation').style.transition = 'opacity .25s ease';
+}
+
+/* mobile menu */
+const menuToggle = document.getElementById('menuToggle');
+const primaryNav = document.getElementById('primaryNav');
+menuToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = primaryNav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', isOpen);
+});
+primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  primaryNav.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', false);
+}));
+document.addEventListener('click', (e) => {
+  if(primaryNav.classList.contains('open') && !primaryNav.contains(e.target) && e.target !== menuToggle){
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', false);
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', false);
+  }
+});
+
+/* scroll reveal */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
