@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>shakh8.eng — Online Mathematics &amp; English Tutoring | Shohrukh Tojidinov</title>
-<meta name="description" content="Personalized online Mathematics and English tutoring with Shohrukh Tojidinov. 1-on-1 lessons via Zoom, 50 minutes, Mathematics in English or Russian. IELTS, TOEFL iBT, IB Mathematics, Business English and more.">
+<title>shakh8.eng — Online Mathematics &amp; English Tutoring | Shohrukh</title>
+<meta name="description" content="Personalized online Mathematics and English tutoring with Shohrukh. 1-on-1 lessons via Zoom, 50 minutes, Mathematics in English or Russian. IELTS, TOEFL iBT, IB Mathematics, Business English and more.">
 <meta name="keywords" content="online mathematics tutor, mathematics tutor, online english tutor, english and russian mathematics tutoring, IB mathematics, IELTS, TOEFL iBT, business english, academic english, SAT math">
 <link rel="canonical" href="https://shakh8eng.space/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="shakh8.eng — Online Mathematics & English Tutoring">
-<meta property="og:description" content="Personalized 1-on-1 online tutoring in Mathematics and English with Shohrukh Tojidinov. Zoom lessons, 50 minutes, Mathematics available in English or Russian.">
+<meta property="og:description" content="Personalized 1-on-1 online tutoring in Mathematics and English with Shohrukh. Zoom lessons, 50 minutes, Mathematics available in English or Russian.">
 <meta property="og:url" content="https://shakh8eng.space/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shakh8.eng — Online Mathematics & English Tutoring">
@@ -24,7 +24,7 @@
   "name": "shakh8.eng",
   "founder": {
     "@type": "Person",
-    "name": "Shohrukh Tojidinov",
+    "name": "Shohrukh",
     "jobTitle": "Online Mathematics & English Tutor",
     "alumniOf": ["Central European University", "Bard College", "American University of Central Asia"]
   },
@@ -261,7 +261,7 @@
   .hero{
     position:relative;
     overflow:hidden;
-    padding:96px 0 90px;
+    padding:96px 0 50px;
   }
   .hero-bg{
     position:absolute;
@@ -426,10 +426,11 @@
   .section-head.center .eyebrow{ justify-content:center; }
   .alt-bg{background:var(--bg-soft);}
 
-  /* CREDIBILITY STRIP */
-  .credibility{
-    padding:44px 0;
-    border-bottom:1px solid var(--line);
+  /* CREDIBILITY STRIP — now lives inside the hero, over the photo */
+  .credibility-inner{
+    margin-top:56px;
+    padding-top:34px;
+    border-top:1px solid rgba(243,239,227,0.2);
   }
   .credibility-grid{
     display:grid;
@@ -443,6 +444,7 @@
     color:var(--gold);
     display:block;
     margin-bottom:6px;
+    text-shadow:0 2px 12px rgba(0,0,0,0.5);
   }
   .cred-label{
     font-size:0.82rem;
@@ -631,6 +633,7 @@
   .testi-quote{color:var(--text); font-size:0.98rem; margin-bottom:18px;}
   .testi-name{ font-family:var(--mono); font-size:0.85rem; color:var(--gold); display:block; }
   .testi-tag{ font-size:0.76rem; color:var(--text-muted); }
+  .testi-stars{ color:var(--gold); font-size:0.85rem; letter-spacing:2px; display:block; margin-top:6px; }
 
   /* FAQ */
   .faq-list{ max-width:760px; margin:0 auto; }
@@ -778,12 +781,12 @@
     .about-panel{ padding:34px 26px; }
     .plan-panel{ padding:36px 26px; }
 
-    .hero{ padding:88px 0 60px; }
-    .hero-bg{ top:0; left:0; right:0; bottom:auto; height:420px; }
-    .hero-bg img{ object-position:center 18%; }
+    .hero{ padding:88px 0 40px; }
+    .hero-bg{ inset:0; height:auto; }
+    .hero-bg img{ object-position:center 15%; }
     .hero-bg::after{
       background:
-        linear-gradient(180deg, rgba(9,20,17,0.35) 0%, rgba(9,20,17,0.55) 45%, var(--bg) 92%);
+        linear-gradient(180deg, rgba(9,20,17,0.5) 0%, rgba(9,20,17,0.62) 35%, rgba(9,20,17,0.8) 70%, rgba(9,20,17,0.94) 100%);
     }
 
     .duo{ width:68%; height:230px; margin:0; }
@@ -793,6 +796,7 @@
     .duo-eq{ font-size:0.92rem; }
     .duo-bridge{ font-size:2.5rem; }
 
+    .credibility-inner{ margin-top:40px; padding-top:26px; }
     .credibility-grid{ grid-template-columns:1fr 1fr; }
   }
 </style>
@@ -867,26 +871,25 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- CREDIBILITY -->
-  <section class="credibility">
-    <div class="wrap credibility-grid">
-      <div class="cred-item reveal">
-        <span class="cred-value">6+</span>
-        <span class="cred-label" data-i18n="cred.years">Years teaching experience</span>
-      </div>
-      <div class="cred-item reveal">
-        <span class="cred-value">1,500+</span>
-        <span class="cred-label" data-i18n="cred.hours">Teaching hours</span>
-      </div>
-      <div class="cred-item reveal">
-        <span class="cred-value">TESOL/TEFL</span>
-        <span class="cred-label" data-i18n="cred.cert">Certified English teacher</span>
-      </div>
-      <div class="cred-item reveal">
-        <span class="cred-value" data-i18n="cred.worldwideValue">Worldwide</span>
-        <span class="cred-label" data-i18n="cred.worldwide">Students taught online</span>
+    <div class="wrap credibility-inner">
+      <div class="credibility-grid">
+        <div class="cred-item reveal">
+          <span class="cred-value">6+</span>
+          <span class="cred-label" data-i18n="cred.years">Years teaching experience</span>
+        </div>
+        <div class="cred-item reveal">
+          <span class="cred-value">1,500+</span>
+          <span class="cred-label" data-i18n="cred.hours">Teaching hours</span>
+        </div>
+        <div class="cred-item reveal">
+          <span class="cred-value">TESOL/TEFL</span>
+          <span class="cred-label" data-i18n="cred.cert">Certified English teacher</span>
+        </div>
+        <div class="cred-item reveal">
+          <span class="cred-value" data-i18n="cred.worldwideValue">Worldwide</span>
+          <span class="cred-label" data-i18n="cred.worldwide">Students taught online</span>
+        </div>
       </div>
     </div>
   </section>
@@ -896,12 +899,13 @@
     <div class="wrap about-grid">
       <div class="about-panel reveal">
         <p class="eyebrow" data-i18n="about.eyebrow">About your tutor</p>
-        <h2 data-i18n="about.title">Hi, I'm Shohrukh Tojidinov.</h2>
-        <p data-i18n="about.text">My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia. That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.</p>
+        <h2 data-i18n="about.title">Hi, I'm Shohrukh.</h2>
+        <p data-i18n="about.text">My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia.</p>
+        <p data-i18n="about.text2">That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.</p>
         <ul class="about-list" id="aboutList"></ul>
       </div>
       <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
-        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh Tojidinov, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
       </figure>
     </div>
   </section>
@@ -1037,7 +1041,7 @@
   <section class="alt-bg">
     <div class="wrap meet-grid">
       <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
-        <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh Tojidinov" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
       </figure>
       <div class="reveal">
         <p class="eyebrow" data-i18n="cta.eyebrow">Ready to start?</p>
@@ -1118,8 +1122,9 @@ const translations = {
     "cred.worldwideValue":"Worldwide",
     "cred.worldwide":"Students taught online",
     "about.eyebrow":"About your tutor",
-    "about.title":"Hi, I'm Shohrukh Tojidinov.",
-    "about.text":"My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia. That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.",
+    "about.title":"Hi, I'm Shohrukh.",
+    "about.text":"My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia.",
+    "about.text2":"That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.",
     "why.eyebrow":"Why learn with me",
     "why.title":"A thoughtful approach to Mathematics and English",
     "choose.eyebrow":"Where do we start?",
@@ -1174,7 +1179,7 @@ const translations = {
       "BA in Applied Economics — Bard College / American University of Central Asia",
       "TESOL/TEFL Certified",
       "6+ years teaching experience, 1,500+ hours online",
-      "Mathematics taught in English or Russian; English taught in English"
+      "Taught university-level Mathematics at AUCA — Linear Algebra, Geometry, Game Theory, Mathematics for Economists and more"
     ],
     why:[
       {t:"Understand, Don't Memorize", d:"Lessons focus on understanding concepts and the reasoning behind them, not just rules to repeat."},
@@ -1244,8 +1249,9 @@ const translations = {
     "cred.worldwideValue":"По всему миру",
     "cred.worldwide":"Студенты онлайн",
     "about.eyebrow":"О репетиторе",
-    "about.title":"Привет, я Шохрух Тоджидинов.",
-    "about.text":"Моё академическое образование связано с экономикой и политикой — магистр экономической политики на глобальных рынках (Центрально-Европейский университет) и бакалавр прикладной экономики (Bard College / Американский университет Центральной Азии). Эта аналитическая база формирует то, как я преподаю математику: разбивая задачи на чёткие логические шаги, а не полагаясь на заученные формулы. У меня также есть сертификат TESOL/TEFL, более 6 лет и 1500+ часов преподавания английского и математики студентам по всему миру.",
+    "about.title":"Привет, я Шохрух.",
+    "about.text":"Моё академическое образование связано с экономикой и политикой — магистр экономической политики на глобальных рынках (Центрально-Европейский университет) и бакалавр прикладной экономики (Bard College / Американский университет Центральной Азии).",
+    "about.text2":"Эта аналитическая база формирует то, как я преподаю математику: разбивая задачи на чёткие логические шаги, а не полагаясь на заученные формулы. У меня также есть сертификат TESOL/TEFL, более 6 лет и 1500+ часов преподавания английского и математики студентам по всему миру.",
     "why.eyebrow":"Почему учиться со мной",
     "why.title":"Продуманный подход к математике и английскому",
     "choose.eyebrow":"С чего начнём?",
@@ -1300,7 +1306,7 @@ const translations = {
       "Бакалавр прикладной экономики — Bard College / Американский университет Центральной Азии",
       "Сертификат TESOL/TEFL",
       "6+ лет преподавания, 1500+ часов онлайн",
-      "Математика — на английском или русском; английский — на английском"
+      "Преподавал математику университетского уровня в AUCA — линейную алгебру, геометрию, теорию игр, математику для экономистов и другое"
     ],
     why:[
       {t:"Понимание, а не зубрёжка", d:"Уроки нацелены на понимание концепций и логики, стоящей за ними, а не на заучивание правил."},
@@ -1389,6 +1395,7 @@ function renderLists(lang){
       <p class="testi-quote">${item.q}</p>
       <span class="testi-name">${item.n}</span>
       <span class="testi-tag">${item.tag}</span>
+      <span class="testi-stars" aria-label="5 out of 5 stars">★★★★★</span>
     </div>
   `).join('');
 
@@ -1426,8 +1433,8 @@ function setLanguage(lang){
   });
 
   document.title = lang === 'ru'
-    ? 'shakh8.eng — Онлайн-репетитор по математике и английскому | Шохрух Тоджидинов'
-    : 'shakh8.eng — Online Mathematics & English Tutoring | Shohrukh Tojidinov';
+    ? 'shakh8.eng — Онлайн-репетитор по математике и английскому | Шохрух'
+    : 'shakh8.eng — Online Mathematics & English Tutoring | Shohrukh';
 }
 
 document.querySelectorAll('[data-set-lang]').forEach(btn => {
