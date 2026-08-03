@@ -3,11 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>shakh8.eng — Online English &amp; Math Tutoring</title>
-<meta name="description" content="Personalized online English and Math tutoring with Shohrukh — conversation, academic writing, and exam prep for IELTS, TOEFL and SAT.">
+<title>shakh8.eng — Online Mathematics &amp; English Tutoring | Shohrukh Tojidinov</title>
+<meta name="description" content="Personalized online Mathematics and English tutoring with Shohrukh Tojidinov. 1-on-1 lessons via Zoom, 50 minutes, Mathematics in English or Russian. IELTS, TOEFL iBT, IB Mathematics, Business English and more.">
+<meta name="keywords" content="online mathematics tutor, mathematics tutor, online english tutor, english and russian mathematics tutoring, IB mathematics, IELTS, TOEFL iBT, business english, academic english, SAT math">
+<link rel="canonical" href="https://shakh8eng.space/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="shakh8.eng — Online Mathematics & English Tutoring">
+<meta property="og:description" content="Personalized 1-on-1 online tutoring in Mathematics and English with Shohrukh Tojidinov. Zoom lessons, 50 minutes, Mathematics available in English or Russian.">
+<meta property="og:url" content="https://shakh8eng.space/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shakh8.eng — Online Mathematics & English Tutoring">
+<meta name="twitter:description" content="Personalized 1-on-1 online tutoring in Mathematics and English. Zoom lessons, 50 minutes, Mathematics in English or Russian.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "shakh8.eng",
+  "founder": {
+    "@type": "Person",
+    "name": "Shohrukh Tojidinov",
+    "jobTitle": "Online Mathematics & English Tutor",
+    "alumniOf": ["Central European University", "Bard College", "American University of Central Asia"]
+  },
+  "areaServed": "Worldwide",
+  "availableLanguage": ["English", "Russian"],
+  "serviceType": ["Online Mathematics Tutoring", "Online English Tutoring", "IELTS Preparation", "TOEFL iBT Preparation", "IB Mathematics", "Business English"],
+  "url": "https://shakh8eng.space/"
+}
+</script>
 <style>
   :root{
     --bg:#0F211D;
@@ -63,6 +89,7 @@
     margin:0 auto;
     padding:0 28px;
   }
+  .wrap-narrow{ max-width:860px; margin:0 auto; padding:0 28px; }
 
   .eyebrow{
     font-family:var(--mono);
@@ -82,6 +109,10 @@
     background:var(--gold-dim);
     display:inline-block;
   }
+  .eyebrow.tag-blue{ color:var(--blue); }
+  .eyebrow.tag-blue::before{ background:#3E7E8C; }
+  .eyebrow.tag-coral{ color:var(--coral); }
+  .eyebrow.tag-coral::before{ background:#B0503A; }
 
   h1,h2,h3{
     font-family:var(--serif);
@@ -122,6 +153,13 @@
     color:var(--text);
   }
   .btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+  .btn-sm{ padding:10px 16px; font-size:0.78rem; }
+  .micro-note{
+    font-size:0.85rem;
+    color:var(--text-muted);
+    max-width:44ch;
+    margin-top:16px;
+  }
 
   /* ---------- HEADER ---------- */
   header{
@@ -136,8 +174,9 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:18px 0;
+    padding:16px 0;
     position:relative;
+    gap:16px;
   }
   .brand{
     font-family:var(--mono);
@@ -148,6 +187,7 @@
     display:flex;
     align-items:center;
     gap:8px;
+    flex-shrink:0;
   }
   .brand-dot{
     width:8px; height:8px; border-radius:50%;
@@ -156,17 +196,21 @@
   }
   nav.primary-nav ul{
     display:flex;
-    gap:30px;
+    gap:22px;
+    flex-wrap:wrap;
   }
   nav.primary-nav a{
     text-decoration:none;
-    font-size:0.94rem;
+    font-size:0.9rem;
     color:var(--text-muted);
     transition:color .15s ease;
+    white-space:nowrap;
   }
   nav.primary-nav a:hover{color:var(--text);}
+  nav.primary-nav .nav-cta-mobile{ display:none; }
 
-  .nav-right{display:flex; align-items:center; gap:18px;}
+  .nav-right{display:flex; align-items:center; gap:14px; flex-shrink:0;}
+  .nav-cta{ white-space:nowrap; }
 
   .lang-switch{
     position:relative;
@@ -217,7 +261,7 @@
   .hero{
     position:relative;
     overflow:hidden;
-    padding:96px 0 100px;
+    padding:96px 0 90px;
   }
   .hero-bg{
     position:absolute;
@@ -249,46 +293,40 @@
     align-items:start;
   }
   .hero .eyebrow{
-    font-size:1.05rem;
-    letter-spacing:0.12em;
+    font-size:1.02rem;
+    letter-spacing:0.1em;
     font-weight:700;
     margin-bottom:20px;
   }
   .hero h1{
-    font-size:clamp(2.2rem, 4.6vw, 3.55rem);
-    max-width:14ch;
+    font-size:clamp(2.1rem, 4.3vw, 3.3rem);
+    max-width:15ch;
   }
   .hero h1 em{
     font-style:italic;
     color:var(--gold);
   }
   .hero-sub{
-    max-width:46ch;
+    max-width:48ch;
     font-size:1.05rem;
+  }
+  .hero-format{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    color:var(--text);
+    letter-spacing:0.02em;
+    background:rgba(243,239,227,0.08);
+    border:1px solid rgba(243,239,227,0.18);
+    display:inline-block;
+    padding:9px 16px;
+    border-radius:999px;
+    margin-bottom:26px;
   }
   .hero-ctas{
     display:flex;
     gap:14px;
     flex-wrap:wrap;
-    margin:30px 0 44px;
-  }
-  .hero-stats{
-    display:flex;
-    gap:34px;
-    flex-wrap:wrap;
-    border-top:1px solid rgba(243,239,227,0.18);
-    padding-top:26px;
-  }
-  .stat-value{
-    font-family:var(--mono);
-    font-size:1.5rem;
-    color:var(--gold);
-    display:block;
-  }
-  .stat-label{
-    font-size:0.8rem;
-    color:var(--text-muted);
-    max-width:16ch;
+    margin-bottom:14px;
   }
 
   /* signature visual — glassy so the photo behind still reads through */
@@ -379,14 +417,39 @@
   }
 
   /* ---------- SECTIONS GENERIC ---------- */
-  section{padding:88px 0;}
+  section{padding:84px 0;}
   .section-head{
     max-width:640px;
-    margin-bottom:48px;
+    margin-bottom:44px;
   }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .section-head.center .eyebrow{ justify-content:center; }
   .alt-bg{background:var(--bg-soft);}
 
-  /* shared framed side-photo (used by About and Meet) */
+  /* CREDIBILITY STRIP */
+  .credibility{
+    padding:44px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .credibility-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+  }
+  .cred-item{ text-align:left; }
+  .cred-value{
+    font-family:var(--mono);
+    font-size:1.7rem;
+    color:var(--gold);
+    display:block;
+    margin-bottom:6px;
+  }
+  .cred-label{
+    font-size:0.82rem;
+    color:var(--text-muted);
+  }
+
+  /* shared framed side-photo */
   .framed-photo{
     margin:0;
     border-radius:var(--radius-l);
@@ -399,7 +462,7 @@
   .framed-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
   .framed-photo.img-error{ display:none; }
 
-  /* ABOUT — dark card next to a real photo, in keeping with the rest of the site */
+  /* ABOUT */
   .about-grid{
     display:grid;
     grid-template-columns:1.15fr 0.85fr;
@@ -417,7 +480,7 @@
   .about-list{display:flex; flex-direction:column; gap:15px; margin-top:22px;}
   .about-list li{
     display:flex; gap:12px; align-items:flex-start;
-    font-size:0.96rem; color:var(--text);
+    font-size:0.95rem; color:var(--text);
   }
   .about-list li::before{
     content:"+";
@@ -427,20 +490,9 @@
     margin-top:1px;
     font-weight:700;
   }
-  @media (max-width:980px){
-    .about-grid{grid-template-columns:1fr;}
-    .framed-photo{max-height:340px;}
-  }
-  @media (max-width:720px){
-    .about-panel{ padding:34px 26px; }
-  }
 
-
-  /* APPROACH */
-  .approach-list{
-    display:flex;
-    flex-direction:column;
-  }
+  /* WHY / APPROACH LIST (numbered rows) */
+  .approach-list{ display:flex; flex-direction:column; }
   .approach-item{
     display:grid;
     grid-template-columns:70px 1fr;
@@ -458,50 +510,108 @@
   .approach-item h3{margin-bottom:8px;}
   .approach-item p{margin:0; max-width:60ch;}
 
+  /* CHOOSER */
+  .chooser-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .chooser-card{
+    position:relative;
+    background:var(--surface);
+    border-radius:var(--radius-l);
+    padding:36px 32px;
+    border:1px solid var(--line);
+    transition:transform .2s ease, border-color .2s ease;
+    overflow:hidden;
+  }
+  .chooser-card:hover{ transform:translateY(-4px); }
+  .chooser-card::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .chooser-math::before{ background:var(--blue); }
+  .chooser-english::before{ background:var(--coral); }
+  .chooser-math:hover{ border-color:#3E7E8C; }
+  .chooser-english:hover{ border-color:#B0503A; }
+  .chooser-tag{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    display:block;
+  }
+  .chooser-math .chooser-tag{ color:var(--blue); }
+  .chooser-english .chooser-tag{ color:var(--coral); }
+  .chooser-card h3{ font-size:1.5rem; margin-bottom:10px; }
+  .chooser-card p{ margin-bottom:20px; }
+  .chooser-link{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text);
+    transition:gap .18s ease;
+  }
+  .chooser-link:hover{ gap:12px; }
+  .chooser-math .chooser-link{ color:var(--blue); }
+  .chooser-english .chooser-link{ color:var(--coral); }
+
+  /* SUBJECT SECTIONS (Mathematics / English) */
+  .subject-head{ max-width:680px; margin-bottom:40px; }
+  .subject-cta-row{ margin-top:36px; }
+
   /* CARD GRIDS */
-  .grid-3{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:22px;
-  }
-  .grid-4{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:20px;
-  }
+  .grid-3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .grid-4{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; }
+  .grid-5{ display:grid; grid-template-columns:repeat(5, 1fr); gap:18px; }
   .card{
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:var(--radius-m);
-    padding:28px 24px;
+    padding:26px 22px;
     transition:border-color .2s ease, transform .2s ease;
   }
   .card:hover{border-color:var(--gold-dim); transform:translateY(-3px);}
-  .card h3{margin-bottom:10px; font-size:1.08rem;}
-  .card p{font-size:0.94rem; margin-bottom:0;}
-  .card-tag{
+  .card h3{margin-bottom:10px; font-size:1.05rem;}
+  .card p{font-size:0.92rem; margin-bottom:0;}
+
+  /* facts strip inside How Lessons Work */
+  .facts-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:44px;
+    padding-top:36px;
+    border-top:1px solid var(--line);
+  }
+  .fact-pill{
     font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--blue);
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    margin-bottom:12px;
-    display:block;
+    font-size:0.78rem;
+    color:var(--text-muted);
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 16px;
   }
 
-  .service-card{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
+  /* PLAN SECTION */
+  .plan-panel{
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:52px 48px;
+    text-align:center;
+    max-width:760px;
+    margin:0 auto;
   }
-  .service-card .btn{margin-top:20px; align-self:flex-start;}
+  .plan-panel p{ max-width:56ch; margin-left:auto; margin-right:auto; }
 
   /* TESTIMONIALS */
-  .testi-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-  }
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
   .testi-card{
     background:var(--surface);
     border:1px solid var(--line);
@@ -519,19 +629,46 @@
     margin-bottom:6px;
   }
   .testi-quote{color:var(--text); font-size:0.98rem; margin-bottom:18px;}
-  .testi-name{
-    font-family:var(--mono);
-    font-size:0.85rem;
-    color:var(--gold);
-  }
+  .testi-name{ font-family:var(--mono); font-size:0.85rem; color:var(--gold); display:block; }
+  .testi-tag{ font-size:0.76rem; color:var(--text-muted); }
 
-  /* MEET */
+  /* FAQ */
+  .faq-list{ max-width:760px; margin:0 auto; }
+  .faq-item{
+    border-top:1px solid var(--line);
+  }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer;
+    list-style:none;
+    padding:22px 4px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    font-family:var(--serif);
+    font-size:1.08rem;
+    color:var(--text);
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-icon{
+    font-family:var(--mono);
+    color:var(--gold);
+    font-size:1.1rem;
+    flex-shrink:0;
+    transition:transform .2s ease;
+  }
+  .faq-item[open] .faq-icon{ transform:rotate(45deg); }
+  .faq-answer{ padding:0 4px 24px; margin:0; max-width:64ch; }
+
+  /* MEET / FINAL CTA */
   .meet-grid{
     display:grid;
     grid-template-columns:0.85fr 1.15fr;
     gap:52px;
     align-items:center;
   }
+  .meet-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-top:26px; }
 
   /* CONTACT */
   .contact-grid{
@@ -577,8 +714,8 @@
     margin-bottom:30px;
   }
   .footer-tagline{max-width:36ch; font-size:0.92rem;}
-  .footer-links{display:flex; gap:26px; flex-wrap:wrap;}
-  .footer-links a{text-decoration:none; color:var(--text-muted); font-size:0.9rem;}
+  .footer-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .footer-links a{text-decoration:none; color:var(--text-muted); font-size:0.88rem;}
   .footer-links a:hover{color:var(--gold);}
   .footer-bottom{
     font-family:var(--mono);
@@ -593,21 +730,29 @@
   .reveal.in{opacity:1; transform:translateY(0);}
 
   /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1080px){
+    nav.primary-nav ul{ gap:16px; }
+    nav.primary-nav a{ font-size:0.85rem; }
+  }
   @media (max-width:980px){
     .grid-3, .testi-grid{grid-template-columns:repeat(2,1fr);}
     .grid-4{grid-template-columns:repeat(2,1fr);}
+    .grid-5{grid-template-columns:repeat(2,1fr);}
     .contact-grid{grid-template-columns:1fr;}
     .hero-grid{grid-template-columns:1fr;}
     .duo-wrap{order:-1;}
     .meet-grid{grid-template-columns:1fr;}
     .framed-photo{max-height:340px;}
+    .about-grid{grid-template-columns:1fr;}
+    .credibility-grid{grid-template-columns:repeat(2,1fr); gap:28px;}
+    .chooser-grid{grid-template-columns:1fr;}
   }
   @media (max-width:720px){
     nav.primary-nav{
       position:absolute;
       top:calc(100% + 10px);
       right:28px;
-      width:220px;
+      width:240px;
       background:var(--surface);
       border:1px solid var(--line);
       border-radius:14px;
@@ -622,32 +767,33 @@
     nav.primary-nav.open{opacity:1; visibility:visible; transform:translateY(0);}
     nav.primary-nav ul{flex-direction:column; gap:16px;}
     nav.primary-nav a{font-size:1rem;}
-    .menu-toggle{display:flex;}
-    .grid-3, .grid-4, .testi-grid{grid-template-columns:1fr;}
-    .hero-stats{gap:22px;}
-    .footer-row{flex-direction:column;}
-
-    .duo{
-      width:68%;
-      height:230px;
-      margin:0;
+    nav.primary-nav .nav-cta-mobile{
+      display:block; margin-bottom:16px; padding-bottom:16px;
+      border-bottom:1px solid var(--line); text-align:center; width:100%;
     }
+    .nav-cta-desktop{ display:none; }
+    .menu-toggle{display:flex;}
+    .grid-3, .grid-4, .grid-5, .testi-grid{grid-template-columns:1fr;}
+    .footer-row{flex-direction:column;}
+    .about-panel{ padding:34px 26px; }
+    .plan-panel{ padding:36px 26px; }
+
+    .hero{ padding:88px 0 60px; }
+    .hero-bg{ top:0; left:0; right:0; bottom:auto; height:420px; }
+    .hero-bg img{ object-position:center 18%; }
+    .hero-bg::after{
+      background:
+        linear-gradient(180deg, rgba(9,20,17,0.35) 0%, rgba(9,20,17,0.55) 45%, var(--bg) 92%);
+    }
+
+    .duo{ width:68%; height:230px; margin:0; }
     .duo-panel{ padding:18px 14px; }
     .duo-label{ font-size:0.62rem; margin-bottom:8px; }
     .duo-phrase{ font-size:1rem; }
     .duo-eq{ font-size:0.92rem; }
     .duo-bridge{ font-size:2.5rem; }
 
-    .hero{ padding:88px 0 60px; }
-    .hero-bg{
-      top:0; left:0; right:0; bottom:auto;
-      height:420px;
-    }
-    .hero-bg img{ object-position:center 18%; }
-    .hero-bg::after{
-      background:
-        linear-gradient(180deg, rgba(9,20,17,0.35) 0%, rgba(9,20,17,0.55) 45%, var(--bg) 92%);
-    }
+    .credibility-grid{ grid-template-columns:1fr 1fr; }
   }
 </style>
 </head>
@@ -658,17 +804,21 @@
     <a href="#top" class="brand"><span class="brand-dot"></span>shakh8.eng</a>
 
     <nav class="primary-nav" id="primaryNav">
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta-mobile" data-i18n="nav.cta">Start Free Consultation</a>
       <ul>
         <li><a href="#top" data-i18n="nav.home">Home</a></li>
         <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#mathematics" data-i18n="nav.math">Mathematics</a></li>
+        <li><a href="#english" data-i18n="nav.english">English</a></li>
         <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
-        <li><a href="#services" data-i18n="nav.services">Services</a></li>
-        <li><a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a></li>
+        <li><a href="#testimonials" data-i18n="nav.reviews">Reviews</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
     </nav>
 
     <div class="nav-right">
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta-desktop nav-cta" data-i18n="nav.cta">Start Free Consultation</a>
       <div class="lang-switch" id="langSwitch" data-lang="en">
         <span class="lang-thumb"></span>
         <button type="button" data-set-lang="en" class="active" aria-pressed="true">EN</button>
@@ -690,31 +840,19 @@
     </div>
     <div class="wrap hero-grid">
       <div>
-        <p class="eyebrow" data-i18n="hero.eyebrow">Online English &amp; Math Tutoring</p>
+        <p class="eyebrow" data-i18n="hero.eyebrow">Online Mathematics &amp; English Tutoring</p>
         <h1 data-i18n-html="hero.title">Where words and <em>numbers</em> finally get along.</h1>
-        <p class="hero-sub" data-i18n="hero.subtitle">Personalized online lessons in English and Math — built around your goals, from everyday conversation to exam scores that open doors.</p>
+        <p class="hero-sub" data-i18n="hero.subtitle">Personalized 1-on-1 lessons designed around your level, goals and pace — in Mathematics and English.</p>
+        <span class="hero-format" data-i18n="hero.format">Mathematics · English · Online via Zoom · 50 minutes</span>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary" data-i18n="hero.cta.primary">Book a free trial lesson</a>
+          <a href="#contact" class="btn btn-primary" data-i18n="hero.cta.primary">Start Free Consultation</a>
           <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="hero.cta.secondary">Message on Telegram</a>
         </div>
-        <div class="hero-stats">
-          <div>
-            <span class="stat-value">6+</span>
-            <span class="stat-label" data-i18n="hero.stat1.label">Years teaching online</span>
-          </div>
-          <div>
-            <span class="stat-value">2</span>
-            <span class="stat-label" data-i18n="hero.stat2.label">Subjects, one tutor — English &amp; Math</span>
-          </div>
-          <div>
-            <span class="stat-value" style="font-size:1.05rem;">IELTS · TOEFL · SAT</span>
-            <span class="stat-label" data-i18n="hero.stat3.label">Exam prep specialities</span>
-          </div>
-        </div>
+        <p class="micro-note" data-i18n="hero.microNote">Prefer to start with a full lesson? A paid 50-minute trial lesson is also available.</p>
       </div>
 
       <div class="duo-wrap">
-        <div class="duo" role="img" aria-label="Two panels: a lined page representing English, and graph paper representing Math, joined by a large equals sign.">
+        <div class="duo" role="img" aria-label="Two panels: English and Mathematics, joined by a large equals sign, representing the two tutoring specialties.">
           <div class="duo-panel panel-en">
             <span class="duo-label" data-i18n="hero.panel.en">English</span>
             <span class="duo-phrase" data-i18n="hero.phrase.en">you speak clearly
@@ -722,11 +860,33 @@
             </span>
           </div>
           <div class="duo-panel panel-math">
-            <span class="duo-label" data-i18n="hero.panel.math">Math</span>
+            <span class="duo-label" data-i18n="hero.panel.math">Mathematics</span>
             <span class="duo-eq" id="duoEquation">2(x + 3) <span class="eq-b">= 14</span></span>
           </div>
           <span class="duo-bridge">=</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY -->
+  <section class="credibility">
+    <div class="wrap credibility-grid">
+      <div class="cred-item reveal">
+        <span class="cred-value">6+</span>
+        <span class="cred-label" data-i18n="cred.years">Years teaching experience</span>
+      </div>
+      <div class="cred-item reveal">
+        <span class="cred-value">1,500+</span>
+        <span class="cred-label" data-i18n="cred.hours">Teaching hours</span>
+      </div>
+      <div class="cred-item reveal">
+        <span class="cred-value">TESOL/TEFL</span>
+        <span class="cred-label" data-i18n="cred.cert">Certified English teacher</span>
+      </div>
+      <div class="cred-item reveal">
+        <span class="cred-value" data-i18n="cred.worldwideValue">Worldwide</span>
+        <span class="cred-label" data-i18n="cred.worldwide">Students taught online</span>
       </div>
     </div>
   </section>
@@ -736,29 +896,83 @@
     <div class="wrap about-grid">
       <div class="about-panel reveal">
         <p class="eyebrow" data-i18n="about.eyebrow">About your tutor</p>
-        <h2 data-i18n="about.title">Hi, I'm Shohrukh.</h2>
-        <p data-i18n="about.text">I've spent the last six-plus years teaching English and Math online to students around the world — from curious kids to busy professionals. My degrees are from AUCA/Bard College and Central European University, and I'm TESOL/TEFL-certified to teach English properly, not just fluently.</p>
+        <h2 data-i18n="about.title">Hi, I'm Shohrukh Tojidinov.</h2>
+        <p data-i18n="about.text">My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia. That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.</p>
         <ul class="about-list" id="aboutList"></ul>
       </div>
       <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
-        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh Tojidinov, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
       </figure>
     </div>
   </section>
 
-  <!-- APPROACH -->
-  <section id="approach">
+  <!-- WHY LEARN WITH ME -->
+  <section id="why">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="approach.eyebrow">How lessons work</p>
-        <h2 data-i18n="approach.title">An approach built around you, not a syllabus</h2>
+        <p class="eyebrow" data-i18n="why.eyebrow">Why learn with me</p>
+        <h2 data-i18n="why.title">A thoughtful approach to Mathematics and English</h2>
       </div>
-      <div class="approach-list" id="approachList"></div>
+      <div class="approach-list" id="whyList"></div>
     </div>
   </section>
 
-  <!-- STUDENTS -->
+  <!-- CHOOSER -->
   <section class="alt-bg">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="choose.eyebrow">Where do we start?</p>
+        <h2 data-i18n="choose.title">Choose what you're working on</h2>
+      </div>
+      <div class="chooser-grid">
+        <a href="#mathematics" class="chooser-card chooser-math reveal">
+          <span class="chooser-tag" data-i18n="choose.math.tag">Mathematics</span>
+          <h3 data-i18n="choose.math.title">I want to improve my Mathematics</h3>
+          <p data-i18n="choose.math.text">Understand the logic. Solve with confidence. Available in English &amp; Russian.</p>
+          <span class="chooser-link" data-i18n="choose.math.cta">Explore Mathematics →</span>
+        </a>
+        <a href="#english" class="chooser-card chooser-english reveal">
+          <span class="chooser-tag" data-i18n="choose.english.tag">English</span>
+          <h3 data-i18n="choose.english.title">I want to improve my English</h3>
+          <p data-i18n="choose.english.text">Communicate with confidence. Use English with purpose — for study, work and exams.</p>
+          <span class="chooser-link" data-i18n="choose.english.cta">Explore English →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATHEMATICS -->
+  <section id="mathematics">
+    <div class="wrap">
+      <div class="subject-head reveal">
+        <p class="eyebrow tag-blue" data-i18n="math.eyebrow">Mathematics</p>
+        <h2 data-i18n="math.title">Mathematics that makes sense</h2>
+        <p data-i18n="math.text">Build a stronger understanding of Mathematics through clear explanations, structured problem solving and logical thinking — rather than simply memorizing formulas. Lessons are available in English or Russian.</p>
+      </div>
+      <div class="grid-4" id="mathGrid"></div>
+      <div class="subject-cta-row reveal">
+        <a href="#contact" class="btn btn-primary" data-i18n="math.cta">Start Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGLISH -->
+  <section id="english" class="alt-bg">
+    <div class="wrap">
+      <div class="subject-head reveal">
+        <p class="eyebrow tag-coral" data-i18n="english.eyebrow">English</p>
+        <h2 data-i18n="english.title">English that you can actually use</h2>
+        <p data-i18n="english.text">Build the confidence to communicate naturally, write clearly and use English effectively in academic, professional and everyday situations.</p>
+      </div>
+      <div class="grid-5" id="englishGrid"></div>
+      <div class="subject-cta-row reveal">
+        <a href="#contact" class="btn btn-primary" data-i18n="english.cta">Start Free Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO I TEACH -->
+  <section>
     <div class="wrap">
       <div class="section-head reveal">
         <p class="eyebrow" data-i18n="students.eyebrow">Who I teach</p>
@@ -768,14 +982,32 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services">
+  <!-- HOW LESSONS WORK -->
+  <section id="approach" class="alt-bg">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="services.eyebrow">Services</p>
-        <h2 data-i18n="services.title">Three ways to work together</h2>
+        <p class="eyebrow" data-i18n="approach.eyebrow">How lessons work</p>
+        <h2 data-i18n="approach.title">A genuine process, not a fixed script</h2>
       </div>
-      <div class="grid-3" id="servicesGrid"></div>
+      <div class="approach-list" id="approachList"></div>
+      <div class="facts-strip">
+        <span class="fact-pill" data-i18n="facts.1">50-minute lessons</span>
+        <span class="fact-pill" data-i18n="facts.2">1-on-1, online via Zoom</span>
+        <span class="fact-pill" data-i18n="facts.3">Mathematics in English or Russian</span>
+        <span class="fact-pill" data-i18n="facts.4">Personalized learning plan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN / NO PRICING -->
+  <section>
+    <div class="wrap">
+      <div class="plan-panel reveal">
+        <p class="eyebrow" style="justify-content:center;" data-i18n="plan.eyebrow">Lessons &amp; packages</p>
+        <h2 data-i18n="plan.title">A plan that fits your goals</h2>
+        <p data-i18n="plan.text">Every student has different goals, schedules and learning needs. Lesson plans and packages are tailored accordingly, rather than following a one-size-fits-all structure.</p>
+        <a href="#contact" class="btn btn-primary" data-i18n="plan.cta">Discuss Your Learning Plan</a>
+      </div>
     </div>
   </section>
 
@@ -790,17 +1022,31 @@
     </div>
   </section>
 
-  <!-- MEET -->
-  <section id="meet">
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="faq.eyebrow">Frequently asked</p>
+        <h2 data-i18n="faq.title">Good questions to ask before you start</h2>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA / PERSONAL NOTE -->
+  <section class="alt-bg">
     <div class="wrap meet-grid">
-      <figure class="framed-photo" onerror="this.classList.add('img-error')">
-        <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh at graduation" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+      <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
+        <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh Tojidinov" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
       </figure>
       <div class="reveal">
-        <p class="eyebrow" data-i18n="meet.eyebrow">A personal note</p>
-        <h2 data-i18n="meet.title">Every lesson starts with a real conversation.</h2>
-        <p data-i18n="meet.text">Before we get into grammar rules or equations, I like to understand what you're working toward — a job, an exam, or just more confidence. Tell me about it on Telegram, and we'll figure out the right starting point together.</p>
-        <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="meet.cta">Message me on Telegram</a>
+        <p class="eyebrow" data-i18n="cta.eyebrow">Ready to start?</p>
+        <h2 data-i18n="cta.title">Let's figure out the right learning plan for you.</h2>
+        <p data-i18n="cta.text">Whether you're working on Mathematics, English, an exam or a specific goal, we'll start by understanding where you are and where you want to go.</p>
+        <div class="meet-ctas">
+          <a href="#contact" class="btn btn-primary" data-i18n="cta.primary">Start Free Consultation</a>
+          <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="cta.secondary">Message on Telegram</a>
+        </div>
       </div>
     </div>
   </section>
@@ -810,12 +1056,13 @@
     <div class="wrap contact-grid">
       <div class="reveal">
         <p class="eyebrow" data-i18n="contact.eyebrow">Get in touch</p>
-        <h2 data-i18n="contact.title">Let's start your first lesson</h2>
-        <p data-i18n="contact.text">Message me directly — I usually reply within a day.</p>
+        <h2 data-i18n="contact.title">Start with a free consultation</h2>
+        <p data-i18n="contact.text">A free 15–20 minute consultation helps us understand your goals — no pressure, no full lesson required.</p>
+        <p class="micro-note" data-i18n="contact.microNote">Prefer to jump straight in? A paid 50-minute trial lesson is also available.</p>
       </div>
       <div class="contact-methods reveal">
         <a class="contact-method cm-primary" href="https://t.me/Shakh8_eng" target="_blank" rel="noopener">
-          <span><span class="cm-label" data-i18n="contact.telegram.label">Telegram — book a lesson</span><span class="cm-value">@Shakh8_eng</span></span>
+          <span><span class="cm-label" data-i18n="contact.telegram.label">Telegram — free consultation</span><span class="cm-value">@Shakh8_eng</span></span>
           <span class="cm-arrow">→</span>
         </a>
         <a class="contact-method" href="https://instagram.com/shakh8.eng" target="_blank" rel="noopener">
@@ -833,12 +1080,14 @@
     <div class="footer-row">
       <div>
         <a href="#top" class="brand"><span class="brand-dot"></span>shakh8.eng</a>
-        <p class="footer-tagline" data-i18n="footer.tagline">Online English &amp; Math tutoring.</p>
+        <p class="footer-tagline" data-i18n="footer.tagline">Online Mathematics &amp; English tutoring.</p>
       </div>
       <div class="footer-links">
-        <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#services" data-i18n="nav.services">Services</a>
-        <a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a>
+        <a href="#mathematics" data-i18n="nav.math">Mathematics</a>
+        <a href="#english" data-i18n="nav.english">English</a>
+        <a href="#approach" data-i18n="nav.approach">Approach</a>
+        <a href="#testimonials" data-i18n="nav.reviews">Reviews</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
     </div>
@@ -850,138 +1099,254 @@
 /* ============ TRANSLATIONS ============ */
 const translations = {
   en: {
-    "nav.home":"Home","nav.about":"About","nav.approach":"Approach","nav.services":"Services",
-    "nav.testimonials":"Testimonials","nav.contact":"Contact",
-    "hero.eyebrow":"Online English &amp; Math Tutoring",
+    "nav.home":"Home","nav.about":"About","nav.math":"Mathematics","nav.english":"English",
+    "nav.approach":"Approach","nav.reviews":"Reviews","nav.faq":"FAQ","nav.contact":"Contact",
+    "nav.cta":"Start Free Consultation",
+    "hero.eyebrow":"Online Mathematics &amp; English Tutoring",
     "hero.title":"Where words and <em>numbers</em> finally get along.",
-    "hero.subtitle":"Personalized online lessons in English and Math — built around your goals, from everyday conversation to exam scores that open doors.",
-    "hero.cta.primary":"Book a free trial lesson",
+    "hero.subtitle":"Personalized 1-on-1 lessons designed around your level, goals and pace — in Mathematics and English.",
+    "hero.format":"Mathematics · English · Online via Zoom · 50 minutes",
+    "hero.cta.primary":"Start Free Consultation",
     "hero.cta.secondary":"Message on Telegram",
-    "hero.stat1.label":"Years teaching online",
-    "hero.stat2.label":"Subjects, one tutor — English & Math",
-    "hero.stat3.label":"Exam prep specialities",
+    "hero.microNote":"Prefer to start with a full lesson? A paid 50-minute trial lesson is also available.",
     "hero.panel.en":"English",
-    "hero.panel.math":"Math",
+    "hero.panel.math":"Mathematics",
     "hero.phrase.en":"you speak clearly",
+    "cred.years":"Years teaching experience",
+    "cred.hours":"Teaching hours",
+    "cred.cert":"Certified English teacher",
+    "cred.worldwideValue":"Worldwide",
+    "cred.worldwide":"Students taught online",
     "about.eyebrow":"About your tutor",
-    "about.title":"Hi, I'm Shohrukh.",
-    "about.text":"I've spent the last six-plus years teaching English and Math online to students around the world — from curious kids to busy professionals. My degrees are from AUCA/Bard College and Central European University, and I'm TESOL/TEFL-certified to teach English properly, not just fluently.",
-    "approach.eyebrow":"How lessons work",
-    "approach.title":"An approach built around you, not a syllabus",
+    "about.title":"Hi, I'm Shohrukh Tojidinov.",
+    "about.text":"My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia. That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.",
+    "why.eyebrow":"Why learn with me",
+    "why.title":"A thoughtful approach to Mathematics and English",
+    "choose.eyebrow":"Where do we start?",
+    "choose.title":"Choose what you're working on",
+    "choose.math.tag":"Mathematics",
+    "choose.math.title":"I want to improve my Mathematics",
+    "choose.math.text":"Understand the logic. Solve with confidence. Available in English &amp; Russian.",
+    "choose.math.cta":"Explore Mathematics →",
+    "choose.english.tag":"English",
+    "choose.english.title":"I want to improve my English",
+    "choose.english.text":"Communicate with confidence. Use English with purpose — for study, work and exams.",
+    "choose.english.cta":"Explore English →",
+    "math.eyebrow":"Mathematics",
+    "math.title":"Mathematics that makes sense",
+    "math.text":"Build a stronger understanding of Mathematics through clear explanations, structured problem solving and logical thinking — rather than simply memorizing formulas. Lessons are available in English or Russian.",
+    "math.cta":"Start Free Consultation",
+    "english.eyebrow":"English",
+    "english.title":"English that you can actually use",
+    "english.text":"Build the confidence to communicate naturally, write clearly and use English effectively in academic, professional and everyday situations.",
+    "english.cta":"Start Free Consultation",
     "students.eyebrow":"Who I teach",
     "students.title":"Every learner gets a plan that fits their life",
-    "services.eyebrow":"Services",
-    "services.title":"Three ways to work together",
+    "approach.eyebrow":"How lessons work",
+    "approach.title":"A genuine process, not a fixed script",
+    "facts.1":"50-minute lessons",
+    "facts.2":"1-on-1, online via Zoom",
+    "facts.3":"Mathematics in English or Russian",
+    "facts.4":"Personalized learning plan",
+    "plan.eyebrow":"Lessons &amp; packages",
+    "plan.title":"A plan that fits your goals",
+    "plan.text":"Every student has different goals, schedules and learning needs. Lesson plans and packages are tailored accordingly, rather than following a one-size-fits-all structure.",
+    "plan.cta":"Discuss Your Learning Plan",
     "testimonials.eyebrow":"What students say",
     "testimonials.title":"Real progress, in their words",
+    "faq.eyebrow":"Frequently asked",
+    "faq.title":"Good questions to ask before you start",
+    "cta.eyebrow":"Ready to start?",
+    "cta.title":"Let's figure out the right learning plan for you.",
+    "cta.text":"Whether you're working on Mathematics, English, an exam or a specific goal, we'll start by understanding where you are and where you want to go.",
+    "cta.primary":"Start Free Consultation",
+    "cta.secondary":"Message on Telegram",
     "contact.eyebrow":"Get in touch",
-    "contact.title":"Let's start your first lesson",
-    "contact.text":"Message me directly — I usually reply within a day.",
-    "contact.telegram.label":"Telegram — book a lesson",
+    "contact.title":"Start with a free consultation",
+    "contact.text":"A free 15–20 minute consultation helps us understand your goals — no pressure, no full lesson required.",
+    "contact.microNote":"Prefer to jump straight in? A paid 50-minute trial lesson is also available.",
+    "contact.telegram.label":"Telegram — free consultation",
     "contact.social.label":"Instagram / Threads",
-    "meet.eyebrow":"A personal note",
-    "meet.title":"Every lesson starts with a real conversation.",
-    "meet.text":"Before we get into grammar rules or equations, I like to understand what you're working toward — a job, an exam, or just more confidence. Tell me about it on Telegram, and we'll figure out the right starting point together.",
-    "meet.cta":"Message me on Telegram",
-    "footer.tagline":"Online English & Math tutoring.",
+    "footer.tagline":"Online Mathematics &amp; English tutoring.",
     "footer.copyright":"© 2026 shakh8.eng. All rights reserved.",
     aboutList:[
-      "6+ years of online teaching experience with students worldwide",
-      "Bachelor's &amp; Master's degrees — AUCA/Bard College and CEU",
-      "TESOL/TEFL certified",
-      "Expertise in English, Math, Business English and Academic Writing",
-      "Exam prep for IELTS, TOEFL, SAT and more"
+      "MA in Economic Policy in Global Markets — Central European University (CEU)",
+      "BA in Applied Economics — Bard College / American University of Central Asia",
+      "TESOL/TEFL Certified",
+      "6+ years teaching experience, 1,500+ hours online",
+      "Mathematics taught in English or Russian; English taught in English"
     ],
-    approach:[
-      {t:"Personalized lessons", d:"Every session adapts to your goals — conversational English, academic writing, or exam prep."},
-      {t:"Practical methods", d:"Real-life examples, interactive exercises and proven strategies you can apply right away."},
-      {t:"Exam preparation", d:"Targeted support for TOEFL, IELTS, SAT — the skills and the test-taking strategy."},
-      {t:"Confidence building", d:"Reducing exam stress and building long-term confidence in English and Math."},
-      {t:"Flexible support", d:"From kids learning the basics to professionals sharpening Business English."}
+    why:[
+      {t:"Understand, Don't Memorize", d:"Lessons focus on understanding concepts and the reasoning behind them, not just rules to repeat."},
+      {t:"Personalized Learning", d:"The pace, examples and exercises adapt to your level, goals and the way you learn best."},
+      {t:"One-on-One Attention", d:"Every lesson is focused entirely on you — no shared attention, no generic curriculum."},
+      {t:"Practical Progress", d:"Lessons are built around what you actually want to achieve, whether that's an exam, a job or everyday confidence."},
+      {t:"Academic + Real-World English", d:"English you can use in conversation, at work, in academic writing, or on exam day."}
+    ],
+    mathServices:[
+      {t:"School Mathematics", d:"Strengthen fundamentals, close knowledge gaps and understand difficult topics with confidence."},
+      {t:"IB Mathematics", d:"Build understanding and prepare systematically for IB coursework and requirements."},
+      {t:"Academic Mathematics", d:"Develop deeper conceptual understanding and analytical thinking for university-level work."},
+      {t:"Exam Preparation", d:"Focused preparation based on your level, goals and timeline — including SAT Math."}
+    ],
+    englishServices:[
+      {t:"General &amp; Conversational English", d:"Speak more naturally and confidently in real-life situations."},
+      {t:"Business English", d:"Communicate more effectively in professional and workplace environments."},
+      {t:"IELTS Preparation", d:"Develop the skills and strategies needed for your target IELTS score."},
+      {t:"TOEFL iBT Preparation", d:"Prepare systematically for the test and strengthen academic English skills."},
+      {t:"Academic English &amp; Writing", d:"Improve clarity, structure, vocabulary and academic communication."}
     ],
     students:[
-      {t:"Kids &amp; Students", d:"Building English and Math foundations, exam prep for high schoolers, academic writing for university students."},
-      {t:"Adults", d:"Learning for work, travel and personal growth — office workers, doctors, engineers and more."},
-      {t:"Immigrants &amp; Professionals", d:"Business English for career growth, and everyday language skills for adapting to a new country."},
-      {t:"Every Individual", d:"Customized tutoring tailored to your unique goals and pace."}
+      {t:"School &amp; University Students", d:"Mathematics, English and academic goals — from school-level topics to university coursework."},
+      {t:"Exam Candidates", d:"Focused preparation for IB, IELTS, TOEFL iBT and SAT Math."},
+      {t:"Working Professionals", d:"Business English and professional communication for the workplace."},
+      {t:"International Learners", d:"Personalized online learning in English and Russian, wherever you are."}
     ],
-    services:[
-      {tag:"Tutoring", t:"Tutoring Session", d:"Excel in English &amp; Math with regular, personalized sessions.", cta:"Book now"},
-      {tag:"Career", t:"Professional English", d:"Advance your career with Business English and workplace communication.", cta:"View course"},
-      {tag:"Exams", t:"Exam Prep Course", d:"Prepare for success in IELTS, TOEFL, SAT and other international exams.", cta:"View course"}
+    approach:[
+      {t:"Discover", d:"We discuss your goals, current level and challenges."},
+      {t:"Plan", d:"We create a learning approach around your needs, schedule and pace."},
+      {t:"Learn", d:"We work through concepts, explanations, examples and practice."},
+      {t:"Progress", d:"Lessons adapt as your skills and goals develop."}
     ],
     testimonials:[
-      {n:"Alesia", q:"I improved my Math skills rapidly with personalized lessons and support."},
-      {n:"Nurlan", q:"The sessions were engaging and tailored to my needs, which made learning fun!"},
-      {n:"Niyaz", q:"I feel more confident in my English speaking skills thanks to Shohrukh's guidance."}
+      {n:"Alesia", tag:"Mathematics Student", q:"I improved my Math skills rapidly with personalized lessons and support."},
+      {n:"Nurlan", tag:"Student", q:"The sessions were engaging and tailored to my needs, which made learning fun!"},
+      {n:"Niyaz", tag:"English Student", q:"I feel more confident in my English speaking skills thanks to Shohrukh's guidance."}
+    ],
+    faq:[
+      {q:"How long is each lesson?", a:"50 minutes."},
+      {q:"Where do lessons take place?", a:"All lessons take place online via Zoom."},
+      {q:"Can Mathematics be taught in Russian?", a:"Yes. Mathematics lessons are available in English and Russian."},
+      {q:"Do you offer English lessons?", a:"Yes. English tutoring includes General English, Conversation, Business English, IELTS, TOEFL iBT and Academic English/Writing."},
+      {q:"Is there a free trial lesson?", a:"A free 15–20 minute consultation is available to discuss your goals, needs and a potential learning plan. A full 50-minute trial lesson is available as a paid lesson."},
+      {q:"Do you offer packages?", a:"Yes. Lesson plans and packages are personalized according to subject, goals, schedule and lesson frequency."},
+      {q:"How do I get started?", a:"Start with a free 15–20 minute consultation or contact me directly on Telegram."}
     ],
     equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
   },
   ru: {
-    "nav.home":"Главная","nav.about":"Обо мне","nav.approach":"Подход","nav.services":"Услуги",
-    "nav.testimonials":"Отзывы","nav.contact":"Контакты",
-    "hero.eyebrow":"Онлайн-репетитор по английскому и математике",
+    "nav.home":"Главная","nav.about":"Обо мне","nav.math":"Математика","nav.english":"Английский",
+    "nav.approach":"Подход","nav.reviews":"Отзывы","nav.faq":"Вопросы","nav.contact":"Контакты",
+    "nav.cta":"Бесплатная консультация",
+    "hero.eyebrow":"Онлайн-репетитор по математике и английскому",
     "hero.title":"Там, где слова и <em>числа</em> наконец находят общий язык.",
-    "hero.subtitle":"Индивидуальные онлайн-занятия по английскому языку и математике — под ваши цели: от повседневного общения до результатов экзаменов, которые открывают двери.",
-    "hero.cta.primary":"Записаться на бесплатный пробный урок",
+    "hero.subtitle":"Индивидуальные онлайн-занятия по математике и английскому языку — под ваш уровень, цели и темп.",
+    "hero.format":"Математика · Английский · Онлайн через Zoom · 50 минут",
+    "hero.cta.primary":"Бесплатная консультация",
     "hero.cta.secondary":"Написать в Telegram",
-    "hero.stat1.label":"лет онлайн-преподавания",
-    "hero.stat2.label":"предмета у одного репетитора — английский и математика",
-    "hero.stat3.label":"специализация по экзаменам",
+    "hero.microNote":"Хотите сразу полноценный урок? Платный пробный урок на 50 минут также доступен.",
     "hero.panel.en":"Английский",
     "hero.panel.math":"Математика",
     "hero.phrase.en":"вы говорите чётко",
+    "cred.years":"лет преподавания",
+    "cred.hours":"часов преподавания",
+    "cred.cert":"Сертифицированный преподаватель английского",
+    "cred.worldwideValue":"По всему миру",
+    "cred.worldwide":"Студенты онлайн",
     "about.eyebrow":"О репетиторе",
-    "about.title":"Привет, я Шохрух.",
-    "about.text":"Больше шести лет я преподаю английский язык и математику онлайн студентам по всему миру — от любознательных детей до занятых профессионалов. Мои дипломы — из AUCA/Bard College и Центрально-Европейского университета (CEU), а сертификаты TESOL/TEFL подтверждают, что я учу английскому по-настоящему, а не просто бегло на нём говорю.",
-    "approach.eyebrow":"Как проходят занятия",
-    "approach.title":"Подход, построенный вокруг вас, а не вокруг программы",
+    "about.title":"Привет, я Шохрух Тоджидинов.",
+    "about.text":"Моё академическое образование связано с экономикой и политикой — магистр экономической политики на глобальных рынках (Центрально-Европейский университет) и бакалавр прикладной экономики (Bard College / Американский университет Центральной Азии). Эта аналитическая база формирует то, как я преподаю математику: разбивая задачи на чёткие логические шаги, а не полагаясь на заученные формулы. У меня также есть сертификат TESOL/TEFL, более 6 лет и 1500+ часов преподавания английского и математики студентам по всему миру.",
+    "why.eyebrow":"Почему учиться со мной",
+    "why.title":"Продуманный подход к математике и английскому",
+    "choose.eyebrow":"С чего начнём?",
+    "choose.title":"Выберите, над чем хотите работать",
+    "choose.math.tag":"Математика",
+    "choose.math.title":"Я хочу улучшить математику",
+    "choose.math.text":"Понимайте логику. Решайте уверенно. Доступно на английском и русском.",
+    "choose.math.cta":"Смотреть Математику →",
+    "choose.english.tag":"Английский",
+    "choose.english.title":"Я хочу улучшить английский",
+    "choose.english.text":"Общайтесь уверенно. Используйте английский осмысленно — для учёбы, работы и экзаменов.",
+    "choose.english.cta":"Смотреть Английский →",
+    "math.eyebrow":"Математика",
+    "math.title":"Математика, которая обретает смысл",
+    "math.text":"Формируйте более глубокое понимание математики через чёткие объяснения, структурированное решение задач и логическое мышление — а не простое заучивание формул. Занятия доступны на английском или русском.",
+    "math.cta":"Бесплатная консультация",
+    "english.eyebrow":"Английский",
+    "english.title":"Английский, которым вы действительно сможете пользоваться",
+    "english.text":"Обретите уверенность говорить естественно, писать чётко и эффективно использовать английский в учёбе, работе и повседневной жизни.",
+    "english.cta":"Бесплатная консультация",
     "students.eyebrow":"Кого я обучаю",
     "students.title":"Для каждого ученика — свой план",
-    "services.eyebrow":"Услуги",
-    "services.title":"Три формата совместной работы",
+    "approach.eyebrow":"Как проходят занятия",
+    "approach.title":"Настоящий процесс, а не готовый сценарий",
+    "facts.1":"Уроки по 50 минут",
+    "facts.2":"Индивидуально, онлайн через Zoom",
+    "facts.3":"Математика на английском или русском",
+    "facts.4":"Персонализированный план обучения",
+    "plan.eyebrow":"Уроки и пакеты",
+    "plan.title":"План, который подходит именно вам",
+    "plan.text":"У каждого студента свои цели, расписание и потребности в обучении. Планы и пакеты уроков составляются индивидуально, а не по единому шаблону.",
+    "plan.cta":"Обсудить план обучения",
     "testimonials.eyebrow":"Отзывы учеников",
     "testimonials.title":"Реальный прогресс их словами",
+    "faq.eyebrow":"Частые вопросы",
+    "faq.title":"Хорошие вопросы, прежде чем начать",
+    "cta.eyebrow":"Готовы начать?",
+    "cta.title":"Давайте подберём подходящий план обучения.",
+    "cta.text":"Работаете ли вы над математикой, английским, экзаменом или конкретной целью — мы начнём с понимания того, где вы сейчас и куда хотите прийти.",
+    "cta.primary":"Бесплатная консультация",
+    "cta.secondary":"Написать в Telegram",
     "contact.eyebrow":"Связаться",
-    "contact.title":"Начнём ваш первый урок",
-    "contact.text":"Напишите мне напрямую — обычно отвечаю в течение дня.",
-    "contact.telegram.label":"Telegram — запись на урок",
+    "contact.title":"Начните с бесплатной консультации",
+    "contact.text":"Бесплатная консультация на 15–20 минут поможет понять ваши цели — без давления и без полноценного урока.",
+    "contact.microNote":"Хотите начать сразу? Платный пробный урок на 50 минут также доступен.",
+    "contact.telegram.label":"Telegram — бесплатная консультация",
     "contact.social.label":"Instagram / Threads",
-    "meet.eyebrow":"Личное слово",
-    "meet.title":"Каждый урок начинается с обычного разговора.",
-    "meet.text":"Прежде чем говорить о грамматике или уравнениях, мне важно понять, к чему вы стремитесь — работа, экзамен или больше уверенности в себе. Напишите мне в Telegram, и вместе мы найдём подходящую точку старта.",
-    "meet.cta":"Написать мне в Telegram",
-    "footer.tagline":"Онлайн-репетитор по английскому языку и математике.",
+    "footer.tagline":"Онлайн-репетитор по математике и английскому языку.",
     "footer.copyright":"© 2026 shakh8.eng. Все права защищены.",
     aboutList:[
-      "Более 6 лет онлайн-преподавания студентам по всему миру",
-      "Диплом бакалавра и магистра — AUCA/Bard College и CEU",
+      "Магистр экономической политики на глобальных рынках — CEU",
+      "Бакалавр прикладной экономики — Bard College / Американский университет Центральной Азии",
       "Сертификат TESOL/TEFL",
-      "Специализация: английский, математика, деловой английский и академическое письмо",
-      "Подготовка к IELTS, TOEFL, SAT и другим экзаменам"
+      "6+ лет преподавания, 1500+ часов онлайн",
+      "Математика — на английском или русском; английский — на английском"
     ],
-    approach:[
-      {t:"Индивидуальные уроки", d:"Каждое занятие подстраивается под ваши цели — разговорный английский, академическое письмо или подготовка к экзаменам."},
-      {t:"Практические методы", d:"Реальные примеры, интерактивные упражнения и проверенные стратегии, которые можно применять сразу."},
-      {t:"Подготовка к экзаменам", d:"Целевая подготовка к TOEFL, IELTS, SAT — не только навыки, но и стратегия сдачи теста."},
-      {t:"Уверенность", d:"Помогаю справиться со стрессом перед экзаменами и обрести долгосрочную уверенность."},
-      {t:"Гибкий формат", d:"От детей, изучающих основы, до профессионалов, совершенствующих деловой английский."}
+    why:[
+      {t:"Понимание, а не зубрёжка", d:"Уроки нацелены на понимание концепций и логики, стоящей за ними, а не на заучивание правил."},
+      {t:"Индивидуальное обучение", d:"Темп, примеры и упражнения подстраиваются под ваш уровень, цели и стиль обучения."},
+      {t:"Полное внимание один на один", d:"Каждый урок полностью посвящён именно вам — никакого общего плана на всех."},
+      {t:"Практический прогресс", d:"Уроки строятся вокруг того, чего вы действительно хотите достичь — экзамена, работы или уверенности в повседневной жизни."},
+      {t:"Академический и практический английский", d:"Английский, который пригодится в разговоре, на работе, в академическом письме и на экзамене."}
+    ],
+    mathServices:[
+      {t:"Школьная математика", d:"Укрепление основ, устранение пробелов и понимание сложных тем с уверенностью."},
+      {t:"IB Mathematics", d:"Формирование понимания и системная подготовка к требованиям программы IB."},
+      {t:"Академическая математика", d:"Более глубокое концептуальное понимание и аналитическое мышление для университетского уровня."},
+      {t:"Подготовка к экзаменам", d:"Целевая подготовка с учётом вашего уровня, целей и сроков — включая SAT Math."}
+    ],
+    englishServices:[
+      {t:"Общий и разговорный английский", d:"Говорите более естественно и уверенно в реальных ситуациях."},
+      {t:"Деловой английский", d:"Общайтесь эффективнее в профессиональной среде."},
+      {t:"Подготовка к IELTS", d:"Развивайте навыки и стратегии, необходимые для нужного балла IELTS."},
+      {t:"Подготовка к TOEFL iBT", d:"Системная подготовка к тесту и укрепление академического английского."},
+      {t:"Академический английский и письмо", d:"Улучшите ясность, структуру, словарный запас и академическую коммуникацию."}
     ],
     students:[
-      {t:"Дети и школьники", d:"Развиваю навыки английского и математики у детей, готовлю старшеклассников к экзаменам, помогаю с академическим письмом."},
-      {t:"Взрослые", d:"Помогаю учиться для работы, путешествий и личного роста — офисным сотрудникам, врачам, инженерам и другим."},
-      {t:"Иммигранты и профессионалы", d:"Деловой английский для карьерного роста и языковые навыки для адаптации в новой стране."},
-      {t:"Каждый ученик", d:"Индивидуальная программа, разработанная под ваши цели и темп обучения."}
+      {t:"Школьники и студенты", d:"Математика, английский и академические цели — от школьных тем до университетского уровня."},
+      {t:"Кандидаты на экзамены", d:"Целевая подготовка к IB, IELTS, TOEFL iBT и SAT Math."},
+      {t:"Работающие профессионалы", d:"Деловой английский и профессиональная коммуникация для работы."},
+      {t:"Международные студенты", d:"Индивидуальное онлайн-обучение на английском и русском, где бы вы ни находились."}
     ],
-    services:[
-      {tag:"Занятия", t:"Урок с репетитором", d:"Успехи в английском и математике на регулярных индивидуальных занятиях.", cta:"Записаться"},
-      {tag:"Карьера", t:"Деловой английский", d:"Развитие карьеры через деловой английский и рабочую коммуникацию.", cta:"Подробнее"},
-      {tag:"Экзамены", t:"Курс подготовки к экзаменам", d:"Готовимся к успеху на IELTS, TOEFL, SAT и других международных экзаменах.", cta:"Подробнее"}
+    approach:[
+      {t:"Знакомство", d:"Обсуждаем ваши цели, текущий уровень и трудности."},
+      {t:"План", d:"Формируем подход к обучению с учётом ваших потребностей, расписания и темпа."},
+      {t:"Обучение", d:"Разбираем концепции, объяснения, примеры и практику."},
+      {t:"Прогресс", d:"Уроки меняются по мере развития ваших навыков и целей."}
     ],
     testimonials:[
-      {n:"Алеся", q:"Я быстро подтянула математику благодаря индивидуальным занятиям и поддержке."},
-      {n:"Нурлан", q:"Занятия были увлекательными и подстроенными под мои потребности — учиться было интересно!"},
-      {n:"Нияз", q:"Благодаря Шохруху я стал увереннее говорить по-английски."}
+      {n:"Алеся", tag:"Ученица по математике", q:"Я быстро подтянула математику благодаря индивидуальным занятиям и поддержке."},
+      {n:"Нурлан", tag:"Ученик", q:"Занятия были увлекательными и подстроенными под мои потребности — учиться было интересно!"},
+      {n:"Нияз", tag:"Ученик английского", q:"Благодаря Шохруху я стал увереннее говорить по-английски."}
+    ],
+    faq:[
+      {q:"Сколько длится урок?", a:"50 минут."},
+      {q:"Где проходят занятия?", a:"Все занятия проходят онлайн через Zoom."},
+      {q:"Можно ли изучать математику на русском?", a:"Да. Уроки математики доступны на английском и русском языках."},
+      {q:"Вы преподаёте английский язык?", a:"Да. Английский включает общий английский, разговорную практику, деловой английский, IELTS, TOEFL iBT и академический английский/письмо."},
+      {q:"Есть ли бесплатный пробный урок?", a:"Доступна бесплатная консультация на 15–20 минут для обсуждения целей, потребностей и плана обучения. Полноценный пробный урок на 50 минут доступен как платный."},
+      {q:"Есть ли пакеты занятий?", a:"Да. Планы и пакеты уроков подбираются индивидуально в зависимости от предмета, целей, расписания и частоты занятий."},
+      {q:"Как начать?", a:"Начните с бесплатной консультации на 15–20 минут или напишите мне напрямую в Telegram."}
     ],
     equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
   }
@@ -994,33 +1359,44 @@ function renderLists(lang){
 
   document.getElementById('aboutList').innerHTML = dict.aboutList.map(item => `<li>${item}</li>`).join('');
 
+  document.getElementById('whyList').innerHTML = dict.why.map((item, i) => `
+    <div class="approach-item reveal in">
+      <span class="approach-num">0${i+1}</span>
+      <div><h3>${item.t}</h3><p>${item.d}</p></div>
+    </div>`).join('');
+
+  document.getElementById('mathGrid').innerHTML = dict.mathServices.map(item => `
+    <div class="card reveal in"><h3>${item.t}</h3><p>${item.d}</p></div>
+  `).join('');
+
+  document.getElementById('englishGrid').innerHTML = dict.englishServices.map(item => `
+    <div class="card reveal in"><h3>${item.t}</h3><p>${item.d}</p></div>
+  `).join('');
+
+  document.getElementById('studentsGrid').innerHTML = dict.students.map(item => `
+    <div class="card reveal in"><h3>${item.t}</h3><p>${item.d}</p></div>
+  `).join('');
+
   document.getElementById('approachList').innerHTML = dict.approach.map((item, i) => `
     <div class="approach-item reveal in">
       <span class="approach-num">0${i+1}</span>
       <div><h3>${item.t}</h3><p>${item.d}</p></div>
     </div>`).join('');
 
-  document.getElementById('studentsGrid').innerHTML = dict.students.map(item => `
-    <div class="card reveal in"><h3>${item.t}</h3><p>${item.d}</p></div>
-  `).join('');
-
-  document.getElementById('servicesGrid').innerHTML = dict.services.map(item => `
-    <div class="card service-card reveal in">
-      <div>
-        <span class="card-tag">${item.tag}</span>
-        <h3>${item.t}</h3>
-        <p>${item.d}</p>
-      </div>
-      <a href="#contact" class="btn btn-ghost">${item.cta}</a>
-    </div>
-  `).join('');
-
   document.getElementById('testiGrid').innerHTML = dict.testimonials.map(item => `
     <div class="testi-card reveal in">
       <span class="testi-mark">&ldquo;</span>
       <p class="testi-quote">${item.q}</p>
       <span class="testi-name">${item.n}</span>
+      <span class="testi-tag">${item.tag}</span>
     </div>
+  `).join('');
+
+  document.getElementById('faqList').innerHTML = dict.faq.map((item, i) => `
+    <details class="faq-item reveal in"${i===0 ? ' open' : ''}>
+      <summary><span>${item.q}</span><span class="faq-icon">+</span></summary>
+      <p class="faq-answer">${item.a}</p>
+    </details>
   `).join('');
 }
 
@@ -1050,8 +1426,8 @@ function setLanguage(lang){
   });
 
   document.title = lang === 'ru'
-    ? 'shakh8.eng — Онлайн-репетитор по английскому и математике'
-    : 'shakh8.eng — Online English & Math Tutoring';
+    ? 'shakh8.eng — Онлайн-репетитор по математике и английскому | Шохрух Тоджидинов'
+    : 'shakh8.eng — Online Mathematics & English Tutoring | Shohrukh Tojidinov';
 }
 
 document.querySelectorAll('[data-set-lang]').forEach(btn => {
