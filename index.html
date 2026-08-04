@@ -353,6 +353,11 @@
     box-shadow:0 30px 70px rgba(0,0,0,0.45);
     transition:transform .5s cubic-bezier(.22,1,.36,1);
     will-change:transform;
+    animation:duoFloat 8s ease-in-out infinite;
+  }
+  @keyframes duoFloat{
+    0%,100%{ transform:perspective(900px) rotateX(2deg) rotateY(-3deg) translateY(0px); }
+    50%{ transform:perspective(900px) rotateX(-2deg) rotateY(3deg) translateY(-10px); }
   }
   .duo-panel{
     flex:1;
@@ -629,7 +634,7 @@
   .plan-panel p{ max-width:56ch; margin-left:auto; margin-right:auto; }
 
   /* TESTIMONIALS */
-  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .testi-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
   .testi-card{
     background:var(--surface);
     border:1px solid var(--line);
@@ -757,7 +762,7 @@
     nav.primary-nav a{ font-size:0.85rem; }
   }
   @media (max-width:980px){
-    .grid-3, .testi-grid{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:repeat(2,1fr);}
     .grid-4{grid-template-columns:repeat(2,1fr);}
     .grid-5{grid-template-columns:repeat(2,1fr);}
     .contact-grid{grid-template-columns:1fr;}
@@ -1233,9 +1238,10 @@ const translations = {
       {t:"Progress", d:"Lessons adapt as your skills and goals develop."}
     ],
     testimonials:[
-      {n:"Alesia", tag:"Mathematics Student", q:"I improved my Math skills rapidly with personalized lessons and support."},
-      {n:"Nurlan", tag:"Student", q:"The sessions were engaging and tailored to my needs, which made learning fun!"},
-      {n:"Niyaz", tag:"English Student", q:"I feel more confident in my English speaking skills thanks to Shohrukh's guidance."}
+      {n:"Vitaly", tag:"TOEFL Student", q:"We had wonderful lessons for TOEFL preparation. At the beginning I couldn't understand even half of an academic text in the reading section, and I had real problems with writing and speaking. Our lessons were very flexible, and I could focus on exactly the parts I found most difficult. I needed to score 4 on the exam — I was thrilled to pass with 5 out of 6."},
+      {n:"Alesia", tag:"Business English Student", q:"I really enjoyed having lessons with you — it was always interesting to talk, and it helped prepare me for a new job. Beyond professional topics, our more personal conversations were exactly what I needed to break the ice and build real confidence speaking."},
+      {n:"Anna", tag:"English Student", q:"I studied English with Shohrukh for a while. He's an excellent teacher, attentive to his students — he adapts the lesson plan to each person's needs and explains even the trickiest grammar clearly. I'm grateful for lessons that helped me maintain my English level and keep building on it."},
+      {n:"Ilmira", tag:"English Student", q:"I'm always excited about lessons with Shohrukh. We've discussed everything from crypto to culture — there's no doubt he's genuinely passionate about what he does."}
     ],
     faq:[
       {q:"How long is each lesson?", a:"50 minutes."},
@@ -1360,9 +1366,10 @@ const translations = {
       {t:"Прогресс", d:"Уроки меняются по мере развития ваших навыков и целей."}
     ],
     testimonials:[
-      {n:"Алеся", tag:"Ученица по математике", q:"Я быстро подтянула математику благодаря индивидуальным занятиям и поддержке."},
-      {n:"Нурлан", tag:"Ученик", q:"Занятия были увлекательными и подстроенными под мои потребности — учиться было интересно!"},
-      {n:"Нияз", tag:"Ученик английского", q:"Благодаря Шохруху я стал увереннее говорить по-английски."}
+      {n:"Виталий", tag:"Ученик по TOEFL", q:"У нас были замечательные занятия по подготовке к TOEFL. В начале курса я с трудом понимал даже половину академического текста в части Reading, и у меня были большие трудности с письмом и говорением. Наши занятия были очень гибкими — я мог сосредоточиться именно на том, что давалось сложнее всего. Мне нужно было набрать 4 балла на экзамене, и я был очень рад, когда сдал TOEFL и получил 5 баллов из 6."},
+      {n:"Алеся", tag:"Ученица делового английского", q:"Мне очень нравились наши занятия — с тобой всегда было интересно общаться, и это помогло подготовиться к новой работе. Более личные разговоры помогли снять напряжение и обрести уверенность в разговоре."},
+      {n:"Анна", tag:"Ученица английского", q:"Ранее занималась с Шохрухом, изучая английский. Он отличный преподаватель, внимательный к ученикам — подстраивается под запросы и адаптирует программу индивидуально. Доступно объясняет любые сложные моменты в грамматике. Я благодарна за занятия, которые помогали поддерживать уровень английского и обогащали мои знания."},
+      {n:"Ильмира", tag:"Ученица английского", q:"Я всегда с нетерпением жду занятий с Шохрухом. Мы обсуждали всё — от криптовалют до культуры. Нет никаких сомнений, что он по-настоящему увлечён своим делом."}
     ],
     faq:[
       {q:"Сколько длится урок?", a:"50 минут."},
@@ -1523,10 +1530,11 @@ revealEls.forEach(el => io.observe(el));
 /* ---------- premium interaction layer ---------- */
 
 /* 3D tilt on cards + the hero equation box */
-function attachTilt(el, intensity){
+function attachTilt(el, intensity, hasIdleAnim){
   if(el.dataset.tiltBound) return;
   el.dataset.tiltBound = '1';
   el.addEventListener('mousemove', (e) => {
+    if(hasIdleAnim) el.style.animationPlayState = 'paused';
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -1534,17 +1542,27 @@ function attachTilt(el, intensity){
     el.style.transform = `perspective(900px) rotateX(${(-y*intensity).toFixed(2)}deg) rotateY(${(x*intensity).toFixed(2)}deg) translateY(-4px)`;
   });
   el.addEventListener('mouseleave', () => {
-    el.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1)';
-    el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    if(hasIdleAnim){
+      el.style.transition = 'transform 0.6s cubic-bezier(.22,1,.36,1)';
+      el.style.transform = 'perspective(900px) rotateX(2deg) rotateY(-3deg) translateY(0px)';
+      setTimeout(() => {
+        el.style.transition = '';
+        el.style.transform = '';
+        el.style.animationPlayState = 'running';
+      }, 600);
+    } else {
+      el.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1)';
+      el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    }
   });
 }
 function initTilt(){
   if(!finePointer || prefersReducedMotion) return;
-  document.querySelectorAll('.card, .testi-card').forEach(el => attachTilt(el, 7));
+  document.querySelectorAll('.card, .testi-card').forEach(el => attachTilt(el, 7, false));
 }
 if(finePointer && !prefersReducedMotion){
   const duoEl = document.querySelector('.duo');
-  if(duoEl) attachTilt(duoEl, 5);
+  if(duoEl) attachTilt(duoEl, 5, true);
 }
 initTilt();
 
