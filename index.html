@@ -697,6 +697,99 @@
   }
   .meet-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-top:26px; }
 
+  /* QUIZ COMPONENTS (level test + course-fit) */
+  .quiz-section{ }
+  .quiz-panel{
+    max-width:640px;
+    margin:0 auto;
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:40px 38px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  .quiz-progress{
+    display:flex;
+    gap:6px;
+    margin-bottom:26px;
+  }
+  .quiz-progress span{
+    flex:1;
+    height:4px;
+    border-radius:999px;
+    background:var(--line);
+    overflow:hidden;
+  }
+  .quiz-progress span::after{
+    content:"";
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+  .quiz-progress span.done::after{ width:100%; }
+  .quiz-progress span.active::after{ width:100%; }
+  .quiz-step-label{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--text-muted);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:block;
+  }
+  .quiz-question{ font-size:1.3rem; margin-bottom:22px; }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+  .quiz-option{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 18px;
+    border-radius:var(--radius-m);
+    border:1px solid var(--line);
+    background:var(--bg-soft);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:0.96rem;
+    cursor:pointer;
+    text-align:left;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .quiz-option:hover{ border-color:var(--gold-dim); }
+  .quiz-option.selected{ border-color:var(--gold); background:rgba(231,183,80,0.1); color:var(--gold); }
+  .quiz-nav{ display:flex; justify-content:space-between; align-items:center; gap:14px; }
+  .quiz-nav .btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none !important; }
+  .quiz-back{
+    background:none; border:none; color:var(--text-muted);
+    font-family:var(--mono); font-size:0.82rem; cursor:pointer;
+    padding:10px 4px;
+  }
+  .quiz-back:hover{ color:var(--text); }
+  .quiz-back:disabled{ opacity:0; pointer-events:none; }
+  .quiz-result{ text-align:center; }
+  .quiz-result-badge{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:2.6rem;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .quiz-result-text{ max-width:44ch; margin:0 auto 26px; }
+  .quiz-summary{
+    text-align:left;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:18px 20px;
+    margin-bottom:24px;
+    font-size:0.9rem;
+  }
+  .quiz-summary div{ padding:6px 0; border-bottom:1px solid var(--line); color:var(--text); }
+  .quiz-summary div:last-child{ border-bottom:none; }
+  .quiz-summary span{ color:var(--text-muted); }
+
   /* CONTACT */
   .contact-grid{
     display:grid;
@@ -804,6 +897,8 @@
     .footer-row{flex-direction:column;}
     .about-panel{ padding:34px 26px; }
     .plan-panel{ padding:36px 26px; }
+    .quiz-panel{ padding:28px 22px; }
+    .quiz-question{ font-size:1.1rem; }
 
     .hero{ padding:88px 0 40px; }
     .hero-bg{ inset:0; height:auto; }
@@ -914,6 +1009,18 @@
           <span class="cred-label" data-i18n="cred.worldwide">Students taught online</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FREE LEVEL TEST -->
+  <section id="level-test" class="quiz-section">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="levelTest.eyebrow">Free level test</p>
+        <h2 data-i18n="levelTest.title">Find out your English level</h2>
+        <p style="max-width:56ch;margin:0 auto;" data-i18n="levelTest.subtitle">Answer a few quick questions and get an instant estimate of your level, from A1 to C2.</p>
+      </div>
+      <div class="quiz-panel reveal" id="levelTestPanel"></div>
     </div>
   </section>
 
@@ -1075,6 +1182,18 @@
           <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="cta.secondary">Message on Telegram</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- COURSE FIT QUIZ -->
+  <section id="course-fit" class="quiz-section alt-bg">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="fit.eyebrow">Find your fit</p>
+        <h2 data-i18n="fit.title">Let's find the right plan for you</h2>
+        <p style="max-width:56ch;margin:0 auto;" data-i18n="fit.subtitle">Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.</p>
+      </div>
+      <div class="quiz-panel reveal" id="courseFitPanel"></div>
     </div>
   </section>
 
@@ -1252,6 +1371,52 @@ const translations = {
       {q:"Do you offer packages?", a:"Yes. Lesson plans and packages are personalized according to subject, goals, schedule and lesson frequency."},
       {q:"How do I get started?", a:"Start with a free 15–20 minute consultation or contact me directly on Telegram."}
     ],
+    "levelTest.eyebrow":"Free level test",
+    "levelTest.title":"Find out your English level",
+    "levelTest.subtitle":"Answer a few quick questions and get an instant estimate of your level, from A1 to C2.",
+    "fit.eyebrow":"Find your fit",
+    "fit.title":"Let's find the right plan for you",
+    "fit.subtitle":"Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.",
+    levelTest:{
+      stepLabel:"Question {n} of {total}",
+      back:"← Back",
+      next:"Next →",
+      finish:"See my result",
+      cta:"Message me on Telegram to discuss a plan",
+      questions:[
+        {q:"Choose the correct sentence.", options:["She go to school every day.","She goes to school every day.","She going to school every day.","She gone to school every day."], correct:1},
+        {q:"I ___ my homework yesterday.", options:["do","did","done","doing"], correct:1},
+        {q:"If it rains tomorrow, I ___ stay home.", options:["will","would","had","am"], correct:0},
+        {q:"Which word is closest in meaning to \"significant\"?", options:["Important","Small","Funny","Quiet"], correct:0},
+        {q:"By the time we arrived, the meeting ___.", options:["already started","had already started","has already started","already starts"], correct:1},
+        {q:"Choose the sentence with correct inversion.", options:["Not only she did pass the exam, but also got the highest score.","Not only did she pass the exam, but she also got the highest score.","Not only she passed the exam, but also she got the highest score.","Not only passed she the exam, but also got the highest score."], correct:1},
+        {q:"What does \"get the ball rolling\" mean?", options:["To start something","To finish something","To cancel something","To repeat something"], correct:0}
+      ],
+      results:{
+        A1:"You're just getting started — building core vocabulary and basic grammar will make the biggest difference.",
+        A2:"You have the basics down. Now it's about expanding vocabulary and getting comfortable with more tenses.",
+        B1:"You can handle everyday English well. The next step is more natural, confident conversation.",
+        B2:"Solid, independent English. Lessons at this level focus on precision, nuance and fluency.",
+        C1:"Advanced English — refining academic, professional and idiomatic language is what will move the needle now.",
+        C2:"Excellent command of English. At this level it's about polish: tone, style and native-like nuance."
+      }
+    },
+    fit:{
+      stepLabel:"Question {n} of {total}",
+      back:"← Back",
+      next:"Next →",
+      finish:"See summary",
+      doneTitle:"All set!",
+      doneText:"Here's a quick summary — send it to Telegram and I'll get back to you with a plan.",
+      sendCta:"Send my answers on Telegram",
+      telegramIntro:"Hi! I just completed the course-fit quiz on your website. Here are my answers:",
+      questions:[
+        {q:"What's your main goal?", options:["Career / work abroad","Relocation / emigration","University studies","For myself / travel"]},
+        {q:"What's your current level?", options:["Beginner","Intermediate","Advanced","Not sure"]},
+        {q:"How much time can you dedicate per week?", options:["2 times a week","3–4 times a week","4+ times a week"]},
+        {q:"Preferred time of day for lessons?", options:["Morning","Afternoon","Evening","Flexible"]}
+      ]
+    },
     equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
   },
   ru: {
@@ -1381,6 +1546,52 @@ const translations = {
       {q:"Есть ли пакеты занятий?", a:"Да. Планы и пакеты уроков подбираются индивидуально в зависимости от предмета, целей, расписания и частоты занятий."},
       {q:"Как начать?", a:"Начните с бесплатной консультации на 15–20 минут или напишите мне напрямую в Telegram."}
     ],
+    "levelTest.eyebrow":"Бесплатный тест уровня",
+    "levelTest.title":"Узнайте свой уровень английского",
+    "levelTest.subtitle":"Ответьте на несколько вопросов и мгновенно получите примерную оценку уровня — от A1 до C2.",
+    "fit.eyebrow":"Найдём ваш план",
+    "fit.title":"Подберём подходящий план для вас",
+    "fit.subtitle":"Ответьте на 4 коротких вопроса — результаты отправятся в Telegram, и мы обсудим детали.",
+    levelTest:{
+      stepLabel:"Вопрос {n} из {total}",
+      back:"← Назад",
+      next:"Далее →",
+      finish:"Узнать результат",
+      cta:"Написать в Telegram, чтобы обсудить план",
+      questions:[
+        {q:"Выберите правильное предложение.", options:["She go to school every day.","She goes to school every day.","She going to school every day.","She gone to school every day."], correct:1},
+        {q:"Выберите правильный вариант: I ___ my homework yesterday.", options:["do","did","done","doing"], correct:1},
+        {q:"Выберите правильный вариант: If it rains tomorrow, I ___ stay home.", options:["will","would","had","am"], correct:0},
+        {q:"Какое слово ближе по значению к \"significant\"?", options:["Important","Small","Funny","Quiet"], correct:0},
+        {q:"Выберите правильный вариант: By the time we arrived, the meeting ___.", options:["already started","had already started","has already started","already starts"], correct:1},
+        {q:"Выберите предложение с правильной инверсией.", options:["Not only she did pass the exam, but also got the highest score.","Not only did she pass the exam, but she also got the highest score.","Not only she passed the exam, but also she got the highest score.","Not only passed she the exam, but also got the highest score."], correct:1},
+        {q:"Что означает идиома \"get the ball rolling\"?", options:["Начать что-то","Закончить что-то","Отменить что-то","Повторить что-то"], correct:0}
+      ],
+      results:{
+        A1:"Вы только начинаете — базовая лексика и основы грамматики дадут наибольший эффект.",
+        A2:"Основы уже есть. Дальше — расширение словарного запаса и уверенное использование разных времён.",
+        B1:"Вы уверенно справляетесь с повседневным английским. Следующий шаг — более естественная и уверенная речь.",
+        B2:"Хороший самостоятельный уровень английского. На этом уровне важны точность, нюансы и беглость.",
+        C1:"Продвинутый английский — сейчас важно отточить академический, деловой и идиоматический язык.",
+        C2:"Отличное владение английским. На этом уровне речь идёт о полировке: тоне, стиле и естественности."
+      }
+    },
+    fit:{
+      stepLabel:"Вопрос {n} из {total}",
+      back:"← Назад",
+      next:"Далее →",
+      finish:"Смотреть итог",
+      doneTitle:"Готово!",
+      doneText:"Вот краткая сводка — отправьте её в Telegram, и я свяжусь с вами с планом обучения.",
+      sendCta:"Отправить ответы в Telegram",
+      telegramIntro:"Здравствуйте! Я прошёл(-ла) тест на подбор курса на вашем сайте. Вот мои ответы:",
+      questions:[
+        {q:"Какая у тебя цель?", options:["Карьера / работа за рубежом","Переезд / эмиграция","Учёба в вузе","Для себя / путешествий"]},
+        {q:"Твой текущий уровень?", options:["Начинающий","Средний","Продвинутый","Не уверен(-а)"]},
+        {q:"Сколько времени готов(-а) уделять в неделю?", options:["2 раза в неделю","3–4 раза в неделю","4+ раз в неделю"]},
+        {q:"Удобное время для занятий?", options:["Утро","День","Вечер","Гибкий график"]}
+      ]
+    },
     equationSteps:["2(x + 3) <span class=\"eq-b\">= 14</span>", "2x + 6 <span class=\"eq-b\">= 14</span>", "x <span class=\"eq-b\">= 4</span>"]
   }
 };
@@ -1434,6 +1645,7 @@ function renderLists(lang){
   `).join('');
 
   initTilt();
+  initQuizzes();
 }
 
 function setLanguage(lang){
@@ -1638,6 +1850,99 @@ if(!prefersReducedMotion){
     }
   }, {passive:true});
   updateParallax();
+}
+
+/* ---------- interactive quizzes ---------- */
+function renderQuiz(containerId, questions, labels, onFinish){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  let step = 0;
+  let answers = [];
+
+  function progressHTML(total){
+    let html = '<div class="quiz-progress">';
+    for(let i=0;i<total;i++){
+      const cls = i < step ? 'done' : (i === step ? 'active' : '');
+      html += `<span class="${cls}"></span>`;
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderStep(){
+    const total = questions.length;
+    const q = questions[step];
+    const selected = answers[step];
+    container.innerHTML = `
+      ${progressHTML(total)}
+      <span class="quiz-step-label">${labels.stepLabel.replace('{n}', step+1).replace('{total}', total)}</span>
+      <h3 class="quiz-question">${q.q}</h3>
+      <div class="quiz-options">
+        ${q.options.map((opt,i) => `<button type="button" class="quiz-option${selected===i?' selected':''}" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-nav">
+        <button type="button" class="quiz-back" ${step===0?'disabled':''}>${labels.back}</button>
+        <button type="button" class="btn btn-primary quiz-next" ${selected===undefined?'disabled':''}>${step===total-1?labels.finish:labels.next}</button>
+      </div>
+    `;
+    container.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        answers[step] = parseInt(btn.dataset.idx, 10);
+        renderStep();
+      });
+    });
+    const backBtn = container.querySelector('.quiz-back');
+    if(backBtn) backBtn.addEventListener('click', () => { if(step>0){ step--; renderStep(); } });
+    const nextBtn = container.querySelector('.quiz-next');
+    if(nextBtn) nextBtn.addEventListener('click', () => {
+      if(answers[step] === undefined) return;
+      if(step < total-1){ step++; renderStep(); }
+      else { onFinish(answers, container, questions); }
+    });
+  }
+
+  renderStep();
+}
+
+function levelFromScore(n){
+  if(n<=1) return 'A1';
+  if(n===2) return 'A2';
+  if(n===3) return 'B1';
+  if(n<=5) return 'B2';
+  if(n===6) return 'C1';
+  return 'C2';
+}
+
+function initQuizzes(){
+  const dict = translations[currentLang];
+
+  renderQuiz('levelTestPanel', dict.levelTest.questions, dict.levelTest, (answers, container, questions) => {
+    const score = answers.reduce((sum, a, i) => sum + (a === questions[i].correct ? 1 : 0), 0);
+    const level = levelFromScore(score);
+    container.innerHTML = `
+      <div class="quiz-result">
+        <span class="quiz-result-badge">${level}</span>
+        <p class="quiz-result-text">${dict.levelTest.results[level]}</p>
+        <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary">${dict.levelTest.cta}</a>
+      </div>
+    `;
+  });
+
+  renderQuiz('courseFitPanel', dict.fit.questions, dict.fit, (answers, container, questions) => {
+    const summaryLines = questions.map((q, i) => `${q.q} ${q.options[answers[i]]}`);
+    const messageText = dict.fit.telegramIntro + '\n' + summaryLines.map((l, i) => `${i+1}. ${l}`).join('\n');
+    const tgLink = 'https://t.me/Shakh8_eng?text=' + encodeURIComponent(messageText);
+    container.innerHTML = `
+      <div class="quiz-result">
+        <span class="quiz-result-badge">${dict.fit.doneTitle}</span>
+        <p class="quiz-result-text">${dict.fit.doneText}</p>
+        <div class="quiz-summary">
+          ${summaryLines.map(l => `<div>${l}</div>`).join('')}
+        </div>
+        <a href="${tgLink}" target="_blank" rel="noopener" class="btn btn-primary">${dict.fit.sendCta}</a>
+      </div>
+    `;
+  });
 }
 </script>
 
