@@ -698,6 +698,16 @@
   .meet-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-top:26px; }
 
   /* QUIZ COMPONENTS (level test + course-fit) */
+  .quiz-icon-row{ display:flex; justify-content:center; gap:14px; margin-bottom:22px; }
+  .quiz-icon-badge{
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface); border:1px solid var(--line);
+  }
+  .quiz-icon-badge svg{ width:20px; height:20px; }
+  .quiz-icon-badge.gold{ color:var(--gold); }
+  .quiz-icon-badge.blue{ color:var(--blue); }
+  .quiz-icon-badge.coral{ color:var(--coral); }
   .quiz-section{ }
   .quiz-panel{
     max-width:640px;
@@ -789,6 +799,33 @@
   .quiz-summary div{ padding:6px 0; border-bottom:1px solid var(--line); color:var(--text); }
   .quiz-summary div:last-child{ border-bottom:none; }
   .quiz-summary span{ color:var(--text-muted); }
+  .quiz-subject-pick .chooser-grid{ margin-top:22px; }
+  .quiz-subject-pick button.chooser-card{
+    all:unset;
+    box-sizing:border-box;
+    display:block;
+    width:100%;
+    font-family:var(--sans);
+    text-align:left;
+    cursor:pointer;
+    position:relative;
+    background:var(--surface);
+    border-radius:var(--radius-l);
+    padding:28px 26px;
+    border:1px solid var(--line);
+    transition:transform .2s ease, border-color .2s ease;
+    overflow:hidden;
+  }
+  .quiz-subject-pick button.chooser-card:hover{ transform:translateY(-4px); }
+  .quiz-subject-pick button.chooser-card::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .quiz-subject-pick .chooser-math::before{ background:var(--blue); }
+  .quiz-subject-pick .chooser-english::before{ background:var(--coral); }
+  .quiz-subject-pick .chooser-math:hover{ border-color:#3E7E8C; }
+  .quiz-subject-pick .chooser-english:hover{ border-color:#B0503A; }
+  .quiz-subject-pick .chooser-card h3{ margin:0; font-size:1.2rem; }
 
   /* CONTACT */
   .contact-grid{
@@ -1012,18 +1049,6 @@
     </div>
   </section>
 
-  <!-- FREE LEVEL TEST -->
-  <section id="level-test" class="quiz-section">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="levelTest.eyebrow">Free level test</p>
-        <h2 data-i18n="levelTest.title">Find out your English level</h2>
-        <p style="max-width:56ch;margin:0 auto;" data-i18n="levelTest.subtitle">Answer a few quick questions and get an instant estimate of your level, from A1 to C2.</p>
-      </div>
-      <div class="quiz-panel reveal" id="levelTestPanel"></div>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section id="about" class="alt-bg">
     <div class="wrap about-grid">
@@ -1048,6 +1073,40 @@
         <h2 data-i18n="why.title">A thoughtful approach to Mathematics and English</h2>
       </div>
       <div class="approach-list" id="whyList"></div>
+    </div>
+  </section>
+
+  <!-- FREE LEVEL TEST -->
+  <section id="level-test" class="quiz-section alt-bg">
+    <div class="wrap">
+      <div class="quiz-icon-row reveal" aria-hidden="true">
+        <span class="quiz-icon-badge gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c3-1 6-1 8 0v14c-2-1-5-1-8 0V5Z"/><path d="M20 5c-3-1-6-1-8 0v14c2-1 5-1 8 0V5Z"/></svg></span>
+        <span class="quiz-icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-4 10 4-10 4-10-4Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg></span>
+        <span class="quiz-icon-badge coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+      </div>
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="levelTest.eyebrow">Free level test</p>
+        <h2 data-i18n="levelTest.title">Find out your level</h2>
+        <p style="max-width:56ch;margin:0 auto;" data-i18n="levelTest.subtitle">Choose a subject, answer a few quick questions, and get an instant estimate of your level.</p>
+      </div>
+      <div class="quiz-panel reveal" id="levelTestPanel"></div>
+    </div>
+  </section>
+
+  <!-- COURSE FIT QUIZ -->
+  <section id="course-fit" class="quiz-section">
+    <div class="wrap">
+      <div class="quiz-icon-row reveal" aria-hidden="true">
+        <span class="quiz-icon-badge gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c3-1 6-1 8 0v14c-2-1-5-1-8 0V5Z"/><path d="M20 5c-3-1-6-1-8 0v14c2-1 5-1 8 0V5Z"/></svg></span>
+        <span class="quiz-icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-4 10 4-10 4-10-4Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg></span>
+        <span class="quiz-icon-badge coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+      </div>
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="fit.eyebrow">Find your fit</p>
+        <h2 data-i18n="fit.title">Let's find the right plan for you</h2>
+        <p style="max-width:56ch;margin:0 auto;" data-i18n="fit.subtitle">Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.</p>
+      </div>
+      <div class="quiz-panel reveal" id="courseFitPanel"></div>
     </div>
   </section>
 
@@ -1182,18 +1241,6 @@
           <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="cta.secondary">Message on Telegram</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- COURSE FIT QUIZ -->
-  <section id="course-fit" class="quiz-section alt-bg">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="fit.eyebrow">Find your fit</p>
-        <h2 data-i18n="fit.title">Let's find the right plan for you</h2>
-        <p style="max-width:56ch;margin:0 auto;" data-i18n="fit.subtitle">Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.</p>
-      </div>
-      <div class="quiz-panel reveal" id="courseFitPanel"></div>
     </div>
   </section>
 
@@ -1383,6 +1430,11 @@ const translations = {
       next:"Next →",
       finish:"See my result",
       cta:"Message me on Telegram to discuss a plan",
+      mathCta:"Message me on Telegram to discuss a plan",
+      pickSubjectLabel:"Step 1 of 1",
+      pickSubjectQuestion:"Which subject would you like to check?",
+      mathOption:"Mathematics",
+      englishOption:"English",
       questions:[
         {q:"Choose the correct sentence.", options:["She go to school every day.","She goes to school every day.","She going to school every day.","She gone to school every day."], correct:1},
         {q:"I ___ my homework yesterday.", options:["do","did","done","doing"], correct:1},
@@ -1392,6 +1444,15 @@ const translations = {
         {q:"Choose the sentence with correct inversion.", options:["Not only she did pass the exam, but also got the highest score.","Not only did she pass the exam, but she also got the highest score.","Not only she passed the exam, but also she got the highest score.","Not only passed she the exam, but also got the highest score."], correct:1},
         {q:"What does \"get the ball rolling\" mean?", options:["To start something","To finish something","To cancel something","To repeat something"], correct:0}
       ],
+      mathQuestions:[
+        {q:"What is 12 × 4?", options:["46","48","52","44"], correct:1},
+        {q:"Solve for x: x + 7 = 15", options:["6","7","8","9"], correct:2},
+        {q:"What is 25% of 60?", options:["12","15","18","20"], correct:1},
+        {q:"Solve: 2(x − 3) = 10", options:["x = 5","x = 6","x = 8","x = 13"], correct:2},
+        {q:"What is the area of a triangle with base 10 and height 6?", options:["60","30","16","120"], correct:1},
+        {q:"Solve: x² − 5x + 6 = 0. What are the roots?", options:["x = 2, x = 3","x = 1, x = 6","x = −2, x = −3","x = 5, x = 6"], correct:0},
+        {q:"What is the derivative of x²?", options:["x","2x","x²","2"], correct:1}
+      ],
       results:{
         A1:"You're just getting started — building core vocabulary and basic grammar will make the biggest difference.",
         A2:"You have the basics down. Now it's about expanding vocabulary and getting comfortable with more tenses.",
@@ -1399,6 +1460,13 @@ const translations = {
         B2:"Solid, independent English. Lessons at this level focus on precision, nuance and fluency.",
         C1:"Advanced English — refining academic, professional and idiomatic language is what will move the needle now.",
         C2:"Excellent command of English. At this level it's about polish: tone, style and native-like nuance."
+      },
+      mathResults:{
+        Foundational:"You're building the basics — strengthening core arithmetic and algebra will make everything after this much easier.",
+        Developing:"You've got a good base. Now it's about getting comfortable with equations and problem-solving strategies.",
+        Solid:"You handle core school-level math well. The next step is deeper practice with more complex problem types.",
+        Advanced:"Strong grasp of algebra and geometry — ready to push into more advanced topics like functions and pre-calculus.",
+        Excellent:"Excellent problem-solving across topics — at this level, it's about tackling advanced, exam-specific and university-level material."
       }
     },
     fit:{
@@ -1558,6 +1626,11 @@ const translations = {
       next:"Далее →",
       finish:"Узнать результат",
       cta:"Написать в Telegram, чтобы обсудить план",
+      mathCta:"Написать в Telegram, чтобы обсудить план",
+      pickSubjectLabel:"Шаг 1 из 1",
+      pickSubjectQuestion:"Какой предмет хотите проверить?",
+      mathOption:"Математика",
+      englishOption:"Английский",
       questions:[
         {q:"Выберите правильное предложение.", options:["She go to school every day.","She goes to school every day.","She going to school every day.","She gone to school every day."], correct:1},
         {q:"Выберите правильный вариант: I ___ my homework yesterday.", options:["do","did","done","doing"], correct:1},
@@ -1567,6 +1640,15 @@ const translations = {
         {q:"Выберите предложение с правильной инверсией.", options:["Not only she did pass the exam, but also got the highest score.","Not only did she pass the exam, but she also got the highest score.","Not only she passed the exam, but also she got the highest score.","Not only passed she the exam, but also got the highest score."], correct:1},
         {q:"Что означает идиома \"get the ball rolling\"?", options:["Начать что-то","Закончить что-то","Отменить что-то","Повторить что-то"], correct:0}
       ],
+      mathQuestions:[
+        {q:"Сколько будет 12 × 4?", options:["46","48","52","44"], correct:1},
+        {q:"Решите уравнение: x + 7 = 15", options:["6","7","8","9"], correct:2},
+        {q:"Сколько будет 25% от 60?", options:["12","15","18","20"], correct:1},
+        {q:"Решите: 2(x − 3) = 10", options:["x = 5","x = 6","x = 8","x = 13"], correct:2},
+        {q:"Какова площадь треугольника с основанием 10 и высотой 6?", options:["60","30","16","120"], correct:1},
+        {q:"Решите: x² − 5x + 6 = 0. Найдите корни.", options:["x = 2, x = 3","x = 1, x = 6","x = −2, x = −3","x = 5, x = 6"], correct:0},
+        {q:"Чему равна производная x²?", options:["x","2x","x²","2"], correct:1}
+      ],
       results:{
         A1:"Вы только начинаете — базовая лексика и основы грамматики дадут наибольший эффект.",
         A2:"Основы уже есть. Дальше — расширение словарного запаса и уверенное использование разных времён.",
@@ -1574,6 +1656,13 @@ const translations = {
         B2:"Хороший самостоятельный уровень английского. На этом уровне важны точность, нюансы и беглость.",
         C1:"Продвинутый английский — сейчас важно отточить академический, деловой и идиоматический язык.",
         C2:"Отличное владение английским. На этом уровне речь идёт о полировке: тоне, стиле и естественности."
+      },
+      mathResults:{
+        Foundational:"Вы формируете базу — укрепление арифметики и основ алгебры значительно облегчит всё остальное.",
+        Developing:"У вас хорошая основа. Дальше — увереннее чувствовать себя в уравнениях и стратегиях решения задач.",
+        Solid:"Вы уверенно справляетесь со школьной программой. Следующий шаг — более сложные типы задач.",
+        Advanced:"Уверенное владение алгеброй и геометрией — пора переходить к функциям и элементам предвысшей математики.",
+        Excellent:"Отличное решение задач по разным темам — на этом уровне стоит браться за продвинутый, экзаменационный и университетский материал."
       }
     },
     fit:{
@@ -1913,20 +2002,65 @@ function levelFromScore(n){
   return 'C2';
 }
 
+function mathLevelFromScore(n){
+  if(n<=1) return 'Foundational';
+  if(n<=3) return 'Developing';
+  if(n<=5) return 'Solid';
+  if(n===6) return 'Advanced';
+  return 'Excellent';
+}
+
+function renderLevelTestPicker(dict){
+  const container = document.getElementById('levelTestPanel');
+  if(!container) return;
+  container.innerHTML = `
+    <div class="quiz-subject-pick">
+      <span class="quiz-step-label">${dict.levelTest.pickSubjectLabel}</span>
+      <h3 class="quiz-question" style="text-align:center;">${dict.levelTest.pickSubjectQuestion}</h3>
+      <div class="chooser-grid">
+        <button type="button" class="chooser-card chooser-math" data-subject="math">
+          <span class="chooser-tag">${dict["nav.math"] || ''}</span>
+          <h3>${dict.levelTest.mathOption}</h3>
+        </button>
+        <button type="button" class="chooser-card chooser-english" data-subject="english">
+          <span class="chooser-tag">${dict["nav.english"] || ''}</span>
+          <h3>${dict.levelTest.englishOption}</h3>
+        </button>
+      </div>
+    </div>
+  `;
+  container.querySelector('[data-subject="math"]').addEventListener('click', () => {
+    renderQuiz('levelTestPanel', dict.levelTest.mathQuestions, dict.levelTest, (answers, resultContainer, questions) => {
+      const score = answers.reduce((sum, a, i) => sum + (a === questions[i].correct ? 1 : 0), 0);
+      const level = mathLevelFromScore(score);
+      resultContainer.innerHTML = `
+        <div class="quiz-result">
+          <span class="quiz-result-badge">${level}</span>
+          <p class="quiz-result-text">${dict.levelTest.mathResults[level]}</p>
+          <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary">${dict.levelTest.mathCta}</a>
+        </div>
+      `;
+    });
+  });
+  container.querySelector('[data-subject="english"]').addEventListener('click', () => {
+    renderQuiz('levelTestPanel', dict.levelTest.questions, dict.levelTest, (answers, resultContainer, questions) => {
+      const score = answers.reduce((sum, a, i) => sum + (a === questions[i].correct ? 1 : 0), 0);
+      const level = levelFromScore(score);
+      resultContainer.innerHTML = `
+        <div class="quiz-result">
+          <span class="quiz-result-badge">${level}</span>
+          <p class="quiz-result-text">${dict.levelTest.results[level]}</p>
+          <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary">${dict.levelTest.cta}</a>
+        </div>
+      `;
+    });
+  });
+}
+
 function initQuizzes(){
   const dict = translations[currentLang];
 
-  renderQuiz('levelTestPanel', dict.levelTest.questions, dict.levelTest, (answers, container, questions) => {
-    const score = answers.reduce((sum, a, i) => sum + (a === questions[i].correct ? 1 : 0), 0);
-    const level = levelFromScore(score);
-    container.innerHTML = `
-      <div class="quiz-result">
-        <span class="quiz-result-badge">${level}</span>
-        <p class="quiz-result-text">${dict.levelTest.results[level]}</p>
-        <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-primary">${dict.levelTest.cta}</a>
-      </div>
-    `;
-  });
+  renderLevelTestPicker(dict);
 
   renderQuiz('courseFitPanel', dict.fit.questions, dict.fit, (answers, container, questions) => {
     const summaryLines = questions.map((q, i) => `${q.q} ${q.options[answers[i]]}`);
