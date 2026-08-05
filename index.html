@@ -917,6 +917,175 @@
   .quiz-subject-pick .chooser-english:hover{ border-color:#B0503A; }
   .quiz-subject-pick .chooser-card h3{ margin:0; font-size:1.2rem; }
 
+  /* FEATURES HUB (bento) */
+  .features-hub{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .feature-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--line);
+    border-radius:var(--radius-l);
+    padding:26px 22px;
+    min-height:190px;
+    text-decoration:none;
+    color:var(--text);
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .feature-card:hover{ transform:translateY(-5px); border-color:var(--gold-dim); }
+  .feature-card::after{
+    content:"";
+    position:absolute; top:-2px; right:-2px;
+    width:38px; height:38px;
+    background:var(--gold);
+    clip-path:polygon(100% 0, 0 0, 100% 100%);
+    opacity:0.7;
+  }
+  .feature-card .big-ic{
+    width:48px; height:48px;
+    border-radius:14px;
+    background:rgba(243,239,227,0.08);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px;
+    margin-bottom:16px;
+  }
+  .feature-card h3{ font-size:1.08rem; margin-bottom:8px; }
+  .feature-card p{ font-size:0.86rem; margin-bottom:0; }
+  .feature-card .goto{
+    font-family:var(--mono); font-size:0.78rem; color:var(--gold);
+    margin-top:14px; display:inline-flex; align-items:center; gap:6px;
+    transition:gap .18s ease;
+  }
+  .feature-card:hover .goto{ gap:10px; }
+  .feature-soon{
+    position:absolute; top:16px; right:16px;
+    font-family:var(--mono); font-size:0.62rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--bg);
+    background:var(--coral);
+    padding:4px 9px; border-radius:999px;
+    z-index:2;
+  }
+  @media (max-width:980px){ .features-hub{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .features-hub{ grid-template-columns:1fr; } }
+
+  /* QUIZ-WRAP two-column layout (feature detail sections) */
+  .quiz-wrap-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .quiz-wrap-left .kicker{
+    font-family:var(--mono); font-size:0.75rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--gold);
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:14px;
+  }
+  .quiz-wrap-left .kicker::before{ content:""; width:22px; height:1px; background:var(--gold-dim); }
+  .quiz-checklist{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px 18px;
+    margin:22px 0 26px;
+  }
+  .quiz-checklist div{ display:flex; align-items:center; gap:9px; font-size:0.88rem; color:var(--text); }
+  .quiz-checklist div::before{
+    content:"✓"; width:20px; height:20px; border-radius:50%;
+    background:var(--gold); color:#1C1204; font-size:0.7rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  @media (max-width:980px){
+    .quiz-wrap-grid{ grid-template-columns:1fr; }
+    .quiz-wrap-left{ order:1; } .quiz-wrap-right{ order:2; }
+  }
+
+  /* Level ladder mini visual */
+  .ladder-mini{
+    display:flex; gap:6px; align-items:flex-end;
+    margin:22px 0 8px;
+  }
+  .ladder-mini .step{
+    flex:1; height:30px; border-radius:6px 6px 3px 3px;
+    background:rgba(243,239,227,0.08);
+    display:flex; align-items:flex-end; justify-content:center;
+    font-family:var(--mono); font-size:0.62rem; color:var(--text-muted);
+    padding-bottom:4px; transition:transform .2s ease;
+  }
+  .ladder-mini .step.on{
+    background:linear-gradient(180deg, var(--gold), var(--gold-dim));
+    color:#1C1204; font-weight:700; transform:translateY(-4px);
+    box-shadow:0 6px 16px -4px rgba(231,183,80,0.6);
+  }
+
+  /* progress step blocks (quiz progress, upgraded) */
+  .quiz-progress.blocks{ gap:8px; }
+  .quiz-progress.blocks span{
+    height:8px; border-radius:4px; background:var(--line); position:relative; overflow:visible;
+  }
+
+  /* SNEAK PEEK sections (Student Progress / Behind the Scenes) */
+  .sneak-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--coral);
+    background:rgba(255,122,89,0.1); border:1px solid rgba(255,122,89,0.35);
+    padding:6px 12px; border-radius:999px; margin-bottom:18px;
+  }
+  .sneak-badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--coral); }
+  .sneak-panel{
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:36px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  .sneak-note{
+    font-size:0.82rem; color:var(--text-muted);
+    border-top:1px solid var(--line); margin-top:26px; padding-top:16px;
+  }
+
+  /* score bars (student progress preview) */
+  .score-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:26px; }
+  @media (max-width:720px){ .score-grid{ grid-template-columns:1fr; } }
+  .score-item .top{ display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:8px; }
+  .score-item .top b{ font-family:var(--mono); color:var(--gold); }
+  .score-bar{ height:8px; border-radius:4px; background:var(--bg-soft); overflow:hidden; }
+  .score-bar > div{ height:100%; background:linear-gradient(90deg, var(--gold-dim), var(--gold)); border-radius:4px; }
+
+  .badges-row{ display:flex; flex-wrap:wrap; gap:14px; }
+  .badge-chip{
+    flex:1; min-width:120px; text-align:center;
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:14px;
+    padding:16px 10px;
+  }
+  .badge-chip .ic{
+    width:44px; height:44px; border-radius:50%; margin:0 auto 8px;
+    background:linear-gradient(135deg, var(--gold), var(--coral));
+    display:flex; align-items:center; justify-content:center; font-size:19px;
+  }
+  .badge-chip .n{ font-size:0.78rem; color:var(--text); font-weight:600; }
+
+  /* behind-the-scenes table + chart */
+  .bts-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; }
+  @media (max-width:900px){ .bts-grid{ grid-template-columns:1fr; } }
+  .bts-table{ display:flex; flex-direction:column; gap:8px; }
+  .bts-row{
+    display:grid; grid-template-columns:1.3fr 1fr auto;
+    gap:10px; align-items:center;
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; font-size:0.84rem;
+  }
+  .bts-row .subj{ color:var(--text-muted); font-size:0.78rem; }
+  .bts-pill{
+    font-family:var(--mono); font-size:0.68rem; padding:4px 9px; border-radius:999px;
+    background:rgba(231,183,80,0.12); color:var(--gold); white-space:nowrap;
+  }
+  .bts-chart{ display:flex; flex-direction:column; gap:12px; justify-content:center; }
+  .bts-chart-row{ display:grid; grid-template-columns:70px 1fr 40px; gap:10px; align-items:center; font-size:0.78rem; color:var(--text-muted); }
+  .bts-chart-bar{ height:10px; border-radius:5px; background:var(--bg-soft); overflow:hidden; }
+  .bts-chart-bar > div{ height:100%; border-radius:5px; }
+
   /* CONTACT */
   .contact-grid{
     display:grid;
@@ -1173,37 +1342,101 @@
     </div>
   </section>
 
+  <!-- FEATURES HUB -->
+  <section class="alt-bg">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="hub.eyebrow">Explore the site</p>
+        <h2 data-i18n="hub.title">A few things worth trying</h2>
+      </div>
+      <div class="features-hub">
+        <a href="#level-test" class="feature-card reveal">
+          <div>
+            <div class="big-ic">🎯</div>
+            <h3 data-i18n="hub.f1.title">Free level test</h3>
+            <p data-i18n="hub.f1.text">Choose Math or English, answer 7 quick questions, get an instant level.</p>
+          </div>
+          <span class="goto" data-i18n="hub.f1.cta">Take the test →</span>
+        </a>
+        <a href="#student-progress" class="feature-card reveal">
+          <span class="feature-soon" data-i18n="hub.soon">Coming soon</span>
+          <div>
+            <div class="big-ic">📈</div>
+            <h3 data-i18n="hub.f2.title">Student progress dashboard</h3>
+            <p data-i18n="hub.f2.text">A preview of the personal progress tracker in the works.</p>
+          </div>
+          <span class="goto" data-i18n="hub.f2.cta">See the preview →</span>
+        </a>
+        <a href="#course-fit" class="feature-card reveal">
+          <div>
+            <div class="big-ic">🧭</div>
+            <h3 data-i18n="hub.f6.title">Find your fit</h3>
+            <p data-i18n="hub.f6.text">4 questions about your goal, level and time — sent straight to Telegram.</p>
+          </div>
+          <span class="goto" data-i18n="hub.f6.cta">Find your plan →</span>
+        </a>
+        <a href="#behind-the-scenes" class="feature-card reveal">
+          <span class="feature-soon" data-i18n="hub.soon">Coming soon</span>
+          <div>
+            <div class="big-ic">📊</div>
+            <h3 data-i18n="hub.f7.title">How inquiries get organized</h3>
+            <p data-i18n="hub.f7.text">A peek at the simple system being built to track requests and plans.</p>
+          </div>
+          <span class="goto" data-i18n="hub.f7.cta">Take a peek →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- FREE LEVEL TEST -->
   <section id="level-test" class="quiz-section alt-bg">
     <div class="wrap">
-      <div class="quiz-icon-row reveal" aria-hidden="true">
-        <span class="quiz-icon-badge gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c3-1 6-1 8 0v14c-2-1-5-1-8 0V5Z"/><path d="M20 5c-3-1-6-1-8 0v14c2-1 5-1 8 0V5Z"/></svg></span>
-        <span class="quiz-icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-4 10 4-10 4-10-4Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg></span>
-        <span class="quiz-icon-badge coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+      <div class="quiz-wrap-grid">
+        <div class="quiz-wrap-left reveal">
+          <span class="kicker" data-i18n="hub.kicker1">Feature #1</span>
+          <h2 data-i18n="levelTest.title">Find out your level</h2>
+          <p data-i18n="levelTest.subtitle">Choose a subject, answer a few quick questions, and get an instant estimate of your level.</p>
+          <div class="quiz-checklist">
+            <div data-i18n="levelTest.check1">Choose Math or English</div>
+            <div data-i18n="levelTest.check2">7 quick questions</div>
+            <div data-i18n="levelTest.check3">Instant result</div>
+            <div data-i18n="levelTest.check4">A clear next step</div>
+          </div>
+          <div class="ladder-mini" aria-hidden="true">
+            <span class="step">A1</span>
+            <span class="step">A2</span>
+            <span class="step on">B1</span>
+            <span class="step">B2</span>
+            <span class="step">C1</span>
+            <span class="step">C2</span>
+          </div>
+        </div>
+        <div class="quiz-wrap-right">
+          <div class="quiz-panel reveal" id="levelTestPanel"></div>
+        </div>
       </div>
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="levelTest.eyebrow">Free level test</p>
-        <h2 data-i18n="levelTest.title">Find out your level</h2>
-        <p style="max-width:56ch;margin:0 auto;" data-i18n="levelTest.subtitle">Choose a subject, answer a few quick questions, and get an instant estimate of your level.</p>
-      </div>
-      <div class="quiz-panel reveal" id="levelTestPanel"></div>
     </div>
   </section>
 
   <!-- COURSE FIT QUIZ -->
   <section id="course-fit" class="quiz-section">
     <div class="wrap">
-      <div class="quiz-icon-row reveal" aria-hidden="true">
-        <span class="quiz-icon-badge gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c3-1 6-1 8 0v14c-2-1-5-1-8 0V5Z"/><path d="M20 5c-3-1-6-1-8 0v14c2-1 5-1 8 0V5Z"/></svg></span>
-        <span class="quiz-icon-badge blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l10-4 10 4-10 4-10-4Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg></span>
-        <span class="quiz-icon-badge coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+      <div class="quiz-wrap-grid">
+        <div class="quiz-wrap-left reveal">
+          <span class="kicker" data-i18n="hub.kicker6">Feature #6</span>
+          <h2 data-i18n="fit.title">Let's find the right plan for you</h2>
+          <p data-i18n="fit.subtitle">Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.</p>
+          <div class="quiz-checklist">
+            <div data-i18n="fit.check1">Your goal</div>
+            <div data-i18n="fit.check2">Current level</div>
+            <div data-i18n="fit.check3">Time per week</div>
+            <div data-i18n="fit.check4">Preferred format</div>
+          </div>
+        </div>
+        <div class="quiz-wrap-right">
+          <div class="quiz-panel reveal" id="courseFitPanel"></div>
+        </div>
       </div>
-      <div class="section-head center reveal">
-        <p class="eyebrow" data-i18n="fit.eyebrow">Find your fit</p>
-        <h2 data-i18n="fit.title">Let's find the right plan for you</h2>
-        <p style="max-width:56ch;margin:0 auto;" data-i18n="fit.subtitle">Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.</p>
-      </div>
-      <div class="quiz-panel reveal" id="courseFitPanel"></div>
     </div>
   </section>
 
@@ -1323,6 +1556,71 @@
     </div>
   </section>
 
+  <!-- STUDENT PROGRESS (SNEAK PEEK) -->
+  <section id="student-progress" class="alt-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sneak-badge"><span class="dot"></span><span data-i18n="hub.soon">Coming soon</span></span>
+        <p class="eyebrow" data-i18n="progress.eyebrow">Feature #2 · In the works</p>
+        <h2 data-i18n="progress.title">A dashboard to see your own progress</h2>
+        <p style="max-width:60ch;" data-i18n="progress.subtitle">I'm building a simple, private way for students to see how they're improving over time. Here's an illustrative preview of what it will look like — not real data yet.</p>
+      </div>
+      <div class="sneak-panel reveal">
+        <div class="score-grid">
+          <div class="score-item">
+            <div class="top"><span data-i18n="progress.skill1">Grammar</span><b>78%</b></div>
+            <div class="score-bar"><div style="width:78%"></div></div>
+          </div>
+          <div class="score-item">
+            <div class="top"><span data-i18n="progress.skill2">Vocabulary</span><b>65%</b></div>
+            <div class="score-bar"><div style="width:65%"></div></div>
+          </div>
+          <div class="score-item">
+            <div class="top"><span data-i18n="progress.skill3">Problem Solving</span><b>82%</b></div>
+            <div class="score-bar"><div style="width:82%"></div></div>
+          </div>
+        </div>
+        <div class="badges-row">
+          <div class="badge-chip"><div class="ic">🔥</div><div class="n" data-i18n="progress.badge1">7-day streak</div></div>
+          <div class="badge-chip"><div class="ic">📚</div><div class="n" data-i18n="progress.badge2">50 new words</div></div>
+          <div class="badge-chip"><div class="ic">🏁</div><div class="n" data-i18n="progress.badge3">First mock exam</div></div>
+          <div class="badge-chip"><div class="ic">🎯</div><div class="n" data-i18n="progress.badge4">Goal on track</div></div>
+        </div>
+        <p class="sneak-note" data-i18n="progress.note">Illustrative example only — this feature is still being built and isn't live yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEHIND THE SCENES (SNEAK PEEK) -->
+  <section id="behind-the-scenes">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sneak-badge"><span class="dot"></span><span data-i18n="hub.soon">Coming soon</span></span>
+        <p class="eyebrow" data-i18n="bts.eyebrow">Feature #7 · In the works</p>
+        <h2 data-i18n="bts.title">How inquiries get organized</h2>
+        <p style="max-width:60ch;" data-i18n="bts.subtitle">Every message deserves a proper follow-up. Here's an illustrative look at the simple system being built to keep requests organized — with sample entries, not real students.</p>
+      </div>
+      <div class="sneak-panel reveal">
+        <div class="bts-grid">
+          <div class="bts-table">
+            <div class="bts-row"><span>Alex</span><span class="subj" data-i18n="bts.row1">Mathematics · School level</span><span class="bts-pill" data-i18n="bts.status1">New inquiry</span></div>
+            <div class="bts-row"><span>Jordan</span><span class="subj" data-i18n="bts.row2">IELTS Preparation</span><span class="bts-pill" data-i18n="bts.status2">Consultation booked</span></div>
+            <div class="bts-row"><span>Sam</span><span class="subj" data-i18n="bts.row3">Business English</span><span class="bts-pill" data-i18n="bts.status3">Plan agreed</span></div>
+            <div class="bts-row"><span>Riley</span><span class="subj" data-i18n="bts.row4">Mathematics · IB</span><span class="bts-pill" data-i18n="bts.status4">Lessons started</span></div>
+          </div>
+          <div class="bts-chart">
+            <div class="bts-chart-row"><span data-i18n="bts.chart.math">Math</span><div class="bts-chart-bar"><div style="width:42%; background:var(--blue);"></div></div><span>42%</span></div>
+            <div class="bts-chart-row"><span data-i18n="bts.chart.english">English</span><div class="bts-chart-bar"><div style="width:28%; background:var(--coral);"></div></div><span>28%</span></div>
+            <div class="bts-chart-row"><span data-i18n="bts.chart.ielts">IELTS</span><div class="bts-chart-bar"><div style="width:16%; background:var(--gold);"></div></div><span>16%</span></div>
+            <div class="bts-chart-row"><span data-i18n="bts.chart.toefl">TOEFL</span><div class="bts-chart-bar"><div style="width:9%; background:var(--gold-dim);"></div></div><span>9%</span></div>
+            <div class="bts-chart-row"><span data-i18n="bts.chart.business">Business</span><div class="bts-chart-bar"><div style="width:5%; background:var(--text-muted);"></div></div><span>5%</span></div>
+          </div>
+        </div>
+        <p class="sneak-note" data-i18n="bts.note">Illustrative example only — names and numbers are samples, not real students or data.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL CTA / PERSONAL NOTE -->
   <section class="alt-bg">
     <div class="wrap meet-grid">
@@ -1412,6 +1710,59 @@ const translations = {
     "about.text2":"That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.",
     "why.eyebrow":"Why learn with me",
     "why.title":"A thoughtful approach to Mathematics and English",
+    "hub.eyebrow":"Explore the site",
+    "hub.title":"A few things worth trying",
+    "hub.soon":"Coming soon",
+    "hub.kicker1":"Feature #1",
+    "hub.kicker6":"Feature #6",
+    "hub.f1.title":"Free level test",
+    "hub.f1.text":"Choose Math or English, answer 7 quick questions, get an instant level.",
+    "hub.f1.cta":"Take the test →",
+    "hub.f2.title":"Student progress dashboard",
+    "hub.f2.text":"A preview of the personal progress tracker in the works.",
+    "hub.f2.cta":"See the preview →",
+    "hub.f6.title":"Find your fit",
+    "hub.f6.text":"4 questions about your goal, level and time — sent straight to Telegram.",
+    "hub.f6.cta":"Find your plan →",
+    "hub.f7.title":"How inquiries get organized",
+    "hub.f7.text":"A peek at the simple system being built to track requests and plans.",
+    "hub.f7.cta":"Take a peek →",
+    "levelTest.check1":"Choose Math or English",
+    "levelTest.check2":"7 quick questions",
+    "levelTest.check3":"Instant result",
+    "levelTest.check4":"A clear next step",
+    "fit.check1":"Your goal",
+    "fit.check2":"Current level",
+    "fit.check3":"Time per week",
+    "fit.check4":"Preferred format",
+    "progress.eyebrow":"Feature #2 · In the works",
+    "progress.title":"A dashboard to see your own progress",
+    "progress.subtitle":"I'm building a simple, private way for students to see how they're improving over time. Here's an illustrative preview of what it will look like — not real data yet.",
+    "progress.skill1":"Grammar",
+    "progress.skill2":"Vocabulary",
+    "progress.skill3":"Problem Solving",
+    "progress.badge1":"7-day streak",
+    "progress.badge2":"50 new words",
+    "progress.badge3":"First mock exam",
+    "progress.badge4":"Goal on track",
+    "progress.note":"Illustrative example only — this feature is still being built and isn't live yet.",
+    "bts.eyebrow":"Feature #7 · In the works",
+    "bts.title":"How inquiries get organized",
+    "bts.subtitle":"Every message deserves a proper follow-up. Here's an illustrative look at the simple system being built to keep requests organized — with sample entries, not real students.",
+    "bts.row1":"Mathematics · School level",
+    "bts.row2":"IELTS Preparation",
+    "bts.row3":"Business English",
+    "bts.row4":"Mathematics · IB",
+    "bts.status1":"New inquiry",
+    "bts.status2":"Consultation booked",
+    "bts.status3":"Plan agreed",
+    "bts.status4":"Lessons started",
+    "bts.chart.math":"Math",
+    "bts.chart.english":"English",
+    "bts.chart.ielts":"IELTS",
+    "bts.chart.toefl":"TOEFL",
+    "bts.chart.business":"Business",
+    "bts.note":"Illustrative example only — names and numbers are samples, not real students or data.",
     "choose.eyebrow":"Where do we start?",
     "choose.title":"Choose what you're working on",
     "choose.math.tag":"Mathematics",
@@ -1608,6 +1959,59 @@ const translations = {
     "about.text2":"Эта аналитическая база формирует то, как я преподаю математику: разбивая задачи на чёткие логические шаги, а не полагаясь на заученные формулы. У меня также есть сертификат TESOL/TEFL, более 6 лет и 1500+ часов преподавания английского и математики студентам по всему миру.",
     "why.eyebrow":"Почему учиться со мной",
     "why.title":"Продуманный подход к математике и английскому",
+    "hub.eyebrow":"Изучите сайт",
+    "hub.title":"Несколько вещей, которые стоит попробовать",
+    "hub.soon":"Скоро",
+    "hub.kicker1":"Фича #1",
+    "hub.kicker6":"Фича #6",
+    "hub.f1.title":"Бесплатный тест уровня",
+    "hub.f1.text":"Выберите математику или английский, ответьте на 7 вопросов, узнайте уровень мгновенно.",
+    "hub.f1.cta":"Пройти тест →",
+    "hub.f2.title":"Дашборд прогресса ученика",
+    "hub.f2.text":"Превью личного трекера прогресса, который сейчас разрабатывается.",
+    "hub.f2.cta":"Смотреть превью →",
+    "hub.f6.title":"Найдём ваш план",
+    "hub.f6.text":"4 вопроса о цели, уровне и времени — результат придёт в Telegram.",
+    "hub.f6.cta":"Найти план →",
+    "hub.f7.title":"Как организованы заявки",
+    "hub.f7.text":"Взгляд на простую систему учёта заявок и планов, которая сейчас создаётся.",
+    "hub.f7.cta":"Посмотреть →",
+    "levelTest.check1":"Математика или английский",
+    "levelTest.check2":"7 быстрых вопросов",
+    "levelTest.check3":"Мгновенный результат",
+    "levelTest.check4":"Понятный следующий шаг",
+    "fit.check1":"Ваша цель",
+    "fit.check2":"Текущий уровень",
+    "fit.check3":"Время в неделю",
+    "fit.check4":"Удобный формат",
+    "progress.eyebrow":"Фича #2 · В разработке",
+    "progress.title":"Дашборд, где виден ваш прогресс",
+    "progress.subtitle":"Я разрабатываю простой и приватный способ для учеников видеть свой прогресс со временем. Вот иллюстративное превью того, как это будет выглядеть — реальных данных пока нет.",
+    "progress.skill1":"Грамматика",
+    "progress.skill2":"Словарный запас",
+    "progress.skill3":"Решение задач",
+    "progress.badge1":"7 дней подряд",
+    "progress.badge2":"50 новых слов",
+    "progress.badge3":"Первый пробный экзамен",
+    "progress.badge4":"Цель на пути",
+    "progress.note":"Только иллюстративный пример — эта функция ещё разрабатывается и пока не работает.",
+    "bts.eyebrow":"Фича #7 · В разработке",
+    "bts.title":"Как организованы заявки",
+    "bts.subtitle":"Каждое сообщение заслуживает внимания. Вот иллюстративный взгляд на простую систему учёта заявок, которая сейчас создаётся — с примерами, а не реальными учениками.",
+    "bts.row1":"Математика · Школьный уровень",
+    "bts.row2":"Подготовка к IELTS",
+    "bts.row3":"Деловой английский",
+    "bts.row4":"Математика · IB",
+    "bts.status1":"Новая заявка",
+    "bts.status2":"Консультация назначена",
+    "bts.status3":"План согласован",
+    "bts.status4":"Занятия начались",
+    "bts.chart.math":"Математика",
+    "bts.chart.english":"Английский",
+    "bts.chart.ielts":"IELTS",
+    "bts.chart.toefl":"TOEFL",
+    "bts.chart.business":"Бизнес",
+    "bts.note":"Только иллюстративный пример — имена и цифры условные, это не реальные ученики или данные.",
     "choose.eyebrow":"С чего начнём?",
     "choose.title":"Выберите, над чем хотите работать",
     "choose.math.tag":"Математика",
