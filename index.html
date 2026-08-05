@@ -232,6 +232,15 @@
 
   .nav-right{display:flex; align-items:center; gap:14px; flex-shrink:0;}
   .nav-cta{ white-space:nowrap; }
+  .nav-login{
+    font-family:var(--mono);
+    font-size:0.82rem;
+    color:var(--text-muted);
+    text-decoration:none;
+    white-space:nowrap;
+    transition:color .15s ease;
+  }
+  .nav-login:hover{ color:var(--gold); }
 
   .lang-switch{
     position:relative;
@@ -1295,6 +1304,7 @@
       border-bottom:1px solid var(--line); text-align:center; width:100%;
     }
     .nav-cta-desktop{ display:none; }
+    .nav-right > .nav-login{ display:none; }
     .menu-toggle{display:flex;}
     .grid-3, .grid-4, .grid-5, .testi-grid{grid-template-columns:1fr;}
     .footer-row{flex-direction:column;}
@@ -1341,10 +1351,12 @@
         <li><a href="#testimonials" data-i18n="nav.reviews">Reviews</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="https://app.shakh8eng.space" data-i18n="nav.login" title="Student / Admin Login">Login</a></li>
       </ul>
     </nav>
 
     <div class="nav-right">
+      <a href="https://app.shakh8eng.space" class="nav-login" data-i18n="nav.login" title="Student / Admin Login">Login</a>
       <a href="#contact" class="btn btn-primary btn-sm nav-cta-desktop nav-cta" data-i18n="nav.cta">Start Free Consultation</a>
       <div class="lang-switch" id="langSwitch" data-lang="en">
         <span class="lang-thumb"></span>
@@ -1826,7 +1838,7 @@
 const translations = {
   en: {
     "nav.home":"Home","nav.about":"About","nav.math":"Mathematics","nav.english":"English",
-    "nav.approach":"Approach","nav.reviews":"Reviews","nav.faq":"FAQ","nav.contact":"Contact",
+    "nav.approach":"Approach","nav.reviews":"Reviews","nav.faq":"FAQ","nav.contact":"Contact","nav.login":"Login",
     "nav.cta":"Start Free Consultation",
     "hero.eyebrow":"Online Mathematics &amp; English Tutoring",
     "hero.title":"Where words and <em>numbers</em> finally get along.",
@@ -2088,7 +2100,7 @@ const translations = {
   },
   ru: {
     "nav.home":"Главная","nav.about":"Обо мне","nav.math":"Математика","nav.english":"Английский",
-    "nav.approach":"Подход","nav.reviews":"Отзывы","nav.faq":"Вопросы","nav.contact":"Контакты",
+    "nav.approach":"Подход","nav.reviews":"Отзывы","nav.faq":"Вопросы","nav.contact":"Контакты","nav.login":"Вход",
     "nav.cta":"Бесплатная консультация",
     "hero.eyebrow":"Онлайн-репетитор по математике и английскому",
     "hero.title":"Там, где слова и <em>числа</em> наконец находят общий язык.",
