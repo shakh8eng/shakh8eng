@@ -508,33 +508,73 @@
     align-items:center;
   }
   .about-photo-wrap{ position:relative; }
-  .float-stat{
-    position:absolute;
-    bottom:-22px; left:-22px;
-    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
-    border:1px solid var(--gold-dim);
-    border-radius:16px;
-    padding:16px 20px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.45);
-    z-index:3;
-  }
-  .float-stat-num{
-    font-family:var(--mono);
-    font-size:1.4rem;
-    color:var(--gold);
-    display:block;
-    line-height:1;
-    margin-bottom:4px;
-  }
-  .float-stat-lbl{
-    font-size:0.72rem;
+  .photo-caption{
+    margin-top:14px;
+    font-size:0.82rem;
+    font-style:italic;
     color:var(--text-muted);
-    white-space:nowrap;
+    text-align:center;
   }
+
+  .credential-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:26px;
+  }
+  .credential-card{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:var(--radius-m);
+    padding:18px 18px;
+    transition:transform .2s ease, border-color .2s ease;
+    will-change:transform;
+  }
+  .credential-card:hover{ border-color:var(--gold-dim); }
+  .credential-ic{
+    width:38px; height:38px; border-radius:10px;
+    background:rgba(231,183,80,0.12);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; margin-bottom:10px;
+  }
+  .credential-label{
+    font-family:var(--mono); font-size:0.66rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--gold); display:block; margin-bottom:4px;
+  }
+  .credential-card h3{ font-size:0.98rem; margin-bottom:4px; line-height:1.25; }
+  .credential-card p{ font-size:0.78rem; margin-bottom:0; color:var(--text-muted); }
   @media (max-width:520px){
-    .float-stat{ left:12px; bottom:-16px; padding:12px 16px; }
-    .float-stat-num{ font-size:1.15rem; }
+    .credential-grid{ grid-template-columns:1fr; }
   }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+  }
+  @media (max-width:980px){ .why-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:600px){ .why-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* Ambient color glows — richer, more colorful dark sections */
+  .section-glow{ position:relative; overflow:hidden; }
+  .section-glow::before{
+    content:"";
+    position:absolute; top:-130px; right:-90px;
+    width:420px; height:420px;
+    background:radial-gradient(circle, rgba(231,183,80,0.14), transparent 70%);
+    pointer-events:none; z-index:0;
+  }
+  .section-glow::after{
+    content:"";
+    position:absolute; bottom:-110px; left:-90px;
+    width:340px; height:340px;
+    background:radial-gradient(circle, rgba(110,198,217,0.1), transparent 70%);
+    pointer-events:none; z-index:0;
+  }
+  .section-glow.glow-coral::before{ background:radial-gradient(circle, rgba(255,122,89,0.14), transparent 70%); }
+  .section-glow.glow-coral::after{ background:radial-gradient(circle, rgba(231,183,80,0.1), transparent 70%); }
+  .section-glow.glow-blue::before{ background:radial-gradient(circle, rgba(110,198,217,0.16), transparent 70%); }
+  .section-glow.glow-blue::after{ background:radial-gradient(circle, rgba(255,122,89,0.08), transparent 70%); }
+  .section-glow > .wrap{ position:relative; z-index:1; }
   .about-panel{
     background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
     border-radius:22px;
@@ -1377,40 +1417,50 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="alt-bg">
+  <section id="about" class="alt-bg section-glow">
     <div class="wrap about-grid">
       <div class="about-panel reveal">
         <p class="eyebrow" data-i18n="about.eyebrow">About your tutor</p>
         <h2 data-i18n="about.title">Hi, I'm Shohrukh.</h2>
-        <p data-i18n="about.text">My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia.</p>
-        <p data-i18n="about.text2">That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.</p>
-        <ul class="about-list" id="aboutList"></ul>
+        <p data-i18n="about.text">An online Mathematics &amp; English tutor with a background in economics — I've also taught university-level Mathematics at AUCA.</p>
+        <div class="credential-grid">
+          <div class="credential-card">
+            <div class="credential-ic">🎓</div>
+            <span class="credential-label" data-i18n="cred.ba.label">Bachelor's</span>
+            <h3 data-i18n="cred.ba.title">BA, Applied Economics</h3>
+            <p data-i18n="cred.ba.sub">Bard College / AUCA</p>
+          </div>
+          <div class="credential-card">
+            <div class="credential-ic">🎓</div>
+            <span class="credential-label" data-i18n="cred.ma.label">Master's</span>
+            <h3 data-i18n="cred.ma.title">MA, Economic Policy</h3>
+            <p data-i18n="cred.ma.sub">Central European University</p>
+          </div>
+          <div class="credential-card">
+            <div class="credential-ic">📜</div>
+            <span class="credential-label" data-i18n="cred.tesol.label">Certified</span>
+            <h3 data-i18n="cred.tesol.title">TESOL / TEFL</h3>
+            <p data-i18n="cred.tesol.sub">English teaching credential</p>
+          </div>
+          <div class="credential-card">
+            <div class="credential-ic">⏳</div>
+            <span class="credential-label" data-i18n="cred.exp.label">Experience</span>
+            <h3>6+ <span data-i18n="cred.years">years</span> · 1,500+ <span data-i18n="cred.hoursShort">hours</span></h3>
+            <p data-i18n="cred.exp.sub">Teaching English &amp; Mathematics</p>
+          </div>
+        </div>
       </div>
       <div class="about-photo-wrap reveal">
         <figure class="framed-photo" onerror="this.classList.add('img-error')">
           <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
         </figure>
-        <div class="float-stat" aria-hidden="true">
-          <span class="float-stat-num">1,500+</span>
-          <span class="float-stat-lbl" data-i18n="cred.hours">Teaching hours</span>
-        </div>
+        <p class="photo-caption" data-i18n="about.photoCaption">📍 At the John Harvard statue, Harvard University</p>
       </div>
-    </div>
-  </section>
-
-  <!-- WHY LEARN WITH ME -->
-  <section id="why">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="why.eyebrow">Why learn with me</p>
-        <h2 data-i18n="why.title">A thoughtful approach to Mathematics and English</h2>
-      </div>
-      <div class="approach-list" id="whyList"></div>
     </div>
   </section>
 
   <!-- FEATURES HUB -->
-  <section class="alt-bg">
+  <section class="alt-bg section-glow glow-blue">
     <div class="wrap">
       <div class="section-head center reveal">
         <p class="eyebrow" data-i18n="hub.eyebrow">Explore the site</p>
@@ -1466,7 +1516,7 @@
         <div class="quiz-wrap-left reveal">
           <span class="kicker" data-i18n="hub.kicker1">Feature #1</span>
           <h2 data-i18n="levelTest.title">Find out your level</h2>
-          <p data-i18n="levelTest.subtitle">Choose a subject, answer a few quick questions, and get an instant estimate of your level.</p>
+          <p data-i18n="levelTest.subtitle">Answer a few quick questions and get an instant estimate of your level.</p>
           <div class="quiz-checklist">
             <div data-i18n="levelTest.check1">Choose Math or English</div>
             <div data-i18n="levelTest.check2">7 quick questions</div>
@@ -1512,7 +1562,7 @@
   </section>
 
   <!-- CHOOSER -->
-  <section class="alt-bg">
+  <section class="alt-bg section-glow glow-coral">
     <div class="wrap">
       <div class="section-head center reveal">
         <p class="eyebrow" data-i18n="choose.eyebrow">Where do we start?</p>
@@ -1568,6 +1618,17 @@
       <div class="subject-cta-row reveal">
         <a href="#contact" class="btn btn-primary" data-i18n="english.cta">Start Free Consultation</a>
       </div>
+    </div>
+  </section>
+
+  <!-- WHY LEARN WITH ME -->
+  <section class="alt-bg section-glow glow-blue">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="eyebrow" data-i18n="why.eyebrow">Why learn with me</p>
+        <h2 data-i18n="why.title">A thoughtful approach</h2>
+      </div>
+      <div class="why-grid" id="whyList"></div>
     </div>
   </section>
 
@@ -1699,7 +1760,7 @@
   </section>
 
   <!-- FINAL CTA / PERSONAL NOTE -->
-  <section class="alt-bg">
+  <section class="alt-bg section-glow glow-coral">
     <div class="wrap meet-grid">
       <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
         <img src="https://static.wixstatic.com/media/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_95cbb153f60e42a29788956e0ef895c6~mv2.jpg" alt="Shohrukh" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
@@ -1783,10 +1844,23 @@ const translations = {
     "cred.worldwide":"Students taught online",
     "about.eyebrow":"About your tutor",
     "about.title":"Hi, I'm Shohrukh.",
-    "about.text":"My academic background is in economics and policy — an MA in Economic Policy in Global Markets from Central European University, and a BA in Applied Economics from Bard College / the American University of Central Asia.",
-    "about.text2":"That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.",
+    "about.text":"An online Mathematics &amp; English tutor with a background in economics — I've also taught university-level Mathematics at AUCA.",
+    "about.photoCaption":"📍 At the John Harvard statue, Harvard University",
+    "cred.ba.label":"Bachelor's",
+    "cred.ba.title":"BA, Applied Economics",
+    "cred.ba.sub":"Bard College / AUCA",
+    "cred.ma.label":"Master's",
+    "cred.ma.title":"MA, Economic Policy",
+    "cred.ma.sub":"Central European University",
+    "cred.tesol.label":"Certified",
+    "cred.tesol.title":"TESOL / TEFL",
+    "cred.tesol.sub":"English teaching credential",
+    "cred.exp.label":"Experience",
+    "cred.exp.sub":"Teaching English &amp; Mathematics",
+    "cred.years":"years",
+    "cred.hoursShort":"hours",
     "why.eyebrow":"Why learn with me",
-    "why.title":"A thoughtful approach to Mathematics and English",
+    "why.title":"A thoughtful approach",
     "hub.eyebrow":"Explore the site",
     "hub.title":"A few things worth trying",
     "hub.soon":"Coming soon",
@@ -1895,11 +1969,11 @@ const translations = {
       "Taught university-level Mathematics at AUCA — Linear Algebra, Geometry, Game Theory, Mathematics for Economists and more"
     ],
     why:[
-      {t:"Understand, Don't Memorize", d:"Lessons focus on understanding concepts and the reasoning behind them, not just rules to repeat."},
-      {t:"Personalized Learning", d:"The pace, examples and exercises adapt to your level, goals and the way you learn best."},
-      {t:"One-on-One Attention", d:"Every lesson is focused entirely on you — no shared attention, no generic curriculum."},
-      {t:"Practical Progress", d:"Lessons are built around what you actually want to achieve, whether that's an exam, a job or everyday confidence."},
-      {t:"Academic + Real-World English", d:"English you can use in conversation, at work, in academic writing, or on exam day."}
+      {ic:"💡", t:"Understand, Don't Memorize", d:"Concepts first, not just rules."},
+      {ic:"🎯", t:"Personalized Learning", d:"Paced around you."},
+      {ic:"👤", t:"One-on-One Attention", d:"Just you, every lesson."},
+      {ic:"📈", t:"Practical Progress", d:"Built around your goal."},
+      {ic:"🌍", t:"Real-World English", d:"For exams and everyday life."}
     ],
     mathServices:[
       {t:"School Mathematics", d:"Strong fundamentals, zero gaps.", img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=80"},
@@ -1944,8 +2018,8 @@ const translations = {
       {q:"How do I get started?", a:"Start with a free 15–20 minute consultation or contact me directly on Telegram."}
     ],
     "levelTest.eyebrow":"Free level test",
-    "levelTest.title":"Find out your English level",
-    "levelTest.subtitle":"Answer a few quick questions and get an instant estimate of your level, from A1 to C2.",
+    "levelTest.title":"Find out your level",
+    "levelTest.subtitle":"Answer a few quick questions and get an instant estimate of your level.",
     "fit.eyebrow":"Find your fit",
     "fit.title":"Let's find the right plan for you",
     "fit.subtitle":"Answer 4 quick questions — send the results straight to Telegram and we'll take it from there.",
@@ -2032,10 +2106,23 @@ const translations = {
     "cred.worldwide":"Студенты онлайн",
     "about.eyebrow":"О репетиторе",
     "about.title":"Привет, я Шохрух.",
-    "about.text":"Моё академическое образование связано с экономикой и политикой — магистр экономической политики на глобальных рынках (Центрально-Европейский университет) и бакалавр прикладной экономики (Bard College / Американский университет Центральной Азии).",
-    "about.text2":"Эта аналитическая база формирует то, как я преподаю математику: разбивая задачи на чёткие логические шаги, а не полагаясь на заученные формулы. У меня также есть сертификат TESOL/TEFL, более 6 лет и 1500+ часов преподавания английского и математики студентам по всему миру.",
+    "about.text":"Онлайн-репетитор по математике и английскому с образованием в области экономики — также преподавал математику университетского уровня в AUCA.",
+    "about.photoCaption":"📍 У памятника Джону Гарварду, Гарвардский университет",
+    "cred.ba.label":"Бакалавр",
+    "cred.ba.title":"BA, прикладная экономика",
+    "cred.ba.sub":"Bard College / AUCA",
+    "cred.ma.label":"Магистр",
+    "cred.ma.title":"MA, экономическая политика",
+    "cred.ma.sub":"Центрально-Европейский университет",
+    "cred.tesol.label":"Сертификат",
+    "cred.tesol.title":"TESOL / TEFL",
+    "cred.tesol.sub":"Сертификат преподавателя английского",
+    "cred.exp.label":"Опыт",
+    "cred.exp.sub":"Преподавание английского и математики",
+    "cred.years":"лет",
+    "cred.hoursShort":"часов",
     "why.eyebrow":"Почему учиться со мной",
-    "why.title":"Продуманный подход к математике и английскому",
+    "why.title":"Продуманный подход",
     "hub.eyebrow":"Изучите сайт",
     "hub.title":"Несколько вещей, которые стоит попробовать",
     "hub.soon":"Скоро",
@@ -2144,11 +2231,11 @@ const translations = {
       "Преподавал математику университетского уровня в AUCA — линейную алгебру, геометрию, теорию игр, математику для экономистов и другое"
     ],
     why:[
-      {t:"Понимание, а не зубрёжка", d:"Уроки нацелены на понимание концепций и логики, стоящей за ними, а не на заучивание правил."},
-      {t:"Индивидуальное обучение", d:"Темп, примеры и упражнения подстраиваются под ваш уровень, цели и стиль обучения."},
-      {t:"Полное внимание один на один", d:"Каждый урок полностью посвящён именно вам — никакого общего плана на всех."},
-      {t:"Практический прогресс", d:"Уроки строятся вокруг того, чего вы действительно хотите достичь — экзамена, работы или уверенности в повседневной жизни."},
-      {t:"Академический и практический английский", d:"Английский, который пригодится в разговоре, на работе, в академическом письме и на экзамене."}
+      {ic:"💡", t:"Понимание, а не зубрёжка", d:"Сначала концепции, не правила."},
+      {ic:"🎯", t:"Индивидуальное обучение", d:"Темп подстроен под вас."},
+      {ic:"👤", t:"Внимание один на один", d:"Только вы на каждом уроке."},
+      {ic:"📈", t:"Практический прогресс", d:"Вокруг вашей цели."},
+      {ic:"🌍", t:"Английский для жизни", d:"Для экзаменов и жизни."}
     ],
     mathServices:[
       {t:"Школьная математика", d:"Крепкие основы, без пробелов.", img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=80"},
@@ -2193,8 +2280,8 @@ const translations = {
       {q:"Как начать?", a:"Начните с бесплатной консультации на 15–20 минут или напишите мне напрямую в Telegram."}
     ],
     "levelTest.eyebrow":"Бесплатный тест уровня",
-    "levelTest.title":"Узнайте свой уровень английского",
-    "levelTest.subtitle":"Ответьте на несколько вопросов и мгновенно получите примерную оценку уровня — от A1 до C2.",
+    "levelTest.title":"Узнайте свой уровень",
+    "levelTest.subtitle":"Ответьте на несколько вопросов и мгновенно получите примерную оценку уровня.",
     "fit.eyebrow":"Найдём ваш план",
     "fit.title":"Подберём подходящий план для вас",
     "fit.subtitle":"Ответьте на 4 коротких вопроса — результаты отправятся в Telegram, и мы обсудим детали.",
@@ -2268,12 +2355,11 @@ let currentLang = localStorage.getItem('shakh8-lang') || (navigator.language && 
 function renderLists(lang){
   const dict = translations[lang];
 
-  document.getElementById('aboutList').innerHTML = dict.aboutList.map(item => `<li>${item}</li>`).join('');
-
-  document.getElementById('whyList').innerHTML = dict.why.map((item, i) => `
-    <div class="approach-item reveal in">
-      <span class="approach-num">0${i+1}</span>
-      <div><h3>${item.t}</h3><p>${item.d}</p></div>
+  document.getElementById('whyList').innerHTML = dict.why.map((item) => `
+    <div class="credential-card reveal in">
+      <div class="credential-ic">${item.ic}</div>
+      <h3>${item.t}</h3>
+      <p>${item.d}</p>
     </div>`).join('');
 
   document.getElementById('mathGrid').innerHTML = dict.mathServices.map(item => `
@@ -2444,7 +2530,7 @@ function attachTilt(el, intensity, hasIdleAnim){
 }
 function initTilt(){
   if(!finePointer || prefersReducedMotion) return;
-  document.querySelectorAll('.card, .testi-card').forEach(el => attachTilt(el, 7, false));
+  document.querySelectorAll('.card, .testi-card, .credential-card, .photo-card').forEach(el => attachTilt(el, 7, false));
 }
 if(finePointer && !prefersReducedMotion){
   const duoEl = document.querySelector('.duo');
