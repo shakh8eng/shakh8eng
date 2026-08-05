@@ -78,6 +78,16 @@
 
   ::selection{background:var(--gold); color:var(--bg);}
 
+  .scroll-progress{
+    position:fixed;
+    top:0; left:0;
+    height:3px;
+    width:0%;
+    background:linear-gradient(90deg, var(--gold), var(--coral));
+    z-index:300;
+    box-shadow:0 0 10px rgba(231,183,80,0.5);
+  }
+
   .grain-overlay{
     position:fixed;
     inset:0;
@@ -317,8 +327,14 @@
   }
   .hero h1 em{
     font-style:italic;
-    color:var(--gold);
+    background:linear-gradient(110deg, var(--gold) 20%, #FDF0CE 40%, var(--gold) 60%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    background-size:200% 100%;
+    animation:shimmerMove 4s linear infinite;
   }
+  @keyframes shimmerMove{ 0%{background-position:200% 0;} 100%{background-position:-100% 0;} }
   .hero-sub{
     max-width:48ch;
     font-size:1.05rem;
@@ -491,6 +507,34 @@
     gap:52px;
     align-items:center;
   }
+  .about-photo-wrap{ position:relative; }
+  .float-stat{
+    position:absolute;
+    bottom:-22px; left:-22px;
+    background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid var(--gold-dim);
+    border-radius:16px;
+    padding:16px 20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.45);
+    z-index:3;
+  }
+  .float-stat-num{
+    font-family:var(--mono);
+    font-size:1.4rem;
+    color:var(--gold);
+    display:block;
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .float-stat-lbl{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    white-space:nowrap;
+  }
+  @media (max-width:520px){
+    .float-stat{ left:12px; bottom:-16px; padding:12px 16px; }
+    .float-stat-num{ font-size:1.15rem; }
+  }
   .about-panel{
     background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
     border-radius:22px;
@@ -597,7 +641,20 @@
     padding:26px 22px;
     transition:border-color .2s ease, transform .2s ease;
     will-change:transform;
+    position:relative;
+    overflow:hidden;
   }
+  .card::after{
+    content:"";
+    position:absolute;
+    top:-2px; right:-2px;
+    width:30px; height:30px;
+    background:var(--gold-dim);
+    clip-path:polygon(100% 0, 0 0, 100% 100%);
+    opacity:0.55;
+    transition:opacity .2s ease, background .2s ease;
+  }
+  .card:hover::after{ background:var(--gold); opacity:0.9; }
   .card:hover{border-color:var(--gold-dim); transform:translateY(-3px);}
   .card h3{margin-bottom:10px; font-size:1.05rem;}
   .card p{font-size:0.92rem; margin-bottom:0;}
@@ -641,9 +698,21 @@
     border-radius:var(--radius-m);
     padding:28px 26px;
     position:relative;
+    overflow:hidden;
     transition:transform .2s ease, border-color .2s ease;
     will-change:transform;
   }
+  .testi-card::after{
+    content:"";
+    position:absolute;
+    top:-2px; right:-2px;
+    width:30px; height:30px;
+    background:#B0503A;
+    clip-path:polygon(100% 0, 0 0, 100% 100%);
+    opacity:0.5;
+    transition:opacity .2s ease, background .2s ease;
+  }
+  .testi-card:hover::after{ background:var(--coral); opacity:0.9; }
   .testi-card:hover{ border-color:var(--gold-dim); }
   .testi-mark{
     font-family:var(--serif);
@@ -717,6 +786,27 @@
     border-radius:22px;
     padding:40px 38px;
     box-shadow:0 30px 60px rgba(0,0,0,0.35);
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .quiz-panel::before{
+    content:"";
+    position:absolute;
+    top:-90px; right:-90px;
+    width:260px; height:260px;
+    background:radial-gradient(circle, rgba(231,183,80,0.16), transparent 70%);
+    z-index:-1;
+    pointer-events:none;
+  }
+  .quiz-panel::after{
+    content:"";
+    position:absolute;
+    bottom:-80px; left:-80px;
+    width:220px; height:220px;
+    background:radial-gradient(circle, rgba(110,198,217,0.12), transparent 70%);
+    z-index:-1;
+    pointer-events:none;
   }
   .quiz-progress{
     display:flex;
@@ -958,6 +1048,7 @@
 </style>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <header>
   <div class="wrap nav-row">
@@ -1059,9 +1150,15 @@
         <p data-i18n="about.text2">That analytical foundation shapes how I teach Mathematics: breaking problems into clear, logical steps rather than relying on memorized formulas. I'm also TESOL/TEFL-certified, with 6+ years and 1,500+ hours teaching English and Mathematics to students around the world.</p>
         <ul class="about-list" id="aboutList"></ul>
       </div>
-      <figure class="framed-photo reveal" onerror="this.classList.add('img-error')">
-        <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
-      </figure>
+      <div class="about-photo-wrap reveal">
+        <figure class="framed-photo" onerror="this.classList.add('img-error')">
+          <img src="https://static.wixstatic.com/media/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/559142_9a98880104054afc83b893ad1fd5ba34~mv2.jpg" alt="Shohrukh, online Mathematics and English tutor" loading="lazy" onerror="this.closest('figure').classList.add('img-error')">
+        </figure>
+        <div class="float-stat" aria-hidden="true">
+          <span class="float-stat-num">1,500+</span>
+          <span class="float-stat-lbl" data-i18n="cred.hours">Teaching hours</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1917,6 +2014,16 @@ const countObserver = new IntersectionObserver((entries) => {
   });
 }, {threshold:0.4});
 countEls.forEach(el => countObserver.observe(el));
+
+/* scroll progress bar */
+const scrollProgressEl = document.getElementById('scrollProgress');
+function updateScrollProgress(){
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  if(scrollProgressEl) scrollProgressEl.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateScrollProgress, {passive:true});
+updateScrollProgress();
 
 /* hero photo parallax */
 if(!prefersReducedMotion){
