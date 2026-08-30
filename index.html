@@ -229,6 +229,7 @@
   }
   nav.primary-nav a:hover{color:var(--text);}
   nav.primary-nav .nav-cta-mobile{ display:none; }
+  .nav-login-li{ display:none; }
 
   .nav-right{display:flex; align-items:center; gap:14px; flex-shrink:0;}
   .nav-cta{ white-space:nowrap; }
@@ -1034,7 +1035,7 @@
   }
 
   /* FEATURES HUB (bento) */
-  .features-hub{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .features-hub{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
   .feature-card{
     position:relative;
     display:flex;
@@ -1084,7 +1085,6 @@
     padding:4px 9px; border-radius:999px;
     z-index:2;
   }
-  @media (max-width:980px){ .features-hub{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:600px){ .features-hub{ grid-template-columns:1fr; } }
 
   /* QUIZ-WRAP two-column layout (feature detail sections) */
@@ -1305,6 +1305,7 @@
     }
     .nav-cta-desktop{ display:none; }
     .nav-right > .nav-login{ display:none; }
+    .nav-login-li{ display:list-item; }
     .menu-toggle{display:flex;}
     .grid-3, .grid-4, .grid-5, .testi-grid{grid-template-columns:1fr;}
     .footer-row{flex-direction:column;}
@@ -1351,7 +1352,7 @@
         <li><a href="#testimonials" data-i18n="nav.reviews">Reviews</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-        <li><a href="https://shakh8eng-portal.vercel.app/" data-i18n="nav.login" title="Student / Admin Login">Login</a></li>
+        <li class="nav-login-li"><a href="https://shakh8eng-portal.vercel.app/" data-i18n="nav.login" title="Student / Admin Login">Login</a></li>
       </ul>
     </nav>
 
@@ -1488,16 +1489,6 @@
             <span class="goto" data-i18n="hub.f1.cta">Take the test →</span>
           </div>
         </a>
-        <a href="#student-progress" class="photo-card reveal">
-          <span class="feature-soon" data-i18n="hub.soon">Coming soon</span>
-          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy">
-          <div class="photo-card-icon">📈</div>
-          <div class="photo-card-body">
-            <h3 data-i18n="hub.f2.title">Progress dashboard</h3>
-            <p data-i18n="hub.f2.text">Watch your progress grow.</p>
-            <span class="goto" data-i18n="hub.f2.cta">See the preview →</span>
-          </div>
-        </a>
         <a href="#course-fit" class="photo-card reveal">
           <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy">
           <div class="photo-card-icon">🧭</div>
@@ -1505,16 +1496,6 @@
             <h3 data-i18n="hub.f6.title">Find your fit</h3>
             <p data-i18n="hub.f6.text">4 questions. Your plan.</p>
             <span class="goto" data-i18n="hub.f6.cta">Find your plan →</span>
-          </div>
-        </a>
-        <a href="#behind-the-scenes" class="photo-card reveal">
-          <span class="feature-soon" data-i18n="hub.soon">Coming soon</span>
-          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy">
-          <div class="photo-card-icon">📊</div>
-          <div class="photo-card-body">
-            <h3 data-i18n="hub.f7.title">Organized inquiries</h3>
-            <p data-i18n="hub.f7.text">How requests get organized.</p>
-            <span class="goto" data-i18n="hub.f7.cta">Take a peek →</span>
           </div>
         </a>
       </div>
@@ -1603,6 +1584,17 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="testimonials.eyebrow">What students say</p>
+        <h2 data-i18n="testimonials.title">Real progress, in their words</h2>
+      </div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </div>
+  </section>
+
   <!-- MATHEMATICS -->
   <section id="mathematics">
     <div class="wrap">
@@ -1684,17 +1676,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="alt-bg">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow" data-i18n="testimonials.eyebrow">What students say</p>
-        <h2 data-i18n="testimonials.title">Real progress, in their words</h2>
-      </div>
-      <div class="testi-grid" id="testiGrid"></div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq">
     <div class="wrap">
@@ -1703,71 +1684,6 @@
         <h2 data-i18n="faq.title">Good questions to ask before you start</h2>
       </div>
       <div class="faq-list" id="faqList"></div>
-    </div>
-  </section>
-
-  <!-- STUDENT PROGRESS (SNEAK PEEK) -->
-  <section id="student-progress" class="alt-bg">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="sneak-badge"><span class="dot"></span><span data-i18n="hub.soon">Coming soon</span></span>
-        <p class="eyebrow" data-i18n="progress.eyebrow">Feature #2 · In the works</p>
-        <h2 data-i18n="progress.title">A dashboard to see your own progress</h2>
-        <p style="max-width:60ch;" data-i18n="progress.subtitle">I'm building a simple, private way for students to see how they're improving over time. Here's an illustrative preview of what it will look like — not real data yet.</p>
-      </div>
-      <div class="sneak-panel reveal">
-        <div class="score-grid">
-          <div class="score-item">
-            <div class="top"><span data-i18n="progress.skill1">Grammar</span><b>78%</b></div>
-            <div class="score-bar"><div style="width:78%"></div></div>
-          </div>
-          <div class="score-item">
-            <div class="top"><span data-i18n="progress.skill2">Vocabulary</span><b>65%</b></div>
-            <div class="score-bar"><div style="width:65%"></div></div>
-          </div>
-          <div class="score-item">
-            <div class="top"><span data-i18n="progress.skill3">Problem Solving</span><b>82%</b></div>
-            <div class="score-bar"><div style="width:82%"></div></div>
-          </div>
-        </div>
-        <div class="badges-row">
-          <div class="badge-chip"><div class="ic">🔥</div><div class="n" data-i18n="progress.badge1">7-day streak</div></div>
-          <div class="badge-chip"><div class="ic">📚</div><div class="n" data-i18n="progress.badge2">50 new words</div></div>
-          <div class="badge-chip"><div class="ic">🏁</div><div class="n" data-i18n="progress.badge3">First mock exam</div></div>
-          <div class="badge-chip"><div class="ic">🎯</div><div class="n" data-i18n="progress.badge4">Goal on track</div></div>
-        </div>
-        <p class="sneak-note" data-i18n="progress.note">Illustrative example only — this feature is still being built and isn't live yet.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BEHIND THE SCENES (SNEAK PEEK) -->
-  <section id="behind-the-scenes">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="sneak-badge"><span class="dot"></span><span data-i18n="hub.soon">Coming soon</span></span>
-        <p class="eyebrow" data-i18n="bts.eyebrow">Feature #7 · In the works</p>
-        <h2 data-i18n="bts.title">How inquiries get organized</h2>
-        <p style="max-width:60ch;" data-i18n="bts.subtitle">Every message deserves a proper follow-up. Here's an illustrative look at the simple system being built to keep requests organized — with sample entries, not real students.</p>
-      </div>
-      <div class="sneak-panel reveal">
-        <div class="bts-grid">
-          <div class="bts-table">
-            <div class="bts-row"><span>Alex</span><span class="subj" data-i18n="bts.row1">Mathematics · School level</span><span class="bts-pill" data-i18n="bts.status1">New inquiry</span></div>
-            <div class="bts-row"><span>Jordan</span><span class="subj" data-i18n="bts.row2">IELTS Preparation</span><span class="bts-pill" data-i18n="bts.status2">Consultation booked</span></div>
-            <div class="bts-row"><span>Sam</span><span class="subj" data-i18n="bts.row3">Business English</span><span class="bts-pill" data-i18n="bts.status3">Plan agreed</span></div>
-            <div class="bts-row"><span>Riley</span><span class="subj" data-i18n="bts.row4">Mathematics · IB</span><span class="bts-pill" data-i18n="bts.status4">Lessons started</span></div>
-          </div>
-          <div class="bts-chart">
-            <div class="bts-chart-row"><span data-i18n="bts.chart.math">Math</span><div class="bts-chart-bar"><div style="width:42%; background:var(--blue);"></div></div><span>42%</span></div>
-            <div class="bts-chart-row"><span data-i18n="bts.chart.english">English</span><div class="bts-chart-bar"><div style="width:28%; background:var(--coral);"></div></div><span>28%</span></div>
-            <div class="bts-chart-row"><span data-i18n="bts.chart.ielts">IELTS</span><div class="bts-chart-bar"><div style="width:16%; background:var(--gold);"></div></div><span>16%</span></div>
-            <div class="bts-chart-row"><span data-i18n="bts.chart.toefl">TOEFL</span><div class="bts-chart-bar"><div style="width:9%; background:var(--gold-dim);"></div></div><span>9%</span></div>
-            <div class="bts-chart-row"><span data-i18n="bts.chart.business">Business</span><div class="bts-chart-bar"><div style="width:5%; background:var(--text-muted);"></div></div><span>5%</span></div>
-          </div>
-        </div>
-        <p class="sneak-note" data-i18n="bts.note">Illustrative example only — names and numbers are samples, not real students or data.</p>
-      </div>
     </div>
   </section>
 
@@ -2014,10 +1930,10 @@ const translations = {
     ],
     testimonials:[
       {n:"Vitaly", tag:"TOEFL Student", q:"We had wonderful lessons for TOEFL preparation. At the beginning I couldn't understand even half of an academic text in the reading section, and I had real problems with writing and speaking. Our lessons were very flexible, and I could focus on exactly the parts I found most difficult. I needed to score 4 on the exam — I was thrilled to pass with 5 out of 6."},
-      {n:"Alesia", tag:"Business English Student", q:"I really enjoyed having lessons with you — it was always interesting to talk, and it helped prepare me for a new job. Beyond professional topics, our more personal conversations were exactly what I needed to break the ice and build real confidence speaking."},
+      {n:"Mia", tag:"Mathematics Student", q:"I really enjoyed my Math lessons because everything was explained clearly and I finally started feeling more confident with difficult topics. The classes were interesting and helped me improve my grades at school."},
       {n:"Anna", tag:"English Student", q:"I studied English with Shohrukh for a while. He's an excellent teacher, attentive to his students — he adapts the lesson plan to each person's needs and explains even the trickiest grammar clearly. I'm grateful for lessons that helped me maintain my English level and keep building on it."},
       {n:"Ilmira", tag:"English Student", q:"I'm always excited about lessons with Shohrukh. We've discussed everything from crypto to culture — there's no doubt he's genuinely passionate about what he does."},
-      {n:"Nurlan", tag:"Student", q:"The sessions were engaging and tailored to my needs, which made learning fun!"},
+      {n:"Alesia", tag:"Business English Student", q:"I really enjoyed having lessons with you — it was always interesting to talk, and it helped prepare me for a new job. Beyond professional topics, our more personal conversations were exactly what I needed to break the ice and build real confidence speaking."},
       {n:"Niyaz", tag:"English Student", q:"I feel more confident in my English speaking skills thanks to Shohrukh's guidance."}
     ],
     faq:[
@@ -2276,10 +2192,10 @@ const translations = {
     ],
     testimonials:[
       {n:"Виталий", tag:"Ученик по TOEFL", q:"У нас были замечательные занятия по подготовке к TOEFL. В начале курса я с трудом понимал даже половину академического текста в части Reading, и у меня были большие трудности с письмом и говорением. Наши занятия были очень гибкими — я мог сосредоточиться именно на том, что давалось сложнее всего. Мне нужно было набрать 4 балла на экзамене, и я был очень рад, когда сдал TOEFL и получил 5 баллов из 6."},
-      {n:"Алеся", tag:"Ученица делового английского", q:"Мне очень нравились наши занятия — с тобой всегда было интересно общаться, и это помогло подготовиться к новой работе. Более личные разговоры помогли снять напряжение и обрести уверенность в разговоре."},
+      {n:"Мия", tag:"Ученица по математике", q:"Мне очень нравились уроки математики — всё объяснялось понятно, и я наконец почувствовала уверенность в сложных темах. Занятия были интересными и помогли улучшить оценки в школе."},
       {n:"Анна", tag:"Ученица английского", q:"Ранее занималась с Шохрухом, изучая английский. Он отличный преподаватель, внимательный к ученикам — подстраивается под запросы и адаптирует программу индивидуально. Доступно объясняет любые сложные моменты в грамматике. Я благодарна за занятия, которые помогали поддерживать уровень английского и обогащали мои знания."},
       {n:"Ильмира", tag:"Ученица английского", q:"Я всегда с нетерпением жду занятий с Шохрухом. Мы обсуждали всё — от криптовалют до культуры. Нет никаких сомнений, что он по-настоящему увлечён своим делом."},
-      {n:"Нурлан", tag:"Ученик", q:"Занятия были увлекательными и подстроенными под мои потребности — учиться было интересно!"},
+      {n:"Алеся", tag:"Ученица делового английского", q:"Мне очень нравились наши занятия — с тобой всегда было интересно общаться, и это помогло подготовиться к новой работе. Более личные разговоры помогли снять напряжение и обрести уверенность в разговоре."},
       {n:"Нияз", tag:"Ученик английского", q:"Благодаря Шохруху я стал увереннее говорить по-английски."}
     ],
     faq:[
