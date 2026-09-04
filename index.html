@@ -1315,11 +1315,11 @@
     .quiz-question{ font-size:1.1rem; }
 
     .hero{ padding:88px 0 40px; }
-    .hero-bg{ inset:0; height:auto; }
-    .hero-bg img{ object-position:center 15%; }
+    .hero-bg{ top:0; left:0; right:0; bottom:auto; inset:auto; height:480px; }
+    .hero-bg img{ object-position:center 20%; }
     .hero-bg::after{
       background:
-        linear-gradient(180deg, rgba(9,20,17,0.5) 0%, rgba(9,20,17,0.62) 35%, rgba(9,20,17,0.8) 70%, rgba(9,20,17,0.94) 100%);
+        linear-gradient(180deg, rgba(9,20,17,0.4) 0%, rgba(9,20,17,0.6) 40%, rgba(9,20,17,0.88) 75%, var(--bg) 100%);
     }
 
     .duo{ width:68%; height:230px; margin:0; }
@@ -2035,7 +2035,7 @@ const translations = {
     "about.eyebrow":"О репетиторе",
     "about.title":"Привет, я Шохрух.",
     "about.text":"Онлайн-репетитор по математике и английскому с образованием в области экономики — также преподавал математику университетского уровня в AUCA.",
-    "about.photoCaption":"📍 У памятника Джону Гарварду, Гарвардский университет",
+    "about.photoCaption":"📍 У памятника Джона Гарварда, Гарвардский университет",
     "cred.ba.label":"Бакалавр",
     "cred.ba.title":"BA, прикладная экономика",
     "cred.ba.sub":"Bard College / AUCA",
