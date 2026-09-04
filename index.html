@@ -2278,7 +2278,7 @@ const translations = {
   }
 };
 
-let currentLang = localStorage.getItem('shakh8-lang') || (navigator.language && navigator.language.startsWith('ru') ? 'ru' : 'en');
+let currentLang = localStorage.getItem('shakh8-lang') || 'ru';
 
 function renderLists(lang){
   const dict = translations[lang];
