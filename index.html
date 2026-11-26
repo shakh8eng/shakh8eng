@@ -510,7 +510,15 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
   .hero .hero-visual .stage3d.hero-scene{height:280px;transform:scale(.8);margin:-10px 0 0}
 }
 
+/* ---------- WebGL hero (three.js) ---------- */
+.gl-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;opacity:0;pointer-events:none;touch-action:pan-y;transition:opacity .6s var(--ease-out)}
+.hero-visual.gl-on .gl-canvas{opacity:1;pointer-events:auto}
+.hero-visual.gl-on .stage3d{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s var(--ease-out),visibility 0s .35s}
+.hero-visual .hint3d{z-index:3;pointer-events:none}
+.gl-canvas.is-drag{cursor:grabbing}
+
 </style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -564,6 +572,7 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
         </div>
       </div>
       <div class="hero-visual">
+      <canvas id="gl" class="gl-canvas" aria-hidden="true"></canvas>
       <div class="stage3d graph-stage hero-scene" data-mode="sway" data-limit="12" data-rx0="-14" data-ry0="-16">
         <div class="o3d">
           <div class="plane">
@@ -1635,6 +1644,7 @@ function setLanguage(lang){
   document.title = lang === 'ru'
     ? 'shakh8.eng — Онлайн-репетитор по математике и английскому | Шохрух'
     : 'shakh8.eng — Online Mathematics & English Tutoring | Shohrukh';
+  document.dispatchEvent(new Event('langchange'));
 }
 
 document.querySelectorAll('[data-set-lang]').forEach(btn => {
@@ -2089,6 +2099,362 @@ function initQuizzes(){
     `;
   });
 }
+
+</script>
+<script type="module">
+/* WebGL hero + playground (three.js). Falls back to the CSS 3D scene if anything fails. */
+(function(){
+  const host = document.querySelector('.hero-visual');
+  const canvas = document.getElementById('gl');
+  if(!host || !canvas) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(/[?&]nogl\b/.test(location.search)) return;
+
+  // WebGL support check on a throwaway canvas
+  try{
+    const t = document.createElement('canvas');
+    if(!(t.getContext('webgl2') || t.getContext('webgl'))) return;
+  }catch(e){ return; }
+
+  const start = async () => {
+    let THREE, RoundedBoxGeometry, RoomEnvironment;
+    try{
+      THREE = await import('three');
+      ({RoundedBoxGeometry} = await import('three/addons/geometries/RoundedBoxGeometry.js'));
+      ({RoomEnvironment} = await import('three/addons/environments/RoomEnvironment.js'));
+    }catch(e){ console.warn('[gl] three.js not available, keeping CSS scene'); return; }
+
+    try{ await Promise.race([document.fonts.load('700 64px Unbounded'), new Promise(r => setTimeout(r, 1500))]); }catch(e){}
+
+    const C = { blue:'#1E35E8', lime:'#D6F54A', ink:'#0A0F3A', coral:'#FF6A4D', sun:'#FFC83D', peri:'#8FA0FF', white:'#FFFFFF', soft:'#EEF0FF' };
+    const hasHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+    let renderer;
+    try{
+      renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+    }catch(e){ console.warn('[gl] renderer failed'); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+    const key = new THREE.DirectionalLight(0xffffff, 0.9); key.position.set(3, 6, 7); scene.add(key);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+    camera.position.set(0, 0, 16);
+
+    const world = new THREE.Group(); scene.add(world);
+
+    /* ---------- helpers ---------- */
+    const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
+    const toTex = (c) => { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+    const mat = (color, o = {}) => new THREE.MeshPhysicalMaterial(Object.assign({ color, roughness:.42, metalness:0, clearcoat:.5, clearcoatRoughness:.25, envMapIntensity:.6 }, o));
+
+    function wrapLines(g, text, maxW){
+      const words = text.split(/\s+/), lines = []; let cur = '';
+      for(const w of words){
+        const test = cur ? cur + ' ' + w : w;
+        if(g.measureText(test).width > maxW && cur){ lines.push(cur); cur = w; } else cur = test;
+      }
+      if(cur) lines.push(cur);
+      return lines;
+    }
+    function drawFace(c, bg, fg, small, main){
+      const g = c.getContext('2d'), S = c.width, pad = S * .1, maxW = S - pad * 2;
+      g.fillStyle = bg; g.fillRect(0, 0, S, S);
+      g.fillStyle = fg; g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+      g.globalAlpha = .7; g.font = `600 ${S*.062}px "Golos Text", system-ui, sans-serif`;
+      g.fillText((small || '').toUpperCase(), pad, pad + S * .06); g.globalAlpha = 1;
+      let size = S * .17, lines;
+      for(; size > S * .06; size -= 3){
+        g.font = `700 ${size}px Unbounded, system-ui, sans-serif`;
+        lines = wrapLines(g, main || '', maxW);
+        const longest = Math.max(...lines.map(l => g.measureText(l).width));
+        if(longest <= maxW && lines.length * size * 1.18 <= S * .56) break;
+      }
+      const lh = size * 1.18, total = lines.length * lh;
+      let y = S * .56 - total / 2 + size * .86;
+      for(const l of lines){ g.fillText(l, pad, y); y += lh; }
+    }
+    function drawGlyph(c, bg, fg, ch){
+      const g = c.getContext('2d'), S = c.width;
+      g.fillStyle = bg; g.fillRect(0, 0, S, S);
+      g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = `700 ${S*.56}px Unbounded, system-ui, sans-serif`;
+      g.fillText(ch, S / 2, S * .54);
+    }
+    function drawGraph(c){
+      const g = c.getContext('2d'), S = c.width, k = S / 340;
+      g.fillStyle = '#fff'; g.fillRect(0, 0, S, S);
+      g.strokeStyle = '#DDE1FA'; g.lineWidth = 2.2 * k;
+      [85, 170, 255].forEach(v => { g.beginPath(); g.moveTo(0, v * k); g.lineTo(S, v * k); g.stroke(); g.beginPath(); g.moveTo(v * k, 0); g.lineTo(v * k, S); g.stroke(); });
+      g.strokeStyle = C.ink; g.lineWidth = 3.4 * k; g.lineCap = 'round';
+      g.beginPath(); g.moveTo(16 * k, 255 * k); g.lineTo(324 * k, 255 * k); g.stroke();
+      g.beginPath(); g.moveTo(170 * k, 16 * k); g.lineTo(170 * k, 324 * k); g.stroke();
+      g.strokeStyle = C.blue; g.lineWidth = 6 * k;
+      g.beginPath(); g.moveTo(50 * k, 40 * k); g.quadraticCurveTo(170 * k, 420 * k, 290 * k, 40 * k); g.stroke();
+    }
+
+    // box with a textured front (or all faces)
+    function plaque(w, h, d, r, side, front){
+      const geo = new RoundedBoxGeometry(w, h, d, 5, r);
+      const m = new THREE.Mesh(geo, [side, side, side, side, front, side]);
+      return m;
+    }
+
+    /* ---------- physics bodies ---------- */
+    const bodies = [];
+    function addBody(obj, home, o = {}){
+      obj.position.copy(home);
+      world.add(obj);
+      const b = Object.assign({
+        obj, home: home.clone(), p: new THREE.Vector3(), v: new THREE.Vector3(),
+        spin: new THREE.Vector3(), baseRot: obj.rotation.clone(), rot: new THREE.Vector3(),
+        radius: 1.5, push: 1, bob: .12, bobSpeed: .8 + Math.random() * .5, phase: Math.random() * 6.28,
+        idle: new THREE.Vector3(0, 0, 0), delay: bodies.length * .09, scale0: 1, returnRot: true
+      }, o);
+      b.obj.scale.setScalar(.001);
+      bodies.push(b);
+      return b;
+    }
+
+    /* ---------- scene objects ---------- */
+    // graph plane
+    const graphC = mkCanvas(1024, 1024); drawGraph(graphC);
+    const graphTex = toTex(graphC);
+    const white = mat(C.white, { roughness:.5, clearcoat:.3 });
+    const graphFront = mat(C.white, { map:graphTex, roughness:.6, clearcoat:.1, envMapIntensity:.4 });
+    const graph = plaque(4.3, 4.3, .16, .1, white, graphFront);
+    graph.rotation.set(-.2, -.3, 0);
+    const graphB = addBody(graph, new THREE.Vector3(0, 1.5, 0), { push:0, bob:.1, idle:new THREE.Vector3(0, 0, 0), radius:0 });
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.14, 24, 16), mat(C.lime, { emissive:C.lime, emissiveIntensity:.35 }));
+    graph.add(dot);
+
+    // equation tag (pill)
+    const tagC = mkCanvas(512, 200);
+    (function(){
+      const g = tagC.getContext('2d');
+      g.fillStyle = C.lime;
+      const r = 100; g.beginPath(); g.moveTo(r, 0); g.arcTo(512, 0, 512, 200, r); g.arcTo(512, 200, 0, 200, r); g.arcTo(0, 200, 0, 0, r); g.arcTo(0, 0, 512, 0, r); g.fill();
+      g.fillStyle = C.ink; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 84px Unbounded, system-ui, sans-serif';
+      g.fillText('y = x²', 256, 104);
+    })();
+    const tag = new THREE.Mesh(new THREE.PlaneGeometry(1.6, .625), new THREE.MeshBasicMaterial({ map:toTex(tagC), transparent:true }));
+    tag.position.set(-1.15, -1.45, .35); graph.add(tag);
+
+    // glyph plaques
+    const glyphs = [
+      ['∑', C.lime, C.ink, [-3.2, 3.35, .8], [.2, .35, -.18]],
+      ['π', C.coral, C.ink, [3.2, 2.55, .7], [-.15, -.4, .2]],
+      ['∫', C.white, C.ink, [-3.3, .25, .6], [.1, .3, .14]],
+      ['√', C.sun, C.ink, [3.25, -.35, .9], [-.2, -.35, -.12]]
+    ];
+    glyphs.forEach(([ch, bg, fg, pos, rot]) => {
+      const c = mkCanvas(256, 256); drawGlyph(c, bg, fg, ch);
+      const side = mat(bg, { roughness:.4 });
+      const front = mat('#ffffff', { map:toTex(c), roughness:.55, clearcoat:.15, envMapIntensity:.4 });
+      const m = plaque(.95, .95, .3, .14, side, front);
+      m.rotation.set(rot[0], rot[1], rot[2]);
+      addBody(m, new THREE.Vector3(...pos), { radius:1.7, push:1.15, bob:.16 });
+    });
+
+    // decor
+    const sphere = new THREE.Mesh(new THREE.SphereGeometry(.58, 48, 32), mat(C.lime, { roughness:.22, clearcoat:1 }));
+    addBody(sphere, new THREE.Vector3(3.35, -2.55, .5), { radius:1.8, push:1.2, bob:.2 });
+    const torus = new THREE.Mesh(new THREE.TorusGeometry(.5, .2, 28, 64), mat(C.coral, { roughness:.25, clearcoat:1 }));
+    torus.rotation.set(1.0, .4, 0);
+    addBody(torus, new THREE.Vector3(-3.35, -2.35, .3), { radius:1.8, push:1.2, bob:.18, idle:new THREE.Vector3(.18, .25, 0), returnRot:false });
+    const octa = new THREE.Mesh(new THREE.OctahedronGeometry(.46), mat(C.peri, { roughness:.18, clearcoat:1 }));
+    addBody(octa, new THREE.Vector3(-3.75, 1.75, -.4), { radius:1.6, push:1, bob:.14, idle:new THREE.Vector3(.1, .35, .06), returnRot:false });
+    const ball2 = new THREE.Mesh(new THREE.SphereGeometry(.24, 32, 24), mat(C.white, { roughness:.2, clearcoat:1 }));
+    addBody(ball2, new THREE.Vector3(3.8, 1.0, -.2), { radius:1.5, push:1.4, bob:.14 });
+
+    // cube
+    const faceDefs = [
+      { sel:'.f1', bg:C.lime, fg:C.ink }, { sel:'.f2', bg:C.white, fg:C.ink }, { sel:'.f3', bg:C.coral, fg:C.ink },
+      { sel:'.f4', bg:C.ink, fg:C.white }, { sel:'.f5', bg:C.peri, fg:C.ink }, { sel:'.f6', bg:C.sun, fg:C.ink }
+    ];
+    // BoxGeometry order: +x, -x, +y, -y, +z, -z
+    const order = [1, 3, 4, 5, 0, 2];
+    const faceCanvases = faceDefs.map(() => mkCanvas(512, 512));
+    const faceTex = faceCanvases.map(toTex);
+    function redrawFaces(){
+      faceDefs.forEach((f, i) => {
+        const el = document.querySelector('.hero-cube-stage ' + f.sel);
+        const small = el && el.querySelector('small') ? el.querySelector('small').textContent : '';
+        const main = el && el.querySelector('span') ? el.querySelector('span').textContent : '';
+        drawFace(faceCanvases[i], f.bg, f.fg, small, main);
+        faceTex[i].needsUpdate = true;
+      });
+    }
+    redrawFaces();
+    const cubeMats = order.map(i => mat('#ffffff', { map:faceTex[i], roughness:.6, clearcoat:.12, envMapIntensity:.35 }));
+    const cube = new THREE.Mesh(new RoundedBoxGeometry(2.1, 2.1, 2.1, 5, .17), cubeMats);
+    cube.quaternion.setFromEuler(new THREE.Euler(-.38, .56, 0));
+    const cubeB = addBody(cube, new THREE.Vector3(0, -2.72, .4), { push:0, bob:.08, radius:0 });
+    document.addEventListener('langchange', () => { try{ document.fonts.ready.then(redrawFaces); }catch(e){ redrawFaces(); } });
+
+    // soft contact shadow under the cube
+    const shC = mkCanvas(256, 256);
+    (function(){
+      const g = shC.getContext('2d'), gr = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+      gr.addColorStop(0, 'rgba(5,10,80,.55)'); gr.addColorStop(1, 'rgba(5,10,80,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, 256, 256);
+    })();
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.3), new THREE.MeshBasicMaterial({ map:toTex(shC), transparent:true, depthWrite:false }));
+    shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, -3.95, .4); world.add(shadow);
+
+    /* ---------- pointer ---------- */
+    const ndc = new THREE.Vector2(), ray = new THREE.Raycaster();
+    const pw = new THREE.Vector3(999, 999, 0); let pActive = false, pSpeed = 0, lastPX = 0, lastPY = 0;
+    const plane0 = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hitV = new THREE.Vector3();
+    let fit = 1;
+    const look = { x:0, y:0, tx:0, ty:0 };
+
+    function setPointer(cx, cy){
+      const r = canvas.getBoundingClientRect();
+      const nx = (cx - r.left) / r.width * 2 - 1, ny = -((cy - r.top) / r.height * 2 - 1);
+      ndc.set(nx, ny);
+      look.tx = THREE.MathUtils.clamp(nx, -1.4, 1.4); look.ty = THREE.MathUtils.clamp(ny, -1.4, 1.4);
+      ray.setFromCamera(ndc, camera);
+      if(ray.ray.intersectPlane(plane0, hitV)){ pw.copy(hitV).divideScalar(fit); }
+      const dx = cx - lastPX, dy = cy - lastPY; pSpeed = Math.min(Math.hypot(dx, dy) / 24, 2.2); lastPX = cx; lastPY = cy;
+      pActive = Math.abs(nx) < 1.5 && Math.abs(ny) < 1.5;
+    }
+    window.addEventListener('pointermove', e => {
+      if(e.pointerType === 'touch' && !dragging) return;
+      setPointer(e.clientX, e.clientY);
+      if(hasHover && !dragging){ canvas.style.cursor = hitCube(e.clientX, e.clientY) ? 'grab' : ''; }
+    }, { passive:true });
+    document.documentElement.addEventListener('mouseleave', () => { pActive = false; look.tx = 0; look.ty = 0; });
+
+    // cube drag
+    let dragging = false, dragId = null, lx = 0, ly = 0, lt = 0;
+    const w = { x:0, y:0 }; const idleY = .28;
+    function hitCube(cx, cy){
+      const r = canvas.getBoundingClientRect();
+      ndc.set((cx - r.left) / r.width * 2 - 1, -((cy - r.top) / r.height * 2 - 1));
+      ray.setFromCamera(ndc, camera);
+      return ray.intersectObject(cube, false).length > 0;
+    }
+    canvas.addEventListener('pointerdown', e => {
+      if(dragging) return;
+      if(!hitCube(e.clientX, e.clientY)) return;
+      dragging = true; dragId = e.pointerId; lx = e.clientX; ly = e.clientY; lt = performance.now();
+      try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
+      canvas.style.cursor = 'grabbing'; w.x = 0; w.y = 0;
+      canvas.classList.add('is-drag');
+    });
+    canvas.addEventListener('pointermove', e => {
+      if(!dragging || e.pointerId !== dragId) return;
+      const now = performance.now(), dt = Math.max((now - lt) / 1000, .008);
+      const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY; lt = now;
+      const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(dy * .011, dx * .011, 0));
+      cube.quaternion.premultiply(q);
+      w.y = THREE.MathUtils.lerp(w.y, dx * .011 / dt, .5); w.x = THREE.MathUtils.lerp(w.x, dy * .011 / dt, .5);
+    });
+    const endDrag = e => {
+      if(!dragging || (e && e.pointerId !== dragId)) return;
+      dragging = false; canvas.style.cursor = ''; canvas.classList.remove('is-drag');
+      w.x = THREE.MathUtils.clamp(w.x, -9, 9); w.y = THREE.MathUtils.clamp(w.y, -9, 9);
+    };
+    canvas.addEventListener('pointerup', endDrag); canvas.addEventListener('pointercancel', endDrag);
+    canvas.addEventListener('lostpointercapture', endDrag);
+
+    /* ---------- size ---------- */
+    function resize(){
+      const r = host.getBoundingClientRect(); const W = Math.max(1, Math.round(r.width)), H = Math.max(1, Math.round(r.height));
+      renderer.setSize(W, H, false);
+      camera.aspect = W / H; camera.updateProjectionMatrix();
+      fit = THREE.MathUtils.clamp(camera.aspect / .98, .5, 1.12);
+      world.scale.setScalar(fit);
+    }
+    resize();
+    new ResizeObserver(resize).observe(host);
+
+    /* ---------- loop ---------- */
+    let visible = true, running = false, raf = 0, last = performance.now(), t0 = performance.now(), shown = false;
+    const tmp = new THREE.Vector3(), dir = new THREE.Vector3(), qI = new THREE.Quaternion(), eI = new THREE.Euler();
+    const easeOut = x => 1 - Math.pow(1 - x, 3);
+
+    function frame(now){
+      raf = requestAnimationFrame(frame);
+      const dt = Math.min((now - last) / 1000, 1 / 30); last = now;
+      const t = (now - t0) / 1000;
+
+      // world parallax
+      look.x += (look.tx - look.x) * Math.min(dt * 4, 1); look.y += (look.ty - look.y) * Math.min(dt * 4, 1);
+      world.rotation.y = look.x * .09; world.rotation.x = -look.y * .06;
+
+      for(const b of bodies){
+        // intro
+        const k = THREE.MathUtils.clamp((t - .15 - b.delay) / .9, 0, 1), e = easeOut(k);
+        b.obj.visible = k > 0; b.obj.scale.setScalar(.6 + .4 * e);
+
+        // spring + push
+        const ax = -b.p.x * 34, ay = -b.p.y * 34, az = -b.p.z * 34;
+        b.v.x += ax * dt; b.v.y += ay * dt; b.v.z += az * dt;
+        if(pActive && b.push > 0 && !dragging){
+          tmp.set(b.home.x + b.p.x, b.home.y + b.p.y, 0);
+          dir.set(tmp.x - pw.x, tmp.y - pw.y, 0);
+          const d = dir.length();
+          if(d < b.radius){
+            const f = Math.pow(1 - d / b.radius, 2) * b.push * (22 + pSpeed * 38);
+            dir.normalize();
+            b.v.x += dir.x * f * dt; b.v.y += dir.y * f * dt; b.v.z += Math.abs(dir.x + dir.y) * f * dt * .3;
+            b.spin.x += dir.y * f * dt * .5; b.spin.y -= dir.x * f * dt * .5; b.spin.z += (dir.x - dir.y) * f * dt * .2;
+          }
+        }
+        const damp = Math.exp(-dt * 4.2);
+        b.v.multiplyScalar(damp);
+        b.p.x += b.v.x * dt; b.p.y += b.v.y * dt; b.p.z += b.v.z * dt;
+        const intro = (1 - e) * -1.6;
+        b.obj.position.set(b.home.x + b.p.x, b.home.y + b.p.y + Math.sin(t * b.bobSpeed + b.phase) * b.bob + intro, b.home.z + b.p.z);
+
+        // rotation
+        if(b.obj !== cube && b.obj !== graph){
+          b.rot.x += (b.spin.x + b.idle.x) * dt; b.rot.y += (b.spin.y + b.idle.y) * dt; b.rot.z += (b.spin.z + b.idle.z) * dt;
+          b.spin.multiplyScalar(Math.exp(-dt * 2.4));
+          if(b.returnRot){ b.rot.multiplyScalar(Math.exp(-dt * 3.2)); }
+          eI.set(b.baseRot.x + b.rot.x, b.baseRot.y + b.rot.y, b.baseRot.z + b.rot.z);
+          b.obj.rotation.copy(eI);
+        }
+      }
+
+      // graph: tilt toward pointer
+      graph.rotation.y += ((-.3 + look.x * .22) - graph.rotation.y) * Math.min(dt * 4, 1);
+      graph.rotation.x += ((-.2 - look.y * .16) - graph.rotation.x) * Math.min(dt * 4, 1);
+      // dot along the parabola
+      const s = (Math.sin(t * .9 - 1.57) + 1) / 2, u = 1 - s;
+      const sx = u * u * 50 + 2 * u * s * 170 + s * s * 290, sy = u * u * 40 + 2 * u * s * 420 + s * s * 40;
+      dot.position.set((sx - 170) / 340 * 4.3, -(sy - 170) / 340 * 4.3, .17);
+
+      // cube inertia + idle
+      if(!dragging){
+        const dec = Math.exp(-dt * 2.2);
+        qI.setFromEuler(eI.set(w.x * dt, w.y * dt, 0)); cube.quaternion.premultiply(qI);
+        w.x *= dec; w.y = idleY + (w.y - idleY) * dec;
+      }
+
+      renderer.render(scene, camera);
+      if(!shown){ shown = true; host.classList.add('gl-on'); }
+    }
+    function run(){ if(running) return; running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+    function stop(){ running = false; cancelAnimationFrame(raf); }
+    function sync(){ (visible && !document.hidden) ? run() : stop(); }
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; sync(); }, { rootMargin:'80px' }).observe(host);
+    document.addEventListener('visibilitychange', sync);
+    canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); stop(); host.classList.remove('gl-on'); });
+    sync();
+    window.__gl = { THREE, scene, camera, renderer, bodies, cube, graph };
+  };
+
+  const go = () => (window.requestIdleCallback ? requestIdleCallback(start, { timeout:1500 }) : setTimeout(start, 200));
+  if(document.readyState === 'complete') go(); else window.addEventListener('load', go, { once:true });
+})();
 
 </script>
 </body>
