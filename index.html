@@ -176,7 +176,7 @@ header{position:fixed;top:12px;left:0;right:0;z-index:50;pointer-events:none;--s
 .hero .eyebrow{background:rgba(255,255,255,.14);border-radius:99px;padding:9px 16px;color:#fff;text-transform:none;letter-spacing:0;font-size:.9rem;font-weight:500}
 .hero-sub{color:#C9D0FF;max-width:44ch;font-size:1.12rem;margin-bottom:34px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
-.hero .stage3d{height:520px}
+.hero .stage3d.hero-scene{height:540px}
 .credibility-inner{position:relative;margin-top:44px}
 .credibility-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .cred-item{background:rgba(255,255,255,.12);border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:4px}
@@ -441,6 +441,75 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
   html{scroll-behavior:auto}
 }
 
+/* ---------- math lab (interactive graph) ---------- */
+[hidden]{display:none !important}
+.mathlab{position:relative;margin-top:56px}
+.mathlab-back{position:absolute;inset:0;border-radius:32px;background:var(--ink);transform:translate(10px,10px)}
+.mathlab-face{--s-fg:var(--ink);--s-mut:#4B5385;--s-acc:var(--blue);--s-accfg:#fff;--s-line:#DDE1FA;position:relative;background:#fff;color:var(--ink);border-radius:32px;padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:center}
+.lab-title{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.03em;line-height:1.15;margin-bottom:10px}
+.lab-text{color:var(--s-mut);margin-bottom:18px}
+.lab-eq{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.9rem);letter-spacing:-.03em;color:var(--blue);margin-bottom:12px;min-height:1.3em}
+.lab-sliders{display:grid;gap:2px}
+.lab-slider{display:grid;grid-template-columns:28px minmax(0,1fr) 44px;grid-template-areas:"v i o" ". s .";align-items:center;column-gap:12px}
+.lab-slider .lab-var{grid-area:v;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.lab-slider input{grid-area:i;-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;cursor:pointer}
+.lab-slider output{grid-area:o;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.lab-slider small{grid-area:s;color:var(--s-mut);font-size:.85rem;margin-top:-8px}
+.lab-slider input::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:#DDE1FA}
+.lab-slider input::-moz-range-track{height:8px;border-radius:99px;background:#DDE1FA}
+.lab-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px var(--ink);margin-top:-10px;transition:transform .16s var(--ease-out)}
+.lab-slider input::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px var(--ink);transition:transform .16s var(--ease-out)}
+.lab-slider input:active::-webkit-slider-thumb{transform:scale(1.12)}
+.lab-slider input:active::-moz-range-thumb{transform:scale(1.12)}
+.lab-read{display:flex;gap:10px 24px;flex-wrap:wrap;margin:14px 0 6px;font-size:.95rem;color:var(--s-mut)}
+.lab-read i{font-style:normal}
+.lab-read b{color:var(--ink);font-variant-numeric:tabular-nums}
+.lab-goal{margin:10px 0;font-weight:500}
+.lab-goal b{background:var(--sun);color:var(--ink);padding:3px 10px;border-radius:99px;font-variant-numeric:tabular-nums}
+.lab-win{background:var(--lime);color:var(--ink);border-radius:18px;padding:14px 18px;font-weight:500;margin:10px 0}
+.lab-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.lab-graph{background:#F2F4FF;border-radius:24px;box-shadow:inset 0 0 0 2px var(--ink);aspect-ratio:1;overflow:hidden;width:100%}
+.lab-graph svg{width:100%;height:100%;display:block}
+.lab-graph .g-grid{stroke:#D5DAF8;stroke-width:1;vector-effect:non-scaling-stroke}
+.lab-graph .g-axis{stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.lab-graph .g-curve{stroke:var(--blue);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.lab-graph .g-vertex{fill:var(--coral);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.lab-graph .g-target{fill:var(--sun);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center}
+.lab-graph .g-target.hit{fill:var(--lime);animation:pop .45s var(--ease-out)}
+.lab-graph text{font-family:var(--sans);font-weight:600;font-size:.55px;fill:var(--ink)}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@media (max-width:960px){ .mathlab-face{grid-template-columns:minmax(0,1fr)} .lab-graph{max-width:460px;margin-inline:auto;order:-1} }
+@media (max-width:640px){ .lab-graph{max-width:300px} }
+@media (prefers-reduced-motion:reduce){ .lab-graph .g-target.hit{animation:none} }
+
+/* hero: cube floats above the graph plane */
+.hero-scene .o3d{width:340px;height:340px}
+.hero-cube-stage{position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;transform:translate3d(0,-46px,100px)}
+.hero-cube-stage .cube{--cs:138px}
+.hero .hint3d{bottom:-6px}
+@media (max-width:960px){
+  .hero .stage3d.hero-scene{height:440px}
+  .hero .hero-scene{transform:scale(.9)}
+}
+@media (max-width:640px){
+  .hero .stage3d.hero-scene{height:400px;transform:scale(.82);margin:-20px 0}
+}
+
+/* hero: graph plane and cube are two separate objects */
+.hero-visual{position:relative;height:540px}
+.hero .hero-visual .stage3d.hero-scene{position:absolute;left:0;right:0;top:0;height:330px}
+.hero .hero-visual .hero-cube-stage{position:absolute;left:calc(50% - 105px);bottom:34px;top:auto;width:210px;height:210px;margin:0;transform:none}
+.hero .hero-visual .hero-cube-stage .cube{--cs:150px}
+.hero .hero-visual .hint3d{left:calc(50% - 105px);right:auto;width:210px;bottom:4px;text-align:center}
+@media (max-width:960px){
+  .hero-visual{height:520px;max-width:520px;margin-inline:auto;width:100%}
+  .hero .hero-visual .stage3d.hero-scene{height:300px;transform:scale(.88);margin:0}
+}
+@media (max-width:640px){
+  .hero-visual{height:470px}
+  .hero .hero-visual .stage3d.hero-scene{height:280px;transform:scale(.8);margin:-10px 0 0}
+}
+
 </style>
 </head>
 <body>
@@ -494,7 +563,25 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
           <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="hero.cta.secondary">Message on Telegram</a>
         </div>
       </div>
-      <div class="stage3d" data-mode="spin" data-rx0="-22" data-ry0="32" data-idle=".25" aria-label="3D cube">
+      <div class="hero-visual">
+      <div class="stage3d graph-stage hero-scene" data-mode="sway" data-limit="12" data-rx0="-14" data-ry0="-16">
+        <div class="o3d">
+          <div class="plane">
+            <svg viewBox="0 0 340 340" aria-hidden="true">
+              <g class="grid">
+                <line x1="0" y1="85" x2="340" y2="85"/><line x1="0" y1="170" x2="340" y2="170"/><line x1="0" y1="255" x2="340" y2="255"/>
+                <line x1="85" y1="0" x2="85" y2="340"/><line x1="170" y1="0" x2="170" y2="340"/><line x1="255" y1="0" x2="255" y2="340"/>
+              </g>
+              <line class="axis" x1="0" y1="255" x2="340" y2="255"/><line class="axis" x1="170" y1="0" x2="170" y2="340"/>
+              <path class="curve" d="M50,40 Q170,420 290,40"/>
+              <circle class="dot" r="9" cx="50" cy="40"/>
+            </svg>
+          </div>
+          <span class="sym s1">∑</span><span class="sym s2">π</span><span class="sym s3">∫</span><span class="sym s4">√</span>
+          <span class="eq-tag" style="transform:translate3d(0,-150px,110px)">y = x²</span>
+        </div>
+      </div>
+      <div class="stage3d hero-cube-stage" data-mode="spin" data-rx0="-22" data-ry0="32" data-idle=".25" aria-label="3D cube">
         <div class="o3d">
           <div class="cube">
             <div class="face f1"><small data-i18n="cube.subject">subject</small><span data-i18n="hero.panel.math">Mathematics</span></div>
@@ -505,8 +592,8 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
             <div class="face f6"><small data-i18n="cube.first">first step</small><span data-i18n="cube.free">Free consultation</span></div>
           </div>
         </div>
-        <div class="floor-shadow"></div>
-        <p class="hint3d" data-i18n="cube.hint">Drag the cube</p>
+      </div>
+      <p class="hint3d" data-i18n="cube.hint">Drag the cube</p>
       </div>
     </div>
 
@@ -561,10 +648,10 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
             <p data-i18n="cred.tesol.sub">English teaching credential</p>
           </div>
           <div class="credential-card tilt">
-            <div class="credential-ic">⏳</div>
-            <span class="credential-label" data-i18n="cred.exp.label">Experience</span>
-            <h3>7+ <span data-i18n="cred.years">years</span> · 2,500+ <span data-i18n="cred.hoursShort">hours</span></h3>
-            <p data-i18n="cred.exp.sub">Teaching English &amp; Mathematics</p>
+            <div class="credential-ic">🏅</div>
+            <span class="credential-label" data-i18n="cred.toefl.label">Certificate</span>
+            <h3 data-i18n="cred.toefl.title">TOEFL iBT</h3>
+            <p data-i18n="cred.toefl.sub">Took the exam myself</p>
           </div>
         </div>
       </div>
@@ -769,6 +856,33 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
         </div>
       </div>
       <div class="grid-4" id="mathGrid"></div>
+      <div class="mathlab reveal" id="mathLab">
+        <i class="mathlab-back"></i>
+        <div class="mathlab-face">
+          <div class="lab-controls">
+            <p class="eyebrow" data-i18n="lab.eyebrow">Try it</p>
+            <h3 class="lab-title" data-i18n="lab.title">Bend the parabola</h3>
+            <p class="lab-text" data-i18n="lab.text">Move the sliders and watch the curve.</p>
+            <div class="lab-eq" id="labEq" aria-live="polite">y = x²</div>
+            <div class="lab-sliders">
+              <label class="lab-slider"><span class="lab-var">a</span><input type="range" id="labA" min="-2" max="2" step="0.25" value="1"><output id="labAv" for="labA">1</output><small data-i18n="lab.a">bends the curve</small></label>
+              <label class="lab-slider"><span class="lab-var">b</span><input type="range" id="labB" min="-4" max="4" step="0.5" value="0"><output id="labBv" for="labB">0</output><small data-i18n="lab.b">slides it sideways</small></label>
+              <label class="lab-slider"><span class="lab-var">c</span><input type="range" id="labC" min="-4" max="4" step="0.5" value="0"><output id="labCv" for="labC">0</output><small data-i18n="lab.c">lifts it up</small></label>
+            </div>
+            <div class="lab-read">
+              <span><i data-i18n="lab.vertex">Vertex</i> <b id="labVertex">(0, 0)</b></span>
+              <span><i data-i18n="lab.roots">Roots</i> <b id="labRoots">1</b></span>
+            </div>
+            <p class="lab-goal"><span data-i18n="lab.goal">Goal: pass through</span> <b id="labTarget">(2, 3)</b></p>
+            <p class="lab-win" id="labWin" role="status" hidden></p>
+            <div class="lab-actions">
+              <button type="button" class="btn btn-primary" id="labNext" hidden data-i18n="lab.next">Next point →</button>
+              <button type="button" class="btn btn-ghost" id="labReset" data-i18n="lab.reset">Reset</button>
+            </div>
+          </div>
+          <div class="lab-graph"><svg id="labSvg" viewBox="-6.5 -6.5 13 13" role="img" aria-label="Parabola graph"></svg></div>
+        </div>
+      </div>
       <div class="subject-cta-row reveal">
         <a href="#contact" class="btn btn-primary" data-i18n="math.cta">Start Free Consultation</a>
       </div>
@@ -963,7 +1077,7 @@ const translations = {
     "hero.cta.secondary":"Message on Telegram",
     "hero.panel.en":"English",
     "hero.panel.math":"Mathematics",
-    "hero.phrase.en":"you speak clearly","cube.subject":"subject","cube.exam":"exam","cube.program":"program","cube.first":"first step","cube.free":"Free consultation","cube.hint":"Drag the cube ↔","cred.yearsLabel":"Years teaching experience",
+    "hero.phrase.en":"you speak clearly","cube.subject":"subject","cube.exam":"exam","cube.program":"program","cube.first":"first step","cube.free":"Free consultation","cube.hint":"Drag the cube ↔","cred.yearsLabel":"Years teaching experience","cred.toefl.label":"Certificate","cred.toefl.title":"TOEFL iBT","cred.toefl.sub":"Took the exam myself","lab.eyebrow":"Try it","lab.title":"Bend the parabola","lab.text":"Move the sliders and watch the curve. Try to pass it through the yellow point.","lab.a":"bends the curve","lab.b":"slides it sideways","lab.c":"lifts it up","lab.vertex":"Vertex","lab.roots":"Roots","lab.roots0":"none","lab.roots1":"one","lab.roots2":"two","lab.goal":"Goal: pass through","lab.win":"That works. This is how I explain it in lessons: change one number, see what moves.","lab.next":"Next point →","lab.reset":"Reset",
     "cred.years":"Years teaching experience",
     "cred.hours":"Teaching hours",
     "cred.cert":"Certified English teacher",
@@ -1177,7 +1291,7 @@ const translations = {
       ]
     },
     marquee:{
-      a:["Mathematics","IB","IELTS","TOEFL","Conversational English","Business English","School","University"],
+      a:["Mathematics","IB Math","IGCSE Math","A-Level Math","SAT Math","IELTS","TOEFL","General English","Conversational English","Business English"],
       b:["7+ years teaching","2,500+ hours","TESOL / TEFL","1-on-1 on Zoom","50-minute lessons","Math in English or Russian"],
       c:["Free consultation","Message on Telegram","Your level, your plan","Math &amp; English","Let's start"]
     },
@@ -1195,7 +1309,7 @@ const translations = {
     "hero.cta.secondary":"Написать в Telegram",
     "hero.panel.en":"Английский",
     "hero.panel.math":"Математика",
-    "hero.phrase.en":"вы говорите чётко","cube.subject":"предмет","cube.exam":"экзамен","cube.program":"программа","cube.first":"первый шаг","cube.free":"Бесплатная консультация","cube.hint":"Потяни куб ↔","cred.yearsLabel":"лет преподавания",
+    "hero.phrase.en":"вы говорите чётко","cube.subject":"предмет","cube.exam":"экзамен","cube.program":"программа","cube.first":"первый шаг","cube.free":"Бесплатная консультация","cube.hint":"Потяни куб ↔","cred.yearsLabel":"лет преподавания","cred.toefl.label":"Сертификат","cred.toefl.title":"TOEFL iBT","cred.toefl.sub":"Сдавал экзамен лично","lab.eyebrow":"Попробуйте","lab.title":"Изогните параболу","lab.text":"Двигайте ползунки и смотрите, как меняется кривая. Проведите её через жёлтую точку.","lab.a":"изгибает кривую","lab.b":"сдвигает вбок","lab.c":"поднимает вверх","lab.vertex":"Вершина","lab.roots":"Корни","lab.roots0":"нет","lab.roots1":"один","lab.roots2":"два","lab.goal":"Цель: пройти через","lab.win":"Получилось. Так я и объясняю на уроках: меняем одно число и смотрим, что сдвинулось.","lab.next":"Следующая точка →","lab.reset":"Сбросить",
     "cred.years":"лет преподавания",
     "cred.hours":"часов преподавания",
     "cred.cert":"Сертифицированный преподаватель английского",
@@ -1409,7 +1523,7 @@ const translations = {
       ]
     },
     marquee:{
-      a:["Математика","IB","IELTS","TOEFL","Разговорный английский","Бизнес-английский","Школа","Университет"],
+      a:["Математика","IB Math","IGCSE Math","A-Level Math","SAT Math","IELTS","TOEFL","Общий английский","Разговорный английский","Бизнес-английский"],
       b:["7+ лет преподавания","2 500+ часов","TESOL / TEFL","Уроки один на один в Zoom","50 минут","Математика на русском или английском"],
       c:["Бесплатная консультация","Пишите в Telegram","Ваш уровень, ваш план","Математика и английский","Начнём"]
     },
@@ -1490,6 +1604,7 @@ function renderLists(lang){
   renderMarquees(lang);
   initTilt();
   initQuizzes();
+  if(typeof updateLab === 'function' && document.getElementById('mathLab')) updateLab();
 }
 
 function setLanguage(lang){
@@ -1682,13 +1797,13 @@ function loop(now){
 }
 if(!prefersReducedMotion) requestAnimationFrame(loop);
 
-/* dot that rides the parabola in the math scene */
-(function(){
-  const path = document.getElementById('curvePath');
-  const dot = document.getElementById('curveDot');
+/* dot that rides the parabola in the 3D graph scenes */
+document.querySelectorAll('.plane').forEach(function(plane){
+  const path = plane.querySelector('path.curve');
+  const dot = plane.querySelector('circle.dot');
   if(!path || !dot || prefersReducedMotion) return;
   const len = path.getTotalLength();
-  let t0 = performance.now();
+  const t0 = performance.now();
   (function tick(now){
     const p = ((now - t0) / 4200) % 2;
     const q = p < 1 ? p : 2 - p;                           // there and back
@@ -1697,7 +1812,7 @@ if(!prefersReducedMotion) requestAnimationFrame(loop);
     dot.setAttribute('cx', pt.x.toFixed(1)); dot.setAttribute('cy', pt.y.toFixed(1));
     requestAnimationFrame(tick);
   })(t0);
-})();
+});
 
 /* ---------- animated counters ---------- */
 function animateCount(el){
@@ -1731,6 +1846,107 @@ function updateScrollProgress(){
   if(scrollProgressEl) scrollProgressEl.style.width = pct + '%';
 }
 window.addEventListener('scroll', updateScrollProgress, {passive:true});
+
+/* ---------- math lab: y = ax² + bx + c, reach the yellow point ---------- */
+const labTargets = [[2,3],[-1,-2],[3,2],[-3,4]];
+const labState = {ti:0, won:false, built:false};
+const NS = 'http://www.w3.org/2000/svg';
+function svgEl(name, attrs){ const e = document.createElementNS(NS, name); for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+function fmtNum(n){ return String(Number(n.toFixed(2))).replace('-', '\u2212'); }
+function labEquation(a,b,c){
+  const parts = [];
+  if(a !== 0) parts.push((a === 1 ? '' : a === -1 ? '\u2212' : fmtNum(a)) + 'x\u00B2');
+  if(b !== 0){
+    const ab = Math.abs(b), term = (ab === 1 ? '' : fmtNum(ab)) + 'x';
+    parts.push(parts.length ? (b < 0 ? ' \u2212 ' : ' + ') + term : (b < 0 ? '\u2212' : '') + term);
+  }
+  if(c !== 0){
+    const term = fmtNum(Math.abs(c));
+    parts.push(parts.length ? (c < 0 ? ' \u2212 ' : ' + ') + term : (c < 0 ? '\u2212' : '') + term);
+  }
+  return 'y = ' + (parts.length ? parts.join('') : '0');
+}
+function buildLabSvg(){
+  const svg = document.getElementById('labSvg');
+  if(!svg || labState.built) return;
+  labState.built = true;
+  const g = svgEl('g', {transform:'scale(1,-1)'});
+  for(let i = -6; i <= 6; i++){
+    g.appendChild(svgEl('line', {class:'g-grid', x1:i, y1:-6.5, x2:i, y2:6.5}));
+    g.appendChild(svgEl('line', {class:'g-grid', x1:-6.5, y1:i, x2:6.5, y2:i}));
+  }
+  g.appendChild(svgEl('line', {class:'g-axis', x1:-6.5, y1:0, x2:6.5, y2:0}));
+  g.appendChild(svgEl('line', {class:'g-axis', x1:0, y1:-6.5, x2:0, y2:6.5}));
+  g.appendChild(svgEl('path', {class:'g-curve', id:'labCurve', d:''}));
+  g.appendChild(svgEl('circle', {class:'g-vertex', id:'labVertexDot', r:.2, cx:0, cy:0}));
+  g.appendChild(svgEl('circle', {class:'g-target', id:'labTargetDot', r:.3, cx:0, cy:0}));
+  svg.appendChild(g);
+  const tx = svgEl('text', {x:5.7, y:-.4}); tx.textContent = 'x'; svg.appendChild(tx);
+  const ty = svgEl('text', {x:.3, y:-5.8}); ty.textContent = 'y'; svg.appendChild(ty);
+}
+function updateLab(){
+  const panel = document.getElementById('mathLab');
+  if(!panel) return;
+  buildLabSvg();
+  const dict = translations[currentLang];
+  const a = parseFloat(document.getElementById('labA').value);
+  const b = parseFloat(document.getElementById('labB').value);
+  const c = parseFloat(document.getElementById('labC').value);
+  document.getElementById('labAv').textContent = fmtNum(a);
+  document.getElementById('labBv').textContent = fmtNum(b);
+  document.getElementById('labCv').textContent = fmtNum(c);
+  document.getElementById('labEq').textContent = labEquation(a,b,c);
+
+  let d = '';
+  for(let x = -6.5; x <= 6.5001; x += 0.1){
+    const y = a*x*x + b*x + c;
+    d += (d ? 'L' : 'M') + x.toFixed(2) + ' ' + Math.max(-40, Math.min(40, y)).toFixed(2);
+  }
+  document.getElementById('labCurve').setAttribute('d', d);
+
+  const vDot = document.getElementById('labVertexDot');
+  let vText = '\u2014', roots;
+  if(a !== 0){
+    const vx = -b/(2*a), vy = c - b*b/(4*a);
+    vText = '(' + fmtNum(vx) + ', ' + fmtNum(vy) + ')';
+    vDot.setAttribute('cx', vx); vDot.setAttribute('cy', vy); vDot.style.display = '';
+    const disc = b*b - 4*a*c;
+    roots = disc > 0 ? 2 : disc === 0 ? 1 : 0;
+  } else {
+    vDot.style.display = 'none';
+    roots = b !== 0 ? 1 : 0;
+  }
+  document.getElementById('labVertex').textContent = vText;
+  document.getElementById('labRoots').textContent = dict['lab.roots' + roots];
+
+  const [tx, ty] = labTargets[labState.ti];
+  document.getElementById('labTarget').textContent = '(' + fmtNum(tx) + ', ' + fmtNum(ty) + ')';
+  const dot = document.getElementById('labTargetDot');
+  dot.setAttribute('cx', tx); dot.setAttribute('cy', ty);
+
+  const hit = Math.abs(a*tx*tx + b*tx + c - ty) < 0.13;
+  const win = document.getElementById('labWin'), next = document.getElementById('labNext');
+  if(hit){
+    win.textContent = dict['lab.win']; win.hidden = false;
+    next.hidden = false;
+    if(!labState.won){ dot.classList.remove('hit'); void dot.getBoundingClientRect(); dot.classList.add('hit'); }
+  } else {
+    win.hidden = true; next.hidden = true; dot.classList.remove('hit');
+  }
+  labState.won = hit;
+}
+(function bindLab(){
+  const panel = document.getElementById('mathLab');
+  if(!panel) return;
+  ['labA','labB','labC'].forEach(id => document.getElementById(id).addEventListener('input', updateLab));
+  document.getElementById('labReset').addEventListener('click', () => {
+    document.getElementById('labA').value = 1; document.getElementById('labB').value = 0; document.getElementById('labC').value = 0;
+    labState.won = false; updateLab();
+  });
+  document.getElementById('labNext').addEventListener('click', () => {
+    labState.ti = (labState.ti + 1) % labTargets.length; labState.won = false; updateLab();
+  });
+})();
 
 setLanguage(currentLang);
 updateScrollProgress();
