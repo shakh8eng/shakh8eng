@@ -94,12 +94,12 @@ p{color:inherit}
 
 /* ---------- header ---------- */
 header{position:fixed;top:12px;left:0;right:0;z-index:50;pointer-events:none;--s-fg:#fff;--s-acc:var(--lime);--s-accfg:var(--ink)}
-.nav-row{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1200px,100% - 24px);margin-inline:auto;height:60px;padding:0 10px 0 20px;border-radius:99px;background:rgba(10,15,58,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;position:relative}
+.nav-row{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(1320px,100% - 24px);margin-inline:auto;height:60px;padding:0 10px 0 20px;border-radius:99px;background:rgba(10,15,58,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;position:relative}
 .brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.02em;color:inherit}
 .brand-dot{width:15px;height:15px;border-radius:5px;background:var(--lime);transform:rotate(12deg)}
 .primary-nav ul{list-style:none;display:flex;gap:2px}
 .primary-nav li:first-child,.nav-login-li{display:none}
-.primary-nav ul a{display:block;white-space:nowrap;padding:9px 11px;border-radius:99px;font-size:.92rem;font-weight:500;color:#E7EAFF;transition:background .16s var(--ease-out)}
+.primary-nav ul a{display:block;white-space:nowrap;padding:9px 10px;border-radius:99px;font-size:.92rem;font-weight:500;color:#E7EAFF;transition:background .16s var(--ease-out)}
 .nav-cta-mobile{display:none}
 .nav-right{display:flex;align-items:center;gap:10px}
 .nav-login{font-size:.92rem;font-weight:500;padding:9px 12px;color:#E7EAFF}
@@ -113,10 +113,27 @@ header{position:fixed;top:12px;left:0;right:0;z-index:50;pointer-events:none;--s
 .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
 .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* sound toggle: four equalizer bars, animated while music plays */
+.sound-toggle{flex:none;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);display:inline-flex;align-items:center;justify-content:center;gap:3px;transition:background .16s var(--ease-out),transform .16s var(--ease-out)}
+.sound-toggle:active{transform:scale(.94)}
+.sound-toggle i{display:block;width:3px;height:16px;border-radius:2px;background:var(--lime);transform-origin:50% 100%;transform:scaleY(.6);transition:transform .3s var(--ease-out),background .2s,opacity .2s}
+.sound-toggle i:nth-child(2){transform:scaleY(.95)}
+.sound-toggle i:nth-child(3){transform:scaleY(.4)}
+.sound-toggle i:nth-child(4){transform:scaleY(.75)}
+.sound-toggle[aria-pressed="false"] i{transform:scaleY(.18);background:#fff;opacity:.6}
+.sound-toggle.is-playing i{animation:eq .9s ease-in-out infinite alternate}
+.sound-toggle.is-playing i:nth-child(2){animation-duration:.7s;animation-delay:-.4s}
+.sound-toggle.is-playing i:nth-child(3){animation-duration:1.1s;animation-delay:-.2s}
+.sound-toggle.is-playing i:nth-child(4){animation-duration:.8s;animation-delay:-.6s}
+@keyframes eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){ .sound-toggle.is-playing i{animation:none} }
+/* small phones: the header is full, so the toggle floats bottom-left (moved there by JS) */
+body > .sound-toggle{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:55;width:46px;height:46px;background:rgba(10,15,58,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(10,15,58,.28)}
 @media (hover:hover) and (pointer:fine){
   .primary-nav ul a:hover,.nav-login:hover{background:rgba(255,255,255,.14)}
+  .sound-toggle:hover{background:rgba(255,255,255,.22)}
 }
-@media (max-width:1240px){
+@media (max-width:1320px){
   .nav-cta-desktop,.nav-login{display:none}
   .menu-toggle{display:flex}
   .primary-nav{position:absolute;top:70px;left:0;right:0;background:rgba(10,15,58,.97);border-radius:28px;padding:18px;display:none;flex-direction:column;gap:6px}
@@ -130,6 +147,30 @@ header{position:fixed;top:12px;left:0;right:0;z-index:50;pointer-events:none;--s
 /* ---------- reveal ---------- */
 .reveal{opacity:0;translate:0 26px;transition:opacity .6s var(--ease-out),translate .6s var(--ease-out),transform .25s var(--ease-out)}
 .reveal.in{opacity:1;translate:0 0}
+
+/* ---------- scroll transitions (driven by the "scroll transitions" script) ---------- */
+html.lenis{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-stopped{overflow:hidden}
+main > section{transform-origin:50% 100%}
+/* shade that darkens a section as the next one slides over it */
+.sec-shade{position:absolute;inset:0;z-index:5;pointer-events:none;background:var(--ink);opacity:0;border-radius:inherit}
+/* headings rise word by word, line after line */
+.hw{display:inline-block;overflow:hidden;vertical-align:top;padding-block:.1em;margin-block:-.1em}
+.hw > span{display:inline-block;transform:translateY(110%);transition:transform .9s var(--ease-out)}
+h2.h-in .hw > span{transform:none}
+/* guide line: drawn down the page margins while scrolling, crossing at the top of each section */
+.guide{position:absolute;top:0;left:0;z-index:7;pointer-events:none;overflow:visible}
+.guide path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.guide .g-out{stroke:var(--ink);stroke-width:11}
+.guide .g-in{stroke:var(--lime);stroke-width:5}
+.guide .g-dot{fill:var(--lime);stroke:var(--ink);stroke-width:3}
+.guide .g-halo{fill:var(--lime);opacity:.35;transform-box:fill-box;transform-origin:center;animation:guidePulse 1.4s ease-in-out infinite alternate}
+.guide .g-end{fill:var(--ink);stroke:var(--lime);stroke-width:3;transition:fill .3s var(--ease-out)}
+.guide.done .g-end{fill:var(--lime)}
+.guide.done .g-tip{opacity:0}
+@keyframes guidePulse{from{transform:scale(.6)}to{transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){ .guide .g-halo{animation:none} }
 .enter{opacity:0;translate:0 16px;animation:enter .65s var(--ease-out) forwards}
 .enter:nth-child(1){animation-delay:.04s}.enter:nth-child(2){animation-delay:.1s}.enter:nth-child(3){animation-delay:.2s}.enter:nth-child(4){animation-delay:.28s}
 @keyframes enter{to{opacity:1;translate:0 0}}
@@ -545,6 +586,7 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
     <div class="nav-right">
       <a href="https://shakh8eng-portal.vercel.app/" class="nav-login" data-i18n="nav.login" title="Student / Admin Login">Login</a>
       <a href="#contact" class="btn btn-primary btn-sm nav-cta-desktop nav-cta" data-i18n="nav.cta">Start Free Consultation</a>
+      <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="true" aria-label="Music and sounds" title="Music and sounds"><i></i><i></i><i></i><i></i></button>
       <div class="lang-switch" id="langSwitch" data-lang="ru">
         <span class="lang-thumb"></span>
         <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
@@ -564,8 +606,8 @@ footer{background:var(--ink);color:#fff;position:relative;padding:calc(56px + va
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow enter" data-i18n="hero.eyebrow">Online Mathematics &amp; English Tutoring</p>
-        <h1 class="enter" data-i18n-html="hero.title">Where words and <em>numbers</em> finally get along.</h1>
-        <p class="hero-sub enter" data-i18n="hero.subtitle">Personalized 1-on-1 lessons designed around your level, goals and pace.</p>
+        <h1 class="enter" data-i18n-html="hero.title">Math and English: the <em>languages of the future</em>.</h1>
+        <p class="hero-sub enter" data-i18n="hero.subtitle">Math, English or both — 1-on-1 online lessons built around your level, goals and pace.</p>
         <div class="hero-ctas enter">
           <a href="#contact" class="btn btn-primary" data-i18n="hero.cta.primary">Start Free Consultation</a>
           <a href="https://t.me/Shakh8_eng" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="hero.cta.secondary">Message on Telegram</a>
@@ -1079,8 +1121,8 @@ const translations = {
     "nav.approach":"Approach","nav.reviews":"Reviews","nav.faq":"FAQ","nav.contact":"Contact","nav.login":"Login",
     "nav.cta":"Start Free Consultation",
     "hero.eyebrow":"Online Mathematics &amp; English Tutoring",
-    "hero.title":"Where words and <em>numbers</em> finally get along.",
-    "hero.subtitle":"Personalized 1-on-1 lessons designed around your level, goals and pace — in Mathematics and English.",
+    "hero.title":"Math and English: the <em>languages of the future</em>.",
+    "hero.subtitle":"Math, English or both — 1-on-1 online lessons built around your level, goals and pace.",
     "hero.format":"Mathematics · English",
     "hero.cta.primary":"Start Free Consultation",
     "hero.cta.secondary":"Message on Telegram",
@@ -1311,8 +1353,8 @@ const translations = {
     "nav.approach":"Подход","nav.reviews":"Отзывы","nav.faq":"Вопросы","nav.contact":"Контакты","nav.login":"Вход",
     "nav.cta":"Бесплатная консультация",
     "hero.eyebrow":"Онлайн-репетитор по математике и английскому",
-    "hero.title":"Там, где слова и <em>числа</em> наконец находят общий язык.",
-    "hero.subtitle":"Индивидуальные онлайн-занятия по математике и английскому языку — под ваш уровень, цели и темп.",
+    "hero.title":"Математика и английский — <em>языки будущего</em>.",
+    "hero.subtitle":"Математика, английский или оба сразу — индивидуальные онлайн-уроки под ваш уровень, цели и темп.",
     "hero.format":"Математика · Английский",
     "hero.cta.primary":"Бесплатная консультация",
     "hero.cta.secondary":"Написать в Telegram",
@@ -2100,6 +2142,543 @@ function initQuizzes(){
   });
 }
 
+</script>
+<script>
+/* ============ SOUND: generated light-jazz loop + click sounds ============
+   Browsers only allow audio after the visitor interacts with the page, so the
+   music starts on the first click / tap / key press (or right away where the
+   browser allows autoplay). The header button turns music and clicks on/off
+   for the current visit only: every new page load starts with sound on. */
+(function(){
+  // Optional: put a path to your own audio file here (e.g. 'audio/jazz.mp3')
+  // to play it instead of the generated jazz. Leave '' to use the generated loop.
+  const MUSIC_SRC = '';
+  const MUSIC_VOLUME = 0.5;   // 0–1, generated jazz loudness
+  const FILE_VOLUME = 0.3;    // 0–1, loudness when MUSIC_SRC is used
+  const CLICK_VOLUME = 0.35;  // 0–1
+  const STORE_KEY = 'shakh8-sound';
+
+  const btn = document.getElementById('soundToggle');
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!btn) return;
+  if(!AC){ btn.hidden = true; return; }
+
+  // on narrow phones the header has no room, so the toggle floats in the corner instead
+  const narrow = window.matchMedia('(max-width:420px)');
+  const navRight = btn.parentNode;
+  function placeButton(){
+    if(narrow.matches){ if(btn.parentNode !== document.body) document.body.appendChild(btn); }
+    else if(btn.parentNode !== navRight) navRight.insertBefore(btn, document.getElementById('langSwitch'));
+  }
+  placeButton();
+  if(narrow.addEventListener) narrow.addEventListener('change', placeButton);
+  else if(narrow.addListener) narrow.addListener(placeButton);
+
+  let enabled = true;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){} // clear the "off" setting older versions saved
+
+  let ctx = null, musicBus, reverb, sfxBus, noiseBuf;
+  let playing = false, timer = null, nextTime = 0, step = 0, fileAudio = null;
+
+  /* ---------- audio graph ---------- */
+  function ensureCtx(){
+    if(ctx) return ctx;
+    ctx = new AC();
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -16; comp.ratio.value = 3; comp.attack.value = 0.01; comp.release.value = 0.25;
+    comp.connect(ctx.destination);
+
+    const warm = ctx.createBiquadFilter(); warm.type = 'lowpass'; warm.frequency.value = 6500;
+    warm.connect(comp);
+    musicBus = ctx.createGain(); musicBus.gain.value = 0; musicBus.connect(warm);
+
+    reverb = ctx.createConvolver(); reverb.buffer = impulse(2.6, 3);
+    const wet = ctx.createGain(); wet.gain.value = 0.32;
+    reverb.connect(wet); wet.connect(musicBus);
+
+    sfxBus = ctx.createGain(); sfxBus.gain.value = CLICK_VOLUME; sfxBus.connect(comp);
+
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for(let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    return ctx;
+  }
+
+  function impulse(sec, decay){
+    const len = Math.floor(ctx.sampleRate * sec), buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(let c = 0; c < 2; c++){
+      const d = buf.getChannelData(c);
+      for(let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+    }
+    return buf;
+  }
+
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  // send a voice to the music bus with optional stereo pan and reverb send
+  function route(node, pan, send){
+    let n = node;
+    if(pan && ctx.createStereoPanner){ const p = ctx.createStereoPanner(); p.pan.value = pan; n.connect(p); n = p; }
+    n.connect(musicBus);
+    if(send){ const s = ctx.createGain(); s.gain.value = send; n.connect(s); s.connect(reverb); }
+  }
+
+  /* ---------- instruments ---------- */
+  // electric piano: 1:1 FM gives the bell-like attack that mellows out
+  function epiano(m, t, dur, vel){
+    const f = mtof(m);
+    const car = ctx.createOscillator(), mod = ctx.createOscillator(), idx = ctx.createGain(), amp = ctx.createGain();
+    car.frequency.value = f; mod.frequency.value = f;
+    idx.gain.setValueAtTime(f * 1.6 * vel, t);
+    idx.gain.setTargetAtTime(f * 0.12, t, 0.18);
+    mod.connect(idx); idx.connect(car.frequency);
+    const peak = 0.055 * vel;
+    amp.gain.setValueAtTime(0, t);
+    amp.gain.linearRampToValueAtTime(peak, t + 0.006);
+    amp.gain.setTargetAtTime(peak * 0.3, t + 0.006, 0.5);
+    amp.gain.setTargetAtTime(0, t + dur, 0.18);
+    car.connect(amp); route(amp, -0.15, 0.5);
+    car.start(t); mod.start(t); car.stop(t + dur + 1.2); mod.stop(t + dur + 1.2);
+  }
+
+  // upright-ish bass: triangle + sine through a lowpass, short pluck
+  function bass(m, t, dur, vel){
+    const f = mtof(m);
+    const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), lp = ctx.createBiquadFilter(), amp = ctx.createGain();
+    o1.type = 'triangle'; o1.frequency.value = f; o2.frequency.value = f;
+    lp.type = 'lowpass'; lp.frequency.setValueAtTime(1100, t); lp.frequency.setTargetAtTime(500, t, 0.08);
+    const peak = 0.26 * vel;
+    amp.gain.setValueAtTime(0, t);
+    amp.gain.linearRampToValueAtTime(peak, t + 0.012);
+    amp.gain.setTargetAtTime(peak * 0.4, t + 0.012, 0.15);
+    amp.gain.setTargetAtTime(0, t + dur, 0.05);
+    o1.connect(lp); o2.connect(lp); lp.connect(amp); route(amp, 0, 0.12);
+    o1.start(t); o2.start(t); o1.stop(t + dur + 0.4); o2.stop(t + dur + 0.4);
+  }
+
+  // vibraphone melody note
+  function vibe(m, t, vel){
+    const f = mtof(m);
+    const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g2 = ctx.createGain(), amp = ctx.createGain();
+    o1.frequency.value = f; o2.frequency.value = f * 4; g2.gain.value = 0.12;
+    const peak = 0.05 * vel;
+    amp.gain.setValueAtTime(0, t);
+    amp.gain.linearRampToValueAtTime(peak, t + 0.004);
+    amp.gain.setTargetAtTime(0, t + 0.004, 0.55);
+    o1.connect(amp); o2.connect(g2); g2.connect(amp); route(amp, 0.25, 0.8);
+    o1.start(t); o2.start(t); o1.stop(t + 3); o2.stop(t + 3);
+  }
+
+  // filtered noise for brushes and ride
+  function noise(t, type, freq, q, peak, attack, decay, pan){
+    const src = ctx.createBufferSource(), flt = ctx.createBiquadFilter(), amp = ctx.createGain();
+    src.buffer = noiseBuf; flt.type = type; flt.frequency.value = freq; flt.Q.value = q;
+    amp.gain.setValueAtTime(0, t);
+    amp.gain.linearRampToValueAtTime(peak, t + attack);
+    amp.gain.setTargetAtTime(0, t + attack, decay / 3);
+    src.connect(flt); flt.connect(amp); route(amp, pan, 0.2);
+    src.start(t, Math.random() * 0.5); src.stop(t + attack + decay * 2);
+  }
+
+  function kick(t){
+    const o = ctx.createOscillator(), amp = ctx.createGain();
+    o.frequency.setValueAtTime(80, t); o.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+    amp.gain.setValueAtTime(0, t); amp.gain.linearRampToValueAtTime(0.12, t + 0.005); amp.gain.setTargetAtTime(0, t + 0.005, 0.06);
+    o.connect(amp); route(amp, 0, 0);
+    o.start(t); o.stop(t + 0.4);
+  }
+
+  /* ---------- the tune ---------- */
+  // r: bass root, q: quality, v: piano voicing, m: melody notes (MIDI numbers)
+  const PROG = [
+    {r:36, q:'maj', v:[52,55,59,62], m:[64,67,69,71,74,76]}, // Cmaj9
+    {r:45, q:'min', v:[55,59,60,64], m:[64,67,69,71,72,76]}, // Am9
+    {r:38, q:'min', v:[53,57,60,64], m:[65,69,72,74,76]},    // Dm9
+    {r:43, q:'dom', v:[53,57,59,64], m:[65,67,69,71,74,76]}, // G13
+    {r:40, q:'min', v:[55,59,62,66], m:[64,66,67,71,74,76]}, // Em9
+    {r:45, q:'dom', v:[55,58,61,65], m:[64,67,69,70,73,76]}, // A7b9
+    {r:38, q:'min', v:[53,57,60,64], m:[65,69,72,74,76]},    // Dm9
+    {r:43, q:'dom', v:[53,57,59,64], m:[65,67,69,71,74,76]}  // G13
+  ];
+  const THIRD = {maj:4, min:3, dom:4};
+  // piano comping rhythms: [eighth-note position, length in eighths]
+  const COMP = [ [[0,3],[3,5]], [[0,7]], [[1,2],[5,3]], [[3,2],[6,2]], [[0,2],[5,3]], [[2,3],[7,1]] ];
+  const BPM = 84, SWING = 0.63;
+
+  let bar = { comp: COMP[0], walk: [], melody: false }, lastMel = 69;
+
+  function newBar(ci){
+    const ch = PROG[ci], nx = PROG[(ci + 1) % PROG.length], th = THIRD[ch.q];
+    bar = {
+      comp: pick(COMP),
+      walk: [ch.r, ch.r + pick([th, 7]), ch.r + pick([7, 12, th]), nx.r + pick([-1, 1])],
+      melody: Math.random() < 0.65
+    };
+  }
+
+  function scheduleStep(s, t){
+    const pos = s % 8, ci = Math.floor(s / 8) % PROG.length, ch = PROG[ci], beat = 60 / BPM;
+    if(pos === 0) newBar(ci);
+
+    // piano
+    bar.comp.forEach(([p, len]) => {
+      if(p !== pos) return;
+      const vel = rand(0.7, 1);
+      ch.v.forEach((m, i) => epiano(m, t + i * 0.009, len * beat * 0.5, vel));
+    });
+
+    // walking bass on every beat
+    if(pos % 2 === 0) bass(bar.walk[pos / 2], t, beat * 0.85, pos === 0 ? 1 : rand(0.75, 0.9));
+
+    // drums: ride "ding, ding-da ding", brushes on 2 and 4, feathered kick
+    if([0,2,3,4,6,7].includes(pos)) noise(t, 'highpass', 7000, 0.7, pos % 2 ? 0.018 : 0.03, 0.002, 0.22, 0.3);
+    if(pos === 2 || pos === 6) noise(t, 'bandpass', 1800, 0.6, 0.045, 0.03, 0.2, -0.1);
+    if(pos === 0 || pos === 4) kick(t);
+
+    // vibraphone melody, stepping near the previous note
+    if(bar.melody && Math.random() < (pos % 2 ? 0.26 : 0.4)){
+      let options = ch.m.filter(n => n !== lastMel && Math.abs(n - lastMel) <= 5);
+      if(!options.length) options = ch.m;
+      lastMel = pick(options);
+      vibe(lastMel, t, rand(0.6, 0.95));
+    }
+  }
+
+  function tick(){
+    const beat = 60 / BPM;
+    while(nextTime < ctx.currentTime + 0.3){
+      scheduleStep(step, nextTime);
+      nextTime += (step % 2 === 0 ? SWING : 1 - SWING) * beat;
+      step++;
+    }
+  }
+
+  /* ---------- controls ---------- */
+  function startMusic(){
+    if(playing) return;
+    playing = true;
+    if(MUSIC_SRC){
+      if(!fileAudio){ fileAudio = new Audio(MUSIC_SRC); fileAudio.loop = true; fileAudio.volume = FILE_VOLUME; }
+      fileAudio.play().catch(() => { playing = false; render(); });
+    } else {
+      const now = ctx.currentTime;
+      musicBus.gain.cancelScheduledValues(now);
+      musicBus.gain.setValueAtTime(musicBus.gain.value, now);
+      musicBus.gain.linearRampToValueAtTime(MUSIC_VOLUME, now + 3);
+      step = 0; nextTime = now + 0.08;
+      tick();
+      timer = setInterval(tick, 50);
+    }
+    render();
+  }
+
+  function stopMusic(){
+    playing = false;
+    if(fileAudio) fileAudio.pause();
+    if(timer){ clearInterval(timer); timer = null; }
+    if(ctx){
+      const now = ctx.currentTime;
+      musicBus.gain.cancelScheduledValues(now);
+      musicBus.gain.setValueAtTime(musicBus.gain.value, now);
+      musicBus.gain.linearRampToValueAtTime(0, now + 0.4);
+    }
+    render();
+  }
+
+  function clickSound(){
+    if(ctx.state !== 'running') return;
+    const t = ctx.currentTime + 0.002, f = 880 * rand(0.94, 1.06);
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 0.5, t + 0.06);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.5, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+    o.connect(g); g.connect(sfxBus); o.start(t); o.stop(t + 0.1);
+    const src = ctx.createBufferSource(), hp = ctx.createBiquadFilter(), ng = ctx.createGain();
+    src.buffer = noiseBuf; hp.type = 'highpass'; hp.frequency.value = 2500;
+    ng.gain.setValueAtTime(0.12, t); ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
+    src.connect(hp); hp.connect(ng); ng.connect(sfxBus); src.start(t, Math.random() * 0.5); src.stop(t + 0.03);
+  }
+
+  function render(){
+    const ru = (document.documentElement.lang || '').startsWith('ru');
+    const label = ru ? 'Музыка и звуки' : 'Music and sounds';
+    btn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+    btn.classList.toggle('is-playing', enabled && playing && (!!MUSIC_SRC || (ctx && ctx.state === 'running')));
+  }
+
+  // wake audio on the visitor's first interaction (browser autoplay rule).
+  // Browsers differ on which events count: Chrome accepts pointerdown, Safari only
+  // click / mouseup / touchend / keydown, so listen to all of them until audio runs.
+  const GESTURES = ['pointerdown', 'mousedown', 'mouseup', 'click', 'touchend', 'keydown'];
+  function onGesture(e){
+    if(!enabled || (e.target.closest && e.target.closest('#soundToggle'))) return;
+    ensureCtx();
+    startMusic();
+    if(MUSIC_SRC && fileAudio && fileAudio.paused) fileAudio.play().then(render).catch(() => {});
+    if(ctx.state !== 'running') ctx.resume().then(render).catch(() => {});
+  }
+  GESTURES.forEach(type => document.addEventListener(type, onGesture, {capture: true, passive: true}));
+
+  // click sound on anything clickable
+  const CLICKABLE = 'a,button,summary,label,select,input,[role="button"],.quiz-option,.p3d';
+  let lastClick = 0;
+  function maybeClick(target){
+    if(!enabled || !target.closest || !target.closest(CLICKABLE)) return;
+    const now = performance.now();
+    if(now - lastClick < 40) return;
+    lastClick = now;
+    ensureCtx(); clickSound();
+  }
+  document.addEventListener('pointerdown', e => { if(e.button === 0) maybeClick(e.target); }, true);
+  document.addEventListener('click', e => { if(e.detail === 0) maybeClick(e.target); }, true); // keyboard activation
+
+  btn.addEventListener('click', () => {
+    ensureCtx();
+    if(ctx.state !== 'running') ctx.resume().then(render);
+    if(enabled && !playing){ startMusic(); return; } // first press just starts the music
+    enabled = !enabled;
+    if(enabled){ startMusic(); clickSound(); } else stopMusic();
+  });
+
+  // pause while the tab is in the background
+  document.addEventListener('visibilitychange', () => {
+    if(!ctx && !fileAudio) return;
+    if(document.hidden){
+      if(fileAudio) fileAudio.pause();
+      if(ctx && ctx.state === 'running') ctx.suspend();
+    } else if(enabled){
+      if(ctx) ctx.resume().then(render);
+      if(playing && fileAudio) fileAudio.play().catch(() => {});
+    }
+  });
+
+  document.addEventListener('langchange', render);
+  render();
+
+  // where the browser allows autoplay, start right away; otherwise the first click anywhere does
+  if(enabled){
+    try{
+      ensureCtx();
+      if(MUSIC_SRC || ctx.state === 'running') startMusic();
+    }catch(e){}
+  }
+})();
+</script>
+<script>
+/* ============ SCROLL TRANSITIONS ============
+   1. Card stack: each section rises slightly inset and widens to full width,
+      while the section it covers sinks back (moves slower, shrinks a little, dims).
+   2. Section headings rise word by word, line after line, the first time they appear.
+   3. Desktop only: inertial smooth scrolling (Lenis), so the scrubbed motion glides.
+   Everything is skipped for visitors who ask for reduced motion. */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+
+  /* ---------- 1. card stack ---------- */
+  const footer = document.querySelector('footer');
+  const items = [...document.querySelectorAll('main > section')].map(s => {
+    const shade = document.createElement('div');
+    shade.className = 'sec-shade';
+    shade.setAttribute('aria-hidden', 'true');
+    s.appendChild(shade);
+    return { s, shade, next: s.nextElementSibling || footer, top: 0, nextTop: 0, sink: -1, grow: -1 };
+  });
+
+  const SINK_SCALE = finePointer ? 0.05 : 0.03;   // how much a covered section shrinks
+  const SINK_SHIFT = finePointer ? 0.12 : 0;      // parallax: share of the viewport it lags behind
+  const SHADE = 0.5;                              // darkness when fully covered
+  let vh = window.innerHeight, maxInset = 0, radius = 44;
+
+  function docTop(el){ let t = 0; while(el){ t += el.offsetTop; el = el.offsetParent; } return t; }
+
+  function measure(){
+    vh = window.innerHeight;
+    maxInset = Math.min(window.innerWidth * 0.06, 96);
+    radius = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sec-r')) || 44;
+    items.forEach(it => { it.top = docTop(it.s); it.nextTop = it.next ? docTop(it.next) : Infinity; it.sink = it.grow = -1; });
+    update();
+  }
+
+  function update(){
+    const y = window.scrollY;
+    for(const it of items){
+      // sinking: 0 when the next block's top is at the bottom of the screen, 1 when it reaches the top
+      const sink = Math.round(clamp01(1 - (it.nextTop - y) / vh) * 1000) / 1000;
+      if(sink !== it.sink){
+        it.sink = sink;
+        if(sink === 0){
+          it.s.style.transform = ''; it.s.style.willChange = ''; it.shade.style.opacity = '0';
+        } else {
+          it.s.style.transform = `translate3d(0,${(sink * vh * SINK_SHIFT).toFixed(1)}px,0) scale(${(1 - SINK_SCALE * sink).toFixed(4)})`;
+          it.s.style.willChange = sink < 1 ? 'transform' : '';
+          it.shade.style.opacity = (sink * SHADE).toFixed(3);
+        }
+      }
+      // growing: 0 when this section's top enters at the bottom, 1 once it's 90% of the way up
+      const grow = Math.round(clamp01((vh - (it.top - y)) / (vh * 0.9)) * 1000) / 1000;
+      if(grow !== it.grow){
+        it.grow = grow;
+        if(grow >= 1 || grow <= 0) it.s.style.clipPath = '';
+        else {
+          const inset = ((1 - grow) * maxInset).toFixed(1);
+          it.s.style.clipPath = `inset(0 ${inset}px 0 ${inset}px round ${radius}px ${radius}px 0 0)`;
+        }
+      }
+    }
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  if('ResizeObserver' in window) new ResizeObserver(() => measure()).observe(document.querySelector('main'));
+  measure();
+
+  /* ---------- 2. headings rise word by word ---------- */
+  const heads = [...document.querySelectorAll('main h2')];
+  const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function split(h){
+    if(h.querySelector('.hw')) return;
+    const text = h.textContent;
+    h.setAttribute('aria-label', text.trim());
+    h.innerHTML = text.split(/(\s+)/).map(part =>
+      /^\s*$/.test(part) ? part : `<span class="hw" aria-hidden="true"><span>${esc(part)}</span></span>`).join('');
+    // the same delay for every word on a line, a step later for each new line
+    let lastTop = null, line = -1;
+    h.querySelectorAll('.hw').forEach(w => {
+      if(w.offsetTop !== lastTop){ line++; lastTop = w.offsetTop; }
+      w.firstChild.style.transitionDelay = (line * 90) + 'ms';
+    });
+  }
+  heads.forEach(split);
+  const headIO = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('h-in'); headIO.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  heads.forEach(h => headIO.observe(h));
+  // switching language rewrites heading text; split it again (already-shown headings stay shown)
+  document.addEventListener('langchange', () => heads.forEach(split));
+
+  /* ---------- 3. smooth scrolling on desktop ---------- */
+  if(!finePointer) return;
+  const lib = document.createElement('script');
+  lib.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js';
+  lib.onload = () => {
+    if(typeof Lenis !== 'function') return;
+    const lenis = new Lenis({ lerp: 0.1 });
+    lenis.on('scroll', update);
+    (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+    // in-page links glide too, stopping below the fixed header
+    document.addEventListener('click', e => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if(!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+      const id = a.getAttribute('href');
+      const target = id.length > 1 ? document.querySelector(id) : null;
+      if(!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -90 });
+      history.replaceState(null, '', id);
+    });
+  };
+  document.head.appendChild(lib);
+})();
+
+/* ============ GUIDE LINE ============
+   A lime line with a "pen tip" that draws itself down the page as you scroll:
+   down one side margin, sweeping across the empty strip at the top of each new
+   section, and landing in the contact section. Shown only when the side margins
+   are wide enough not to cover any text. */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const secs = [...document.querySelectorAll('main > section')];
+  const wrap = document.querySelector('main .wrap');
+  if(secs.length < 3 || !wrap) return;
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, cls, attrs) => { const n = document.createElementNS(NS, tag); if(cls) n.setAttribute('class', cls); for(const k in attrs || {}) n.setAttribute(k, attrs[k]); return n; };
+  const svg = el('svg', 'guide', { 'aria-hidden': 'true', focusable: 'false' });
+  const outer = el('path', 'g-out'), inner = el('path', 'g-in');
+  const end = el('circle', 'g-end', { r: 9 });
+  const tip = el('g', 'g-tip');
+  tip.append(el('circle', 'g-halo', { r: 16 }), el('circle', 'g-dot', { r: 7 }));
+  svg.append(outer, inner, end, tip);
+  document.body.appendChild(svg);
+
+  const MIN_MARGIN = 72;   // side margin (px) needed to show the line without touching content
+  const R = 45;            // half-height of each sweep across a section top
+  const TIP_AT = 0.62;     // the tip follows this point of the screen height
+  let active = false, L = 0, segs = [];
+
+  function docTop(n){ let t = 0; while(n){ t += n.offsetTop; n = n.offsetParent; } return t; }
+
+  function build(){
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    let margin = 0; for(let n = wrap; n; n = n.offsetParent) margin += n.offsetLeft; // layout position, unaffected by the sinking effect
+    active = margin >= MIN_MARGIN;
+    svg.style.display = active ? '' : 'none';
+    if(!active) return;
+
+    const xL = Math.round(margin / 2), xR = vw - xL, cx = Math.round(vw / 2);
+    const K = Math.round(vh * 0.18); // extra scroll given to each sweep, so it doesn't zip past
+    let x = xL, y = Math.round(vh * 0.35), len = 0, prevK = 0, d = `M${x} ${y}`;
+    segs = [];
+    for(let i = 1; i < secs.length; i++){
+      const last = i === secs.length - 1;
+      const yb = docTop(secs[i]) + 100;           // middle of the empty strip above the section's heading
+      const nx = last ? cx : (x === xL ? xR : xL);
+      // straight run down the margin
+      const run = Math.max(0, yb - R - y), k = Math.min(K, run / 3);
+      segs.push({ l0: len, l1: len + run, t0: y + prevK, t1: yb - R - k });
+      len += run;
+      // S-shaped sweep to the other margin (or, at the end, to the centre)
+      const sweep = `M${x} ${yb - R} C${x} ${yb - R * 0.2} ${nx} ${yb + R * 0.2} ${nx} ${yb + R}`;
+      inner.setAttribute('d', sweep);
+      const sl = inner.getTotalLength();
+      segs.push({ l0: len, l1: len + sl, t0: yb - R - k, t1: yb + R + K });
+      len += sl;
+      d += ` L${x} ${yb - R} C${x} ${yb - R * 0.2} ${nx} ${yb + R * 0.2} ${nx} ${yb + R}`;
+      x = nx; y = yb + R; prevK = K;
+    }
+    outer.setAttribute('d', d); inner.setAttribute('d', d);
+    L = inner.getTotalLength();
+    [outer, inner].forEach(p => { p.style.strokeDasharray = `${L} ${L}`; });
+    end.setAttribute('cx', x); end.setAttribute('cy', y);
+    const h = y + 40;
+    svg.setAttribute('width', vw); svg.setAttribute('height', h);
+    svg.setAttribute('viewBox', `0 0 ${vw} ${h}`);
+    update();
+  }
+
+  function update(){
+    if(!active) return;
+    let drawn = L;
+    if(!reduce){
+      const t = window.scrollY + window.innerHeight * TIP_AT;
+      drawn = 0;
+      for(const s of segs){
+        if(t >= s.t1){ drawn = s.l1; continue; }
+        if(t > s.t0) drawn = s.l0 + (s.l1 - s.l0) * (t - s.t0) / (s.t1 - s.t0);
+        break;
+      }
+    }
+    const off = (L - drawn).toFixed(1);
+    outer.style.strokeDashoffset = off; inner.style.strokeDashoffset = off;
+    const p = inner.getPointAtLength(drawn);
+    tip.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
+    svg.classList.toggle('done', drawn >= L - 0.5);
+  }
+
+  let pending = 0;
+  const rebuild = () => { clearTimeout(pending); pending = setTimeout(build, 120); };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', rebuild);
+  window.addEventListener('load', build);
+  if('ResizeObserver' in window) new ResizeObserver(rebuild).observe(document.querySelector('main'));
+  build();
+})();
 </script>
 <script type="module">
 /* WebGL hero + playground (three.js). Falls back to the CSS 3D scene if anything fails. */
